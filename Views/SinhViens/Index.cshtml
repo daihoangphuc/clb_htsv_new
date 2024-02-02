@@ -1,0 +1,98 @@
+﻿@model IEnumerable<website_CLB_HTSV.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<form asp-action="Search" method="post">
+    <div class="form-group">
+        <label for="searchTerm">Nhập Mã số sinh viên:</label>
+        <input type="text" class="form-control" id="searchTerm" name="searchTerm" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LopHoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChucVu)
+            </th>
+       @*      <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LopHoc.MaLop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucVu.TenChucVu)
+            </td>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.HinhAnh)
+            </td> *@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaSV">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaSV">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaSV">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+                @section Scripts {
+    <script>
+        function search() {
+            var searchTerm = $('#searchTerm').val();
+            $.ajax({
+                url: '@Url.Action("Search")',
+                type: 'POST',
+                data: { searchTerm: searchTerm },
+                success: function (result) {
+                    // Cập nhật nội dung của view Index với kết quả tìm kiếm
+                    $('#content').html(result);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<website_CLB_HTSV.Models.HoatDong>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+
+
+
+
+<!-- ======= More Services Section ======= -->
+<section id="faq" class="faq">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Danh sách hoạt động</h2>
+@*             <p>
+                TUỔI TRẺ
+                LÀ ĐỂ CỐNG HIẾN
+            </p> *@
+        </div>
+        <div class="row">
+            @foreach (var item in Model) {
+                <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-5">
+                        <i class="ri-question-line"></i>
+                        <h4>@item.TenHoatDong</h4>
+                    </div>
+                    <div class="col-lg-7">
+                        <p>
+                            @item.MoTa
+                        </p>
+                    </div>
+                </div>
+
+                <!-- End F.A.Q Item-->
+           }
+
+    </div>
+</section><!-- End More Services Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenHoatDong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThoiGian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaDiem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HocKy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NamHoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHoatDong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThoiGian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaDiem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HocKy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHoatDong">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaHoatDong">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaHoatDong">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+ *@

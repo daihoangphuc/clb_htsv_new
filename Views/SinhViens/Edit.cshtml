@@ -1,0 +1,86 @@
+﻿@model website_CLB_HTSV.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SinhVien</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaSV" />
+            <div class="form-group">
+                <label asp-for="HoTen" class="control-label"></label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgaySinh" class="control-label"></label>
+                <input asp-for="NgaySinh" class="form-control" />
+                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DienThoai" class="control-label"></label>
+                <input asp-for="DienThoai" class="form-control" />
+                <span asp-validation-for="DienThoai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaLop" class="control-label"></label>
+                <select asp-for="MaLop" class="form-control" asp-items="ViewBag.MaLop"></select>
+                <span asp-validation-for="MaLop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaChucVu" class="control-label"></label>
+                <select asp-for="MaChucVu" class="form-control" asp-items="ViewBag.MaChucVu"></select>
+                <span asp-validation-for="MaChucVu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HinhAnh" class="control-label"></label>
+                @* <input asp-for="HinhAnh" class="form-control" type="text" readonly /> *@
+                <br />
+                <input type="file" id="uploadFile" style="display: none" onchange="displayImage(this)" />
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('uploadFile').click();">Chọn ảnh</button>
+                <span asp-validation-for="HinhAnh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function displayImage(input) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    // document.getElementById('previewImage').style.display = 'block';
+                    var fullPath = input.value; // Đây là đường dẫn đầy đủ của hình ảnh trên máy tính người dùng
+                    document.getElementById('HinhAnh').value = fullPath;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}

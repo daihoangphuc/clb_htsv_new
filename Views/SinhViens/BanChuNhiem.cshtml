@@ -1,0 +1,108 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<website_CLB_HTSV.Models.SinhVien>
+
+
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="testimonials section-bg">
+    <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+            <h2>BAN CHỦ NHIỆM</h2>
+            <p>
+                TUỔI TRẺ
+                LÀ ĐỂ CỐNG HIẾN
+            </p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper-wrapper">
+
+                @foreach (var item in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="testimonial-wrap">
+                            <div class="testimonial-item">
+                                <img src="https://picsum.photos/500" class="testimonial-img" alt="">
+                                <h3>@item.HoTen</h3>
+                                <h4>@item.ChucVu.TenChucVu</h4>
+                                <p>
+                                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                </p>
+                                <a asp-action="Details" asp-route-id="@item.MaSV">Thông tin</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End testimonial item -->
+                }
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+</section><!-- End Testimonials Section -->
+@*
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LopHoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChucVu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DienThoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LopHoc.TenLop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucVu.TenChucVu)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaSV">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaSV">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaSV">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@
