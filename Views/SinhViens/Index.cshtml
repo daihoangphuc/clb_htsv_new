@@ -1,98 +1,111 @@
-﻿@model IEnumerable<website_CLB_HTSV.Models.SinhVien>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncfusion Grid Demo</title>
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/17.2.47/material.css" />
 
-@{
-    ViewData["Title"] = "Index";
-}
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+        }
 
-<h1>Index</h1>
+        #Grid a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+            #Grid a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>
+        <h1>Thêm sinh viên</h1>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div id="Grid"></div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.syncfusion.com/ej2/17.2.47/dist/ej2.min.js"></script>
+    <script src="https://cdn.syncfusion.com/ej2/17.2.47/dist/ejs.interop.min.js"></script>
 
-<form asp-action="Search" method="post">
-    <div class="form-group">
-        <label for="searchTerm">Nhập Mã số sinh viên:</label>
-        <input type="text" class="form-control" id="searchTerm" name="searchTerm" />
-    </div>
-    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HoTen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NgaySinh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DienThoai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LopHoc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ChucVu)
-            </th>
-       @*      <th>
-                @Html.DisplayNameFor(model => model.HinhAnh)
-            </th> *@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LopHoc.MaLop)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChucVu.TenChucVu)
-            </td>
-@*             <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td> *@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaSV">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaSV">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaSV">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-
-                @section Scripts {
     <script>
-        function search() {
-            var searchTerm = $('#searchTerm').val();
-            $.ajax({
-                url: '@Url.Action("Search")',
-                type: 'POST',
-                data: { searchTerm: searchTerm },
-                success: function (result) {
-                    // Cập nhật nội dung của view Index với kết quả tìm kiếm
-                    $('#content').html(result);
+        document.addEventListener("DOMContentLoaded", function () {
+            var data = @Html.Raw(Json.Serialize(Model));
+            var dataSource = [];
+
+        @foreach (var sinhVien in Model)
+        {
+            <text>
+                    dataSource.push({
+                        HoTen: '@sinhVien.HoTen',
+                        NgaySinh: new Date('@sinhVien.NgaySinh').toLocaleDateString('en-GB'),
+                        DienThoai: '@sinhVien.DienThoai',
+                        Email: '@sinhVien.Email',
+                        LopHoc_MaLop: '@sinhVien.LopHoc.MaLop',
+                        ChucVu_TenChucVu: '@sinhVien.ChucVu.TenChucVu',
+                        MaSV: '@sinhVien.MaSV'
+                    });
+            </text>
+        }
+
+                    var grid = new ej.grids.Grid({
+                dataSource: dataSource,
+                columns: [
+                    { headerText: "STT", template: "${index}", width: 40 },
+                    { field: "HoTen", headerText: "Họ Tên" },
+                    { field: "NgaySinh", headerText: "Ngày Sinh" },
+                    { field: "DienThoai", headerText: "Điện Thoại" },
+                    { field: "Email", headerText: "Email" },
+                    { field: "LopHoc_MaLop", headerText: "Mã Lớp" },
+                    { field: "ChucVu_TenChucVu", headerText: "Chức Vụ" },
+                    {
+                        headerText: "Actions",
+                        template: "<a data-action='Edit' data-id='${MaSV}'>Edit</a> | <a data-action='Details' data-id='${MaSV}'>Details</a> | <a data-action='Delete' data-id='${MaSV}'>Delete</a>"
+                    }
+                ],
+                toolbar: ['Search', 'ExcelExport'],
+                searchSettings: { fields: ['MaSV', 'HoTen', 'NgaySinh', 'DienThoai', 'Email', 'LopHoc_MaLop', 'ChucVu_TenChucVu'] },
+                allowExcelExport: true,
+                excelExport: (e) => {
+                    if (e.data) {
+                        e.dataSource = e.data;
+
+                        var fileName = 'SinhVienData_' + new Date().toISOString().slice(0, 19).replace(/[-T:]/g, '') + '.xlsx';
+
+                        var excelExport = new ej.excelexport.ExcelExport({
+                            dataSource: e.dataSource,
+                            columns: e.columns,
+                            fileName: fileName
+                        });
+
+                        excelExport.exportToExcel().then(() => {
+                            var link = document.createElement('a');
+                            link.href = excelExport.xlsxData;
+                            link.download = fileName;
+                            link.click();
+                        });
+                    }
+                },
+                pageSettings: { pageSize: 10, pageCount: 5 } // Số lượng bản ghi trên mỗi trang và số lượng trang
+            });
+
+            grid.appendTo('#Grid');
+
+            $('#Grid').on('click', 'a', function (e) {
+                e.preventDefault();
+                var action = $(this).data('action');
+                var id = $(this).data('id');
+                if (action && id) {
+                    window.location.href = '@Url.Action("Index", "SinhViens")' + '/' + action + '/' + id;
                 }
             });
-        }
+        });
     </script>
-}
+</body>
+</html>
