@@ -3,16 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
-
+using X.PagedList;
+using website_CLB_HTSV.Extensions;
 namespace website_CLB_HTSV.Controllers
 {
     public class SinhViensController : Controller
     {
-        private readonly ApplicationDbContext _context;
+
+    // Trong controller của bạn
+    public Task<IActionResult> Index(int? page)
+    {
+        int pageSize = 5;
+        int pageNumber = page ?? 1;
+
+        // Lấy dữ liệu từ nguồn dữ liệu (DB, service, etc.)
+        var allData = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc);
+
+        // Phân trang dữ liệu
+        var pagedData = allData.ToCustomPagedList(pageNumber, pageSize);
+
+        return Task.FromResult<IActionResult>(View(pagedData));
+    }
+
+
+
+    private readonly ApplicationDbContext _context;
 
         public SinhViensController(ApplicationDbContext context)
         {
@@ -67,12 +87,20 @@ namespace website_CLB_HTSV.Controllers
             var applicationDbContext = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc).Where(s => s.ChucVu.MaChucVu != "CV04" && s.ChucVu.MaChucVu != null);
             return View(await applicationDbContext.ToListAsync());
         }
-        // GET: SinhViens
-        public async Task<IActionResult> Index()
+     /*   // GET: SinhViens
+        public Task<IActionResult> Index(int? page)
         {
-            var applicationDbContext = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+            // Lấy dữ liệu từ nguồn dữ liệu (DB, service, etc.)
+            var allData = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc);
+
+            // Phân trang dữ liệu
+            var pagedData = allData.ToPagedList(pageNumber, pageSize);
+
+            return Task.FromResult<IActionResult>(View(pagedData));
+        }*/
 
         // GET: SinhViens/Details/5
         public async Task<IActionResult> Details(string id)

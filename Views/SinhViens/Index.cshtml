@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+
+
+@model X.PagedList.IPagedList<SinhVien>
+
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +40,44 @@
         <a asp-action="Create">Create New</a>
     </p>
     <div id="Grid"></div>
+
+
+@{
+    var pagedListRenderOptions = new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToIndividualPages = true,
+        DisplayPageCountAndCurrentLocation = false,
+        MaximumPageNumbersToDisplay = 5,
+        EllipsesFormat = "&#x2026;",
+        LinkToFirstPageFormat = "First",
+        LinkToPreviousPageFormat = "Previous",
+        LinkToIndividualPageFormat = "{0}",
+        LinkToNextPageFormat = "Next",
+        LinkToLastPageFormat = "Last"
+    };
+}
+
+<div class="container">
+    <h1>Thêm sinh viên</h1>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</div>
+
+<div class="container" id="Grid"></div>
+
+<div class="container text-center">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), pagedListRenderOptions)
+        </ul>
+    </nav>
+</div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.syncfusion.com/ej2/17.2.47/dist/ej2.min.js"></script>
