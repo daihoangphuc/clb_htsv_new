@@ -16,13 +16,12 @@ namespace website_CLB_HTSV.Controllers
     public class HoatDongsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IConfiguration _configuration;
+/*        private readonly IConfiguration _configuration;*/
         private readonly ApplicationDbContext _context;
 
-        public HoatDongsController(ApplicationDbContext context, IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public HoatDongsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-            _configuration = configuration;
             _userManager = userManager;
         }
         public string GetIDFromEmail(string email)
@@ -33,7 +32,7 @@ namespace website_CLB_HTSV.Controllers
             var parts = email.Split('@');
             return parts.Length > 0 ? parts[0] : email;
         }
-        private int LaySoDongTrongBang(string tenbang)
+        /*private int LaySoDongTrongBang(string tenbang)
         {
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -48,23 +47,23 @@ namespace website_CLB_HTSV.Controllers
                     return rowCount;
                 }
             }
-        }
-        public static string Taoidtaikhoan(int sequentialNumber)
+        }*/
+/*        public static string Taoidtaikhoan(int sequentialNumber)
         {
             return $"DK{sequentialNumber:D3}";
-        }
+        }*/
 
         [HttpPost]
         public async Task<IActionResult> DangKy(string hoatDongId)
         {
-            int y = LaySoDongTrongBang("DangKyHoatDong");
+            /*int y = LaySoDongTrongBang("DangKyHoatDong");*/
             if (ModelState.IsValid)
             {
                 var dangKyHoatDong = new DangKyHoatDong
                 {
                     MaHoatDong = hoatDongId,
                     MaSV = User.Identity.Name.Split('@')[0],
-                    MaDangKy = Taoidtaikhoan(y+1),
+                    MaDangKy = "DK" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
                     NgayDangKy = DateTime.Now,
                     TrangThaiDangKy = true
 
