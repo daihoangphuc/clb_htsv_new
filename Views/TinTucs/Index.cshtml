@@ -9,11 +9,173 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+
+
+<form asp-controller="TinTucs" asp-action="Index" class="search-form justify-center mb-2">
+    <div class="search-container">
+        <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
+        <button class="search-button ml-2">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+</form>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+    /* Form */
+    .search-form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .search-container {
+        position: relative;
+        width: 700px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid #38b7fd;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        background-color: transparent;
+    }
+
+    .search-button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding-bottom: 10px;
+    }
+
+        .search-button i {
+            font-size: 20px;
+        }
+
+
+
+
+
+    .swiper-container {
+        width: 100%;
+        height: 400px;
+    }
+
+    .swiper-slide {
+        width: calc(25% - 20px);
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+
+    .swiper-pagination {
+        position: relative;
+        bottom: 10px;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background-color: #888;
+        opacity: 0.5;
+        margin: 0 5px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #333;
+        opacity: 1;
+    }
+</style>
+
+<div class="main" style="padding: 35px 0">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @foreach (var item in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#"><img class="rounded-t-lg" src="https://picsum.photos/500" alt="" /></a>
+                        <div class="p-3">
+                            <a href="#"><h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">@item.TieuDe</h5></a>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">@item.NoiDung.Substring(0, 150)@(item.NoiDung.Length > 150 ? " ..." : "")</p>
+                            <a href="#" class="inline-flex items-center px-2.5 py-1.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Read more<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" /></svg></a>
+                        </div>
+                    <a asp-action="Edit" asp-route-id="@item.MaTinTuc">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.MaTinTuc">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaTinTuc">Delete</a>
+                    </div>
+                </div>
+            }
+           
+            
+        </div>
+        <br /><br /><br /><br />
+       @*  <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div> *@
+        <div class="swiper-pagination m-10"></div>
+    </div>
+</div>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // JavaScript
+    document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            //allowTouchMove: false,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+
+
+
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TieuDe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NoiDung)
@@ -22,32 +184,37 @@
                 @Html.DisplayNameFor(model => model.NgayDang)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SinhVien)
+                @Html.DisplayNameFor(model => model.NguoiDang)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TieuDe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SinhVien.MaSV)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaTinTuc">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaTinTuc">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaTinTuc">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TieuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HinhAnh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiDang)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaTinTuc">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaTinTuc">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaTinTuc">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+ *@

@@ -31,5 +31,6 @@ namespace website_CLB_HTSV.Models
         [ForeignKey("MaHoatDong")]
         [DisplayName("Hoạt Động")]
         public HoatDong? HoatDong { get; set; }
+
     }
 }

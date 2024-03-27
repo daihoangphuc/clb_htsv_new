@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV
 build_property._RazorSourceGeneratorDebug = 
 
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Components/ListBCN.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMaXN0QkNOLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -176,6 +180,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Admin/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVzZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Admin/ResetPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVzZXRQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ChucVus/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y1Z1c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -196,8 +212,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y1Z1c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/HuydangKy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXEh1eWRhbmdLeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/DangKyHoatDongs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuZ0t5SG9hdERvbmdzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/HoatDongs/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hdERvbmdzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/HoatDongs/DangKy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hdERvbmdzXERhbmdLeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/HoatDongs/Delete.cshtml]
@@ -264,6 +308,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9wSG9jc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Shared/Components/ListBanChuNhiem/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTGlzdEJhbkNodU5oaWVtXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Shared/Components/ListTinTuc/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTGlzdFRpblR1Y1xEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -300,12 +352,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/SinhViens/Search.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXFNlYXJjaC5jc2h0bWw=
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ThamGiaHoatDongs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbUdpYUhvYXREb25nc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/SinhViens/TimSinhVien.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXFRpbVNpbmhWaWVuLmNzaHRtbA==
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ThamGiaHoatDongs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbUdpYUhvYXREb25nc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ThamGiaHoatDongs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbUdpYUhvYXREb25nc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ThamGiaHoatDongs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbUdpYUhvYXREb25nc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/ThamGiaHoatDongs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhhbUdpYUhvYXREb25nc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/TinTucs/Create.cshtml]
@@ -326,6 +390,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/TinTucs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGluVHVjc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/TinTucs/_NewPasrtialList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGluVHVjc1xfTmV3UGFzcnRpYWxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/\!Học Kì 6/ASP.NET/website_CLB_HTSV/website_CLB_HTSV/Views/_ViewImports.cshtml]

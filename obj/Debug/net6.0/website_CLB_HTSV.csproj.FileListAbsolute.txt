@@ -294,3 +294,17 @@ E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Micro
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\JetBrains.Annotations.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\X.PagedList.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\PagedList.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\PagedList.Mvc.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\EPPlus.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\EPPlus.Interfaces.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\EPPlus.System.Drawing.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.IO.RecyclableMemoryStream.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Paging.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\SendGrid.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\StarkbankEcdsa.dll

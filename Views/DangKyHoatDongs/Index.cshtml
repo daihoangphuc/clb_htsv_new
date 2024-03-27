@@ -1,0 +1,60 @@
+﻿@model IEnumerable<website_CLB_HTSV.Models.DangKyHoatDong>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoatDong.TenHoatDong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SinhVien.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDangKy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiDangKy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoatDong.TenHoatDong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SinhVien.HoTen)
+                </td>
+                <td>
+                    @item.NgayDangKy.ToString("HH:mm dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThaiDangKy)
+                </td>
+                <td>
+                    <form asp-controller="DangKyHoatDongs" asp-action="HuydangKy"
+                          method="post" asp-route-hoatDongId="@item.MaHoatDong">
+                        <input class="bg-red-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-red-600 register-btn" type="submit" value="Hủy đăng ký" />
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaDangKy">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaDangKy">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaDangKy">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

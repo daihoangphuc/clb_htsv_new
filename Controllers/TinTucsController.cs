@@ -18,13 +18,33 @@ namespace website_CLB_HTSV.Controllers
         {
             _context = context;
         }
-
-        // GET: TinTucs
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public IActionResult Search(string keyword)
         {
-            var applicationDbContext = _context.TinTuc.Include(t => t.SinhVien);
-            return View(await applicationDbContext.ToListAsync());
+            var searchResults = SearchNews(keyword);
+            return PartialView("_NewsListPartial", searchResults);
         }
+
+        private IEnumerable<TinTuc> SearchNews(string keyword)
+        {
+            // Thực hiện logic tìm kiếm và trả về kết quả
+            // (đây chỉ là một ví dụ, bạn cần thay thế bằng logic thực tế của bạn)
+            return _context.TinTuc.Where(t => t.TieuDe.Contains(keyword)).ToList();
+        }
+        // GET: TinTucs
+        public IActionResult Index(string searchString)
+        {
+            var tinTuc = from m in _context.TinTuc
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tinTuc = tinTuc.Where(s => s.TieuDe.Contains(searchString));
+            }
+
+            return View(tinTuc.ToList());
+        }
+
 
         // GET: TinTucs/Details/5
         public async Task<IActionResult> Details(string id)
@@ -155,14 +175,14 @@ namespace website_CLB_HTSV.Controllers
             {
                 _context.TinTuc.Remove(tinTuc);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TinTucExists(string id)
         {
-          return (_context.TinTuc?.Any(e => e.MaTinTuc == id)).GetValueOrDefault();
+            return (_context.TinTuc?.Any(e => e.MaTinTuc == id)).GetValueOrDefault();
         }
     }
 }

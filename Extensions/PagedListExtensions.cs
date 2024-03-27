@@ -1,4 +1,4 @@
-﻿using X.PagedList;
+﻿using PagedList;
 
 namespace website_CLB_HTSV.Extensions
 {

@@ -3,104 +3,120 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
-using X.PagedList;
-using website_CLB_HTSV.Extensions;
+
 namespace website_CLB_HTSV.Controllers
 {
     public class SinhViensController : Controller
     {
-
-    // Trong controller của bạn
-    public Task<IActionResult> Index(int? page)
-    {
-        int pageSize = 5;
-        int pageNumber = page ?? 1;
-
-        // Lấy dữ liệu từ nguồn dữ liệu (DB, service, etc.)
-        var allData = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc);
-
-        // Phân trang dữ liệu
-        var pagedData = allData.ToCustomPagedList(pageNumber, pageSize);
-
-        return Task.FromResult<IActionResult>(View(pagedData));
-    }
-
-
-
-    private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public SinhViensController(ApplicationDbContext context)
         {
             _context = context;
         }
-        // Action để hiển thị form tìm kiếm
-        public IActionResult Search()
+
+/*        public IActionResult DSHoatDong()
         {
+            var sinhViens = _context.ThamGiaHoatDong.ToList();
             return View();
-        }
-
-        // Action để xử lý tìm kiếm và hiển thị kết quả
-        [HttpPost]
-        public async Task<IActionResult> Search(string searchTerm)
-        {
-            if (string.IsNullOrEmpty(searchTerm))
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var sinhVien = await _context.SinhVien
-                .FirstOrDefaultAsync(s => s.MaSV == searchTerm);
-
-            if (sinhVien == null)
-            {
-                // Nếu không tìm thấy sinh viên, hiển thị toàn bộ danh sách
-                var allSinhViens = await _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc).ToListAsync();
-                return View(nameof(Index), allSinhViens);
-            }
-
-            // Nếu tìm thấy sinh viên, hiển thị sinh viên đó trong view Index
-            var result = new List<SinhVien> { sinhVien };
-            return View(nameof(Index), result);
-        }
-   /*     public async Task<IActionResult> TimSinhVien(string maSV)
-        {
-            // Tìm sinh viên theo mã sinh viên trong CSDL
-            var sinhVien = await _context.SinhVien
-                .FirstOrDefaultAsync(s => s.MaSV == maSV);
-
-            if (sinhVien == null)
-            {
-                // Trả về NotFound nếu không tìm thấy sinh viên
-                return NotFound();
-            }
-
-            // Trả về thông tin của sinh viên nếu tìm thấy
-            return View(sinhVien);
         }*/
+
+
+
+
+        // Phương thức xuất Excel
+        public IActionResult ExportToExcel()
+        {
+            // Lấy searchString từ Session
+            var searchString = HttpContext.Session.GetString("searchString");
+
+            var sinhViens = from s in _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc)
+                            select s;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                sinhViens = sinhViens.Where(s => s.MaSV.Contains(searchString)
+                                                || s.HoTen.Contains(searchString)
+                                                || s.ChucVu.TenChucVu.Contains(searchString)
+                                                || s.LopHoc.MaLop.Contains(searchString));
+            }
+            // Tạo một package Excel mới
+            using (var package = new ExcelPackage())
+            {
+                // Tạo một sheet mới
+                var worksheet = package.Workbook.Worksheets.Add("Danh sách sinh viên");
+
+                // Đặt tiêu đề cho các cột
+                worksheet.Cells[1, 1].Value = "Mã Sinh Viên";
+                worksheet.Cells[1, 2].Value = "Họ Tên";
+                worksheet.Cells[1, 3].Value = "Ngày Sinh";
+                worksheet.Cells[1, 4].Value = "Điện Thoại";
+                worksheet.Cells[1, 5].Value = "Email";
+                worksheet.Cells[1, 6].Value = "Mã Lớp";
+                worksheet.Cells[1, 7].Value = "Mã Chức Vụ";
+                worksheet.Cells[1, 8].Value = "Hình Ảnh";
+
+                // Đặt dữ liệu cho các ô
+                int row = 2;
+                foreach (var sinhVien in sinhViens)
+                {
+                    worksheet.Cells[row, 1].Value = sinhVien.MaSV;
+                    worksheet.Cells[row, 2].Value = sinhVien.HoTen;
+                    worksheet.Cells[row, 3].Value = sinhVien.NgaySinh;
+                    worksheet.Cells[row, 4].Value = sinhVien.DienThoai;
+                    worksheet.Cells[row, 5].Value = sinhVien.Email;
+                    worksheet.Cells[row, 6].Value = sinhVien.MaLop;
+                    worksheet.Cells[row, 7].Value = sinhVien.MaChucVu;
+                    worksheet.Cells[row, 8].Value = sinhVien.HinhAnh;
+                    row++;
+                }
+
+                // Tạo một stream để lưu trữ tệp Excel
+                MemoryStream stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+                // Định dạng tên file với ngày tháng năm và thuộc tính được tìm kiếm
+                string fileName = $"DanhSachSinhVien_{searchString}_{DateTime.Today:ddMMyyyy}.xlsx";
+
+                // Trả về tệp Excel như một file
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+        }
+
+
+
+
+        // GET: SinhViens
+        public async Task<IActionResult> Index(string searchString)
+        {
+            var sinhViens = from s in _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc)
+                            select s;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                sinhViens = sinhViens.Where(s => s.MaSV.Contains(searchString)
+                                                || s.HoTen.Contains(searchString)
+                                                || s.ChucVu.TenChucVu.Contains(searchString)
+                                                || s.LopHoc.MaLop.Contains(searchString));
+
+                // Lưu searchString vào Session
+                HttpContext.Session.SetString("searchString", searchString);
+            }
+
+            return View(await sinhViens.ToListAsync());
+        }
+
         public async Task<IActionResult> BanChuNhiem()
         {
             var applicationDbContext = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc).Where(s => s.ChucVu.MaChucVu != "CV04" && s.ChucVu.MaChucVu != null);
             return View(await applicationDbContext.ToListAsync());
         }
-     /*   // GET: SinhViens
-        public Task<IActionResult> Index(int? page)
-        {
-            int pageSize = 5;
-            int pageNumber = page ?? 1;
 
-            // Lấy dữ liệu từ nguồn dữ liệu (DB, service, etc.)
-            var allData = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc);
-
-            // Phân trang dữ liệu
-            var pagedData = allData.ToPagedList(pageNumber, pageSize);
-
-            return Task.FromResult<IActionResult>(View(pagedData));
-        }*/
 
         // GET: SinhViens/Details/5
         public async Task<IActionResult> Details(string id)
@@ -125,7 +141,7 @@ namespace website_CLB_HTSV.Controllers
         // GET: SinhViens/Create
         public IActionResult Create()
         {
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu");
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu");
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop");
             return View();
         }
@@ -143,7 +159,7 @@ namespace website_CLB_HTSV.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             return View(sinhVien);
         }
@@ -161,7 +177,7 @@ namespace website_CLB_HTSV.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             return View(sinhVien);
         }
@@ -198,7 +214,7 @@ namespace website_CLB_HTSV.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             return View(sinhVien);
         }

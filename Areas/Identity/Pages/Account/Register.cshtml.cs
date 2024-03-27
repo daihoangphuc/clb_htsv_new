@@ -132,7 +132,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        $"Hãy click vào đây để xác nhận Email <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Xác nhận đăng kí.</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

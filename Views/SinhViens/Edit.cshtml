@@ -45,15 +45,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="HinhAnh" class="control-label"></label>
-                @* <input asp-for="HinhAnh" class="form-control" type="text" readonly /> *@
-                <br />
-                <input type="file" id="uploadFile" style="display: none" onchange="displayImage(this)" />
-                <button type="button" class="btn btn-primary" onclick="document.getElementById('uploadFile').click();">Chọn ảnh</button>
+                <input asp-for="HinhAnh" class="form-control" />
                 <span asp-validation-for="HinhAnh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <br />
-                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -63,24 +59,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        function displayImage(input) {
-            var file = input.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('previewImage').src = e.target.result;
-                    // document.getElementById('previewImage').style.display = 'block';
-                    var fullPath = input.value; // Đây là đường dẫn đầy đủ của hình ảnh trên máy tính người dùng
-                    document.getElementById('HinhAnh').value = fullPath;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-}

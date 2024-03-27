@@ -1,6 +1,7 @@
 ﻿﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Vesperr Bootstrap Template - Index</title>
+    <title>Câu Lạc Bộ Hành Trình Sinh Viên</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -30,6 +31,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
 </head>
 
 <body>
@@ -53,6 +56,7 @@
                     <li><a class="nav-link scrollto" href="#services">Hướng dẫn sử dụng</a></li> *@
                     <li><a class="nav-link scrollto " href="#">Thư góp ý</a></li>
                     <li><a class="nav-link scrollto " href="#">Hướng dẫn sử dụng</a></li>
+                 
 @* 
                     <li><a class="nav-link scrollto " href="/TinTucs">Tin tức</a></li>
                     <li><a class="nav-link scrollto " href="/ChucVus">Chức vụ</a></li> *@
@@ -65,6 +69,8 @@
                         <a href="#"><span>Quản Lý</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="/HoatDongs">Hoạt Động</a></li>
+                            <li><a href="/DangKyHoatDongs">Đăng Kí Hoạt Động</a></li>
+
                             <li class="dropdown">
                                 <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                                 <ul>
@@ -79,9 +85,11 @@
                             <li><a href="/LopHocs">Lớp Học</a></li>
                             <li><a href="/Khoas">Khoa</a></li>
                             <li><a href="/ChucVus">Chức Vụ</a></li>
+                            <li><a href="/Admin">Reset Password</a></li>
+
                             <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
                             <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
-
+                         
 
                         </ul>
                     </li>
@@ -121,9 +129,13 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+         @*    <partial name="ListTinTuc" /> *@
         </main>
     </div>
-    @* //main *@
+
+    <section>
+    </section>
+
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="container">
@@ -159,6 +171,10 @@
     <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/assets/vendor/php-email-form/validate.js"></script>
 
+
+
+
+
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
@@ -171,6 +187,34 @@
 
 
 
+
+
+
+
+@* 
+
+<style>
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f9fa; /* Set your desired background color */
+        padding: 20px 0; /* Set your desired padding */
+        text-align: center;
+    }
+
+        /* Optional: You can add styles to the copyright and credits elements within the footer */
+        #footer .copyright {
+            color: #333; /* Set your desired text color */
+        }
+
+        #footer .credits {
+            /* Add styles as needed */
+        }
+
+</style>
+
+ *@
 
 
 
