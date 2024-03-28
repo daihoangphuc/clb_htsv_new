@@ -119,9 +119,10 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
-                {
+                {// Tạo user thành công, bây giờ set role mặc định là "User"
                     _logger.LogInformation("User created a new account with password.");
 
+                   /* await _userManager.AddToRoleAsync(user, "User");*/
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -131,7 +132,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await _emailSender.SendEmailAsync(Input.Email, "Xác nhận đăng ký",
                         $"Hãy click vào đây để xác nhận Email <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Xác nhận đăng kí.</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

@@ -23,28 +23,91 @@
 
 
 <main class="container mx-auto py-8">
-    <section class="bg-white shadow-md p-6 rounded-md">
-        <h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động sắp tới</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            @foreach (var i in Model)
-            {
-                <div class="flex flex-col md:flex-row bg-gray-200 p-4 rounded-md items-center">
-                    @* <img src="https://picsum.photos/500" alt="Hoạt động 1" class="h-64 w-full md:w-64 mr-0 md:mr-4 rounded-lg mb-4 md:mb-0"> *@
-                    <div class="md:w-3/4">
-                        <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
-                        <p class="activity-description text-sm md:text-base">@i.MoTa<br>Thời Gian: <span class="font-semibold">@i.ThoiGian</span><br>Địa Điểm: <span class="font-semibold">@i.DiaDiem</span><br>Trạng Thái: <span class="font-semibold">@i.TrangThai</span></p>
-                        <!-- Form/Link để đăng ký -->
-                        <form asp-controller="HoatDongs" asp-action="DangKy"
-                              method="post" asp-route-hoatDongId="@i.MaHoatDong">
-                            <input class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" type="submit" value="Đăng ký" />
-                        </form>
+        <section class="bg-white shadow-md p-6 rounded-md">
+            <h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động sắp tới</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach (var i in Model)
+                {
+                    <div class="flex flex-col md:flex-row bg-gray-200 p-4 rounded-md items-center">
+                        <div class="md:w-3/4">
+                            <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
+                            <p class="activity-description text-sm md:text-base">@i.MoTa<br>Thời Gian: <span class="font-semibold">@i.ThoiGian</span><br>Địa Điểm: <span class="font-semibold">@i.DiaDiem</span><br>Trạng Thái: <span class="font-semibold">@i.TrangThai</span></p>
+                            <!-- Form/Link để đăng ký -->
+                            <button class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" onclick="prepareRegistration('@i.MaHoatDong')">Đăng ký</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </main>
+
+    <div id="confirmationModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-center bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                           Bạn chắc chắn tham gia hoạt động này chứ?
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                               @*  Your body text goes here. *@
+                            </p>
+                        </div>
                     </div>
                 </div>
-               
-            }   
+                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="commitForm()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Đăng ký Ngay
+                    </button>
+                    <button type="button" onclick="hideConfirmationModal()" class=" w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm">
+                        Hẹn lần sau
+                    </button>
+                </div>
+            </div>
         </div>
-    </section>
-</main>
+    </div>
+
+    <form id="registrationForm" action="/HoatDongs/DangKy" method="post" style="display: none;">
+        <input type="hidden" id="hoatDongId" name="hoatDongId" value="">
+    </form>
+
+    <script>
+        let hoatDongId;
+
+        function prepareRegistration(id) {
+            hoatDongId = id;
+            var modal = document.getElementById('confirmationModal');
+            modal.classList.remove('hidden');
+        }
+
+        function hideConfirmationModal() {
+            var modal = document.getElementById('confirmationModal');
+            modal.classList.add('hidden');
+        }
+
+        function commitForm() {
+            // Đặt giá trị cho input ẩn trong form
+            var hoatDongIdInput = document.getElementById('hoatDongId');
+            hoatDongIdInput.value = hoatDongId;
+
+            // Gửi form
+            var registrationForm = document.getElementById('registrationForm');
+            registrationForm.submit();
+
+            // Ẩn modal
+            hideConfirmationModal();
+        }
+    </script>
 
 <!-- Add Tailwind CSS -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">

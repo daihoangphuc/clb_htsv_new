@@ -122,75 +122,6 @@ namespace website_CLB_HTSV.Controllers
 
         }
 
-
-
-
-
-        /* // Trong controller HoatDongs
-         public async Task<IActionResult> DaDangKi(string id)
-         {
-
-             if (id == null)
-             {
-                 return NotFound();
-             }
-
-             var hoatDong = await _context.HoatDong.FindAsync(id);
-             if (hoatDong == null)
-             {
-                 return NotFound();
-             }
-
-             // Cập nhật trạng thái của hoạt động trong cơ sở dữ liệu
-             hoatDong.DaDangKi = true;
-
-             try
-             {
-                 await _context.SaveChangesAsync();
-                 return RedirectToAction(nameof(Index));
-             }
-             catch (DbUpdateException)
-             {
-                 // Xử lý lỗi nếu có
-                 ModelState.AddModelError("", "Lỗi khi cập nhật trạng thái hoạt động.");
-                 return RedirectToAction(nameof(Index));
-             }
-         }
-
-
-         // Trong controller HoatDongs
-         public async Task<IActionResult> DaThamGia(string id)
-         {
-
-             if (id == null)
-             {
-                 return NotFound();
-             }
-
-             var hoatDong = await _context.HoatDong.FindAsync(id);
-             if (hoatDong == null)
-             {
-                 return NotFound();
-             }
-
-             // Cập nhật trạng thái của hoạt động trong cơ sở dữ liệu
-             hoatDong.DaThamGia = true;
-
-             try
-             {
-                 await _context.SaveChangesAsync();
-                 return RedirectToAction(nameof(Index));
-             }
-             catch (DbUpdateException)
-             {
-                 // Xử lý lỗi nếu có
-                 ModelState.AddModelError("", "Lỗi khi cập nhật trạng thái hoạt động.");
-                 return RedirectToAction(nameof(Index));
-             }
-         }
- */
-
-
         // GET: HoatDongs/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -222,6 +153,7 @@ namespace website_CLB_HTSV.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MaHoatDong,TenHoatDong,MoTa,ThoiGian,DiaDiem,HocKy,NamHoc,HinhAnh,TrangThai,DaDangKi,DaThamGia,MinhChung")] HoatDong hoatDong)
         {
+            hoatDong.MaHoatDong = "HD" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
             if (ModelState.IsValid)
             {
                 _context.Add(hoatDong);

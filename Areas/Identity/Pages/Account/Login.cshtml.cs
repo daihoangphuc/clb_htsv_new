@@ -128,7 +128,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu không đúng.");
                     return Page();
                 }
             }
