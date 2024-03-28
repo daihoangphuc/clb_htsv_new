@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -54,6 +55,7 @@ namespace website_CLB_HTSV.Controllers
         }*/
 
         [HttpPost]
+        [Authorize(Roles = "Users")]
         public async Task<IActionResult> DangKy(string hoatDongId)
         {
             /*int y = LaySoDongTrongBang("DangKyHoatDong");*/
@@ -82,10 +84,11 @@ namespace website_CLB_HTSV.Controllers
         }
 
 
-       
+
 
 
         // GET: HoatDongs
+        [Authorize]
         public async Task<IActionResult> Index(string searchString)
         {
             // Kiểm tra người dùng đã đăng nhập hay chưa
@@ -123,6 +126,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: HoatDongs/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.HoatDong == null)
@@ -141,6 +145,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: HoatDongs/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();
@@ -151,6 +156,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaHoatDong,TenHoatDong,MoTa,ThoiGian,DiaDiem,HocKy,NamHoc,HinhAnh,TrangThai,DaDangKi,DaThamGia,MinhChung")] HoatDong hoatDong)
         {
             hoatDong.MaHoatDong = "HD" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
@@ -164,6 +170,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: HoatDongs/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.HoatDong == null)
@@ -184,6 +191,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id, [Bind("MaHoatDong,TenHoatDong,MoTa,ThoiGian,DiaDiem,HocKy,NamHoc,HinhAnh,TrangThai,DaDangKi,DaThamGia,MinhChung")] HoatDong hoatDong)
         {
             if (id != hoatDong.MaHoatDong)
@@ -215,6 +223,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: HoatDongs/Delete/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.HoatDong == null)
@@ -235,6 +244,7 @@ namespace website_CLB_HTSV.Controllers
         // POST: HoatDongs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.HoatDong == null)

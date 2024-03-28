@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: ChucVus
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Index()
         {
               return _context.ChucVu != null ? 
@@ -28,6 +30,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: ChucVus/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.ChucVu == null)
@@ -46,6 +49,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: ChucVus/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaChucVu,TenChucVu")] ChucVu chucVu)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: ChucVus/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.ChucVu == null)
@@ -88,6 +94,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id, [Bind("MaChucVu,TenChucVu")] ChucVu chucVu)
         {
             if (id != chucVu.MaChucVu)
@@ -119,6 +126,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: ChucVus/Delete/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.ChucVu == null)
@@ -139,6 +147,7 @@ namespace website_CLB_HTSV.Controllers
         // POST: ChucVus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.ChucVu == null)

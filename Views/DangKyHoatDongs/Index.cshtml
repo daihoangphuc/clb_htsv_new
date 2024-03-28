@@ -6,21 +6,21 @@
 
 <h1>Index</h1>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-
-<form asp-controller="DangKyHoatDongs" asp-action="Index" class="search-form justify-center mb-2">
-    <div class="search-container">
-        <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
-        <button class="search-button ml-2">
-            <i class="bi bi-search"></i>
-        </button>
-    </div>
-</form>
-
+    <form asp-controller="DangKyHoatDongs" asp-action="Index" class="search-form justify-center mb-2">
+        <div class="search-container">
+            <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
+            <button class="search-button ml-2">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+}
 <table class="table">
     <thead>
         <tr>

@@ -10,7 +10,8 @@
     <div class="container-fluid center-form">
         <div class="col-md-4 container-fluid center-form">
             <section>
-                <form id="account" method="post" onsubmit="return validateEmail()">
+                <form id="account" method="post"    >
+                    @* onsubmit="return validateEmail() " *@
                     <h2 style="text-align: center">Đăng nhập</h2>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -88,7 +89,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
+@* 
 <script>
     function validateEmail() {
         var emailInput = document.getElementById('Input_Email');
@@ -99,4 +100,4 @@
         }
         return true; // Cho phép gửi form
     }
-</script>
+</script> *@

@@ -5,20 +5,20 @@
 }
 
 <h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-controller="HoatDongs" asp-action="Index" class="search-form justify-center mb-2">
-    <div class="search-container">
-        <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
-        <button class="search-button ml-2">
-            <i class="bi bi-search"></i>
-        </button>
-    </div>
-</form>
-
-
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <form asp-controller="HoatDongs" asp-action="Index" class="search-form justify-center mb-2">
+        <div class="search-container">
+            <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
+            <button class="search-button ml-2">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+}
 
 
 
@@ -35,8 +35,18 @@
                             <!-- Form/Link để đăng ký -->
                             <button class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" onclick="prepareRegistration('@i.MaHoatDong')">Đăng ký</button>
                         </div>
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@i.MaHoatDong">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@i.MaHoatDong">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@i.MaHoatDong">Delete</a>
+                        </div>
+                       
+                    }
                     </div>
                 }
+
             </div>
         </section>
     </main>

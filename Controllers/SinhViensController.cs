@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,15 +21,16 @@ namespace website_CLB_HTSV.Controllers
             _context = context;
         }
 
-/*        public IActionResult DSHoatDong()
-        {
-            var sinhViens = _context.ThamGiaHoatDong.ToList();
-            return View();
-        }*/
+        /*        public IActionResult DSHoatDong()
+                {
+                    var sinhViens = _context.ThamGiaHoatDong.ToList();
+                    return View();
+                }*/
 
 
 
 
+        [Authorize(Roles = "Administrators")]
         // Phương thức xuất Excel
         public IActionResult ExportToExcel()
         {
@@ -92,6 +94,7 @@ namespace website_CLB_HTSV.Controllers
 
 
         // GET: SinhViens
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Index(string searchString)
         {
             var sinhViens = from s in _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc)
@@ -111,6 +114,7 @@ namespace website_CLB_HTSV.Controllers
             return View(await sinhViens.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> BanChuNhiem()
         {
             var applicationDbContext = _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc).Where(s => s.ChucVu.MaChucVu != "CV04" && s.ChucVu.MaChucVu != null);
@@ -119,6 +123,8 @@ namespace website_CLB_HTSV.Controllers
 
 
         // GET: SinhViens/Details/5
+
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.SinhVien == null)
@@ -139,6 +145,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: SinhViens/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu");
@@ -151,6 +158,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu,HinhAnh")] SinhVien sinhVien)
         {
             if (ModelState.IsValid)
@@ -165,6 +173,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: SinhViens/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.SinhVien == null)
@@ -187,6 +196,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu,HinhAnh")] SinhVien sinhVien)
         {
             if (id != sinhVien.MaSV)
@@ -220,6 +230,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: SinhViens/Delete/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.SinhVien == null)
@@ -242,6 +253,7 @@ namespace website_CLB_HTSV.Controllers
         // POST: SinhViens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.SinhVien == null)
