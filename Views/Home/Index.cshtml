@@ -1,11 +1,11 @@
 ﻿﻿  <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
+<section id="hero" class="d-flex align-items-center" style="margin-top: -40px">
 
     <div class="container">
         <div class="row">
             <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up" style="color:  #ff64c5">TUỔI TRẺ</h1>
-                <h1 data-aos="fade-up" data-aos-delay="400" style="color: #38b7fd; padding-left: 89px">LÀ ĐỂ CỐNG HIẾN</h1>
+                <h1 data-aos="fade-up" data-aos-delay="400" style="color: #38b7fd; padding-left: 70px">LÀ ĐỂ CỐNG HIẾN</h1>
                 <div data-aos="fade-up" data-aos-delay="800">
                     <a href="#about" class="btn-get-started scrollto">Trang Chủ</a>
                 </div>
@@ -19,6 +19,78 @@
 </section><!-- End Hero -->
 @await Component.InvokeAsync("ListTinTuc")
 @await Component.InvokeAsync("ListBanChuNhiem")
+
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+    <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+            <h2>Liên hệ</h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-about">
+                    <h3>Về chúng tôi</h3>
+                    <p>CLB Hành Trình Sinh Viên, không chỉ là nơi để gặp gỡ bạn bè mới và chia sẻ sở thích chung, mà còn là một cộng đồng đầy sức mạnh, sự sáng tạo và lòng nhiệt huyết. Chúng tôi tin rằng mỗi sinh viên đều có khả năng vượt qua mình và phát triển không ngừng trong hành trình của mình, và chúng tôi sẵn sàng đồng hành cùng họ trên con đường đó.</p>
+                    <div class="social-links">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+                <div class="info">
+                    <div>
+                        <i class="ri-map-pin-line"></i>
+                        <p>126 Nguyễn Thiện Thành <br>Phường 5, Thành phố Trà Vinh, Tỉnh Trà Vinh</p>
+                    </div>
+
+                    <div>
+                        <i class="ri-mail-send-line"></i>
+                        <p>clbhanhtrinhsinhvien@gmail.com</p>
+                    </div>
+
+                    <div>
+                        <i class="ri-phone-line"></i>
+                        <p>+84 366999999</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Tên của bạn" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email của bạn" required>
+                    </div>
+@*                     <div class="form-group">
+                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                    </div> *@
+                    <div class="form-group">
+                        <textarea class="form-control" name="message" rows="5" placeholder="Bạn có thắc mắc gì?" required></textarea>
+                    </div>
+                    <div class="my-3">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Tin nhắn đã được gửi đi. Cảm ơn bạn đã quan tâm!</div>
+                    </div>
+                    <div class="text-center"><button type="submit">Gửi</button></div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Contact Section -->
 
 
               
