@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace website_CLB_HTSV.Controllers
     public class SinhViensController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public SinhViensController(ApplicationDbContext context)
+        public SinhViensController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         /*        public IActionResult DSHoatDong()
@@ -124,7 +127,7 @@ namespace website_CLB_HTSV.Controllers
 
         // GET: SinhViens/Details/5
 
-        [Authorize]
+/*        [Authorize]*/
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.SinhVien == null)
@@ -159,24 +162,43 @@ namespace website_CLB_HTSV.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Create([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu,HinhAnh")] SinhVien sinhVien)
+        public async Task<IActionResult> Create([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile HinhAnh)
         {
             if (ModelState.IsValid)
             {
+                if (HinhAnh != null && HinhAnh.Length > 0)
+                {
+                    // Tạo tên file duy nhất
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
+
+                    // Lưu file vào vị trí chỉ định (thay thế bằng logic của bạn)
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await HinhAnh.CopyToAsync(stream);
+                    }
+
+                    // Cập nhật tên file cho model (tùy chọn)
+                    sinhVien.HinhAnh = fileName;
+                }
+
                 _context.Add(sinhVien);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
-            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
+
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
+            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "TenLop", sinhVien.MaLop);
             return View(sinhVien);
         }
+
+
 
         // GET: SinhViens/Edit/5
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.SinhVien == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -186,18 +208,20 @@ namespace website_CLB_HTSV.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
-            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
+
+            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "TenLop", sinhVien.MaLop);
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
             return View(sinhVien);
         }
 
         // POST: SinhViens/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: SinhViens/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu,HinhAnh")] SinhVien sinhVien)
+        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile HinhAnh)
         {
             if (id != sinhVien.MaSV)
             {
@@ -206,6 +230,20 @@ namespace website_CLB_HTSV.Controllers
 
             if (ModelState.IsValid)
             {
+                // Xử lý cập nhật ảnh (nếu có)
+                if (HinhAnh != null && HinhAnh.Length > 0)
+                {
+                    // Logic lưu trữ ảnh
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await HinhAnh.CopyToAsync(stream);
+                    }
+
+                    sinhVien.HinhAnh = fileName; // Lưu tên file vào model
+                }
+
                 try
                 {
                     _context.Update(sinhVien);
@@ -224,24 +262,23 @@ namespace website_CLB_HTSV.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             return View(sinhVien);
         }
 
+
         // GET: SinhViens/Delete/5
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.SinhVien == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var sinhVien = await _context.SinhVien
-                .Include(s => s.ChucVu)
-                .Include(s => s.LopHoc)
-                .FirstOrDefaultAsync(m => m.MaSV == id);
+            var sinhVien = await _context.SinhVien.FindAsync(id);
             if (sinhVien == null)
             {
                 return NotFound();
@@ -250,22 +287,27 @@ namespace website_CLB_HTSV.Controllers
             return View(sinhVien);
         }
 
+
         // POST: SinhViens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.SinhVien == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.SinhVien'  is null.");
-            }
             var sinhVien = await _context.SinhVien.FindAsync(id);
-            if (sinhVien != null)
+
+            // Xử lý xóa file ảnh (nếu có)
+
+            if (sinhVien.HinhAnh != null)
             {
-                _context.SinhVien.Remove(sinhVien);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", sinhVien.HinhAnh);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
-            
+
+            _context.SinhVien.Remove(sinhVien);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

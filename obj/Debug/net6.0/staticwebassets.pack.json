@@ -765,6 +765,22 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\20213012-d969-4a3e-98f4-05cb3f0ce46b.png",
+      "PackagePath": "staticwebassets\\userimages\\20213012-d969-4a3e-98f4-05cb3f0ce46b.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\3287c217-8c41-4cf3-8b71-7b9c18e59ea2.png",
+      "PackagePath": "staticwebassets\\userimages\\3287c217-8c41-4cf3-8b71-7b9c18e59ea2.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\37d14101-cfdd-48a3-bf4e-4275653d947d.jpg",
+      "PackagePath": "staticwebassets\\userimages\\37d14101-cfdd-48a3-bf4e-4275653d947d.jpg"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\b5734c1d-bf15-457a-a92f-c2e93ada5c33.png",
+      "PackagePath": "staticwebassets\\userimages\\b5734c1d-bf15-457a-a92f-c2e93ada5c33.png"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.website_CLB_HTSV.props",
       "PackagePath": "build\\website_CLB_HTSV.props"
     },

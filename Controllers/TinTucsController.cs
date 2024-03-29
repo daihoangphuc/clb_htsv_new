@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace website_CLB_HTSV.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public IActionResult Search(string keyword)
         {
@@ -66,6 +68,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: TinTucs/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             ViewData["NguoiDang"] = new SelectList(_context.SinhVien, "MaSV", "MaSV");
@@ -77,6 +80,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc)
         {
             if (ModelState.IsValid)
@@ -90,6 +94,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: TinTucs/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.TinTuc == null)
@@ -111,6 +116,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id, [Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc)
         {
             if (id != tinTuc.MaTinTuc)
@@ -143,6 +149,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: TinTucs/Delete/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.TinTuc == null)
@@ -164,6 +171,7 @@ namespace website_CLB_HTSV.Controllers
         // POST: TinTucs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.TinTuc == null)

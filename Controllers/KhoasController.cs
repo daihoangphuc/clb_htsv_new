@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: Khoas
+        [Authorize]
         public async Task<IActionResult> Index()
         {
               return _context.Khoa != null ? 
@@ -28,6 +30,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: Khoas/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Khoa == null)
@@ -46,6 +49,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: Khoas/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaKhoa,TenKhoa")] Khoa khoa)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: Khoas/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Khoa == null)
@@ -88,6 +94,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id, [Bind("MaKhoa,TenKhoa")] Khoa khoa)
         {
             if (id != khoa.MaKhoa)
@@ -119,6 +126,7 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // GET: Khoas/Delete/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.Khoa == null)
@@ -139,6 +147,7 @@ namespace website_CLB_HTSV.Controllers
         // POST: Khoas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.Khoa == null)

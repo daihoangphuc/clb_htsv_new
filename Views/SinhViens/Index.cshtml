@@ -123,7 +123,7 @@
                 <td>@sinhVien.Email</td>
                 <td>@sinhVien.MaLop</td>
                 <td>@sinhVien.MaChucVu</td>
-                <td>@sinhVien.HinhAnh</td>
+                <td> <img src="@(Url.Content("~/userimages/" + sinhVien.HinhAnh))" alt="Hình ảnh sinh viên" class="img-thumbnail" style="width: 150px;" /></td>
                 <td>
                     <a asp-action="Details" asp-route-id="@sinhVien.MaSV">Details</a> |
                     <a asp-action="Edit" asp-route-id="@sinhVien.MaSV">Edit</a> |

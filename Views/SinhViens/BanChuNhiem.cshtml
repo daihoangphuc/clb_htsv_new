@@ -21,10 +21,17 @@
                     @foreach (var sinhVien in Model)
                     {
                         <div class="swiper-slide" style="border-radius: 20px;">
-                            <div class=" member-container col-lg-3 col-md-6 d-flex align-items-stretch">
+                            <div class="member-container col-lg-3 col-md-6 d-flex align-items-stretch">
                                 <div class="member" data-aos="fade-up" data-aos-delay="100">
                                     <div class="member-img">
-                                        <img src="https://picsum.photos/500" class="img-fluid" alt="">
+                                        @if (sinhVien.HinhAnh != null)
+                                        {
+                                            <img src="@(Url.Content("~/userimages/" + sinhVien.HinhAnh))" alt="Hình ảnh sinh viên" class="img-thumbnail" alt="Avatar" />
+                                        }
+                                        else
+                                        {
+                                            <img src="https://picsum.photos/500" class="img-fluid" alt="Avatar">
+                                        }
                                     </div>
                                     <br />
                                     <div class="member-info">
@@ -45,6 +52,7 @@
                             </div>
                         </div>
                     }
+
                 }
             </div>
             <div class="swiper-pagination"></div>
