@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+using SendGrid.Helpers.Errors.Model;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
 
@@ -24,11 +26,119 @@ namespace website_CLB_HTSV.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        /*        public IActionResult DSHoatDong()
+        public IActionResult UpdateProfile()
+        {
+            if (!User.IsInRole("Administrators")){
+                // Lấy thông tin sinh viên đăng nhập hiện tại
+                var currentUserId = User.Identity.Name.Split('@')[0];
+
+                // Kiểm tra xem sinh viên đã tồn tại trong cơ sở dữ liệu chưa
+                var sinhVien = _context.SinhVien.Find(currentUserId);
+                ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
+                ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
+                return View(sinhVien);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien updatedSinhVien, IFormFile newImage)
+        {
+            var currentUserId = User.Identity.Name.Split('@')[0];
+            var sinhVien = await GetSinhVienAsync(currentUserId);
+
+            if (sinhVien == null)
+            {
+                await CreateNewSinhVienAsync(updatedSinhVien, newImage, currentUserId);
+            }
+            else
+            {
+                await UpdateExistingSinhVienAsync(sinhVien, updatedSinhVien, newImage);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<SinhVien> GetSinhVienAsync(string maSV)
+        {
+            return await _context.SinhVien.FindAsync(maSV);
+        }
+
+        private async Task CreateNewSinhVienAsync(SinhVien updatedSinhVien, IFormFile newImage, string currentUserId)
+        {
+            var sinhVien = new SinhVien
+            {
+                MaSV = currentUserId,
+                HoTen = updatedSinhVien.HoTen,
+                NgaySinh = updatedSinhVien.NgaySinh,
+                DienThoai = updatedSinhVien.DienThoai,
+                Email = updatedSinhVien.Email,
+                MaLop = updatedSinhVien.MaLop,
+                MaChucVu = updatedSinhVien.MaChucVu
+            };
+
+            await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
+        }
+
+        private async Task UpdateExistingSinhVienAsync(SinhVien sinhVien, SinhVien updatedSinhVien, IFormFile newImage)
+        {
+            sinhVien.HoTen = updatedSinhVien.HoTen;
+            sinhVien.NgaySinh = updatedSinhVien.NgaySinh;
+            sinhVien.DienThoai = updatedSinhVien.DienThoai;
+            sinhVien.Email = updatedSinhVien.Email;
+            sinhVien.MaLop = updatedSinhVien.MaLop;
+            sinhVien.MaChucVu = updatedSinhVien.MaChucVu;
+
+            await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
+        }
+
+        private async Task SaveImageAndUpdateSinhVienAsync(SinhVien sinhVien, IFormFile newImage)
+        {
+            if (newImage != null && newImage.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(newImage.FileName);
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
+                using (var stream = new FileStream(uploadPath, FileMode.Create))
                 {
-                    var sinhViens = _context.ThamGiaHoatDong.ToList();
-                    return View();
-                }*/
+                    await newImage.CopyToAsync(stream);
+                }
+
+                sinhVien.HinhAnh = fileName;
+            }
+
+            try
+            {
+                if (_context.Entry(sinhVien).State == EntityState.Detached)
+                {
+                    _context.Add(sinhVien);
+                }
+                else
+                {
+                    _context.Update(sinhVien);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SinhVienExists(sinhVien.MaSV))
+                {
+                    throw new NotFoundException(); // Bổ sung custom exception hoặc xử lý khác tùy nhu cầu
+                }
+                else
+                {
+                    throw; // Hoặc xử lý lỗi khác
+                }
+            }
+        }
+
+
+
 
 
 

@@ -769,6 +769,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\0d6b8b4d-afdd-447f-af32-0a540125e01a.jpg",
+      "PackagePath": "staticwebassets\\userimages\\0d6b8b4d-afdd-447f-af32-0a540125e01a.jpg"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\155cf2bc-b5e2-4942-890c-3e8fdacf6c8e.png",
+      "PackagePath": "staticwebassets\\userimages\\155cf2bc-b5e2-4942-890c-3e8fdacf6c8e.png"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\20213012-d969-4a3e-98f4-05cb3f0ce46b.png",
       "PackagePath": "staticwebassets\\userimages\\20213012-d969-4a3e-98f4-05cb3f0ce46b.png"
     },
@@ -785,6 +793,18 @@
       "PackagePath": "staticwebassets\\userimages\\37d14101-cfdd-48a3-bf4e-4275653d947d.jpg"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\61f1f6b2-d5ed-4534-893b-b5fca3f467ab.jpg",
+      "PackagePath": "staticwebassets\\userimages\\61f1f6b2-d5ed-4534-893b-b5fca3f467ab.jpg"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\674f8105-cc41-410f-98bc-32aec610eaa9.png",
+      "PackagePath": "staticwebassets\\userimages\\674f8105-cc41-410f-98bc-32aec610eaa9.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\688c43d4-a343-41f7-8bca-0ae040a66d76.png",
+      "PackagePath": "staticwebassets\\userimages\\688c43d4-a343-41f7-8bca-0ae040a66d76.png"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\9b701496-183b-4431-ae23-7879410dcc6a.png",
       "PackagePath": "staticwebassets\\userimages\\9b701496-183b-4431-ae23-7879410dcc6a.png"
     },
@@ -795,6 +815,26 @@
     {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\bd3d15fb-ea93-4bb4-a430-3b9dea1528e0.jfif",
       "PackagePath": "staticwebassets\\userimages\\bd3d15fb-ea93-4bb4-a430-3b9dea1528e0.jfif"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\c9136522-277c-447a-915d-72bd55509e9c.jpg",
+      "PackagePath": "staticwebassets\\userimages\\c9136522-277c-447a-915d-72bd55509e9c.jpg"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\cb52a942-83f7-45a0-857d-235f18b0d2ab.jpg",
+      "PackagePath": "staticwebassets\\userimages\\cb52a942-83f7-45a0-857d-235f18b0d2ab.jpg"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\e0310509-1c5f-4e81-9fe1-054838b59038.png",
+      "PackagePath": "staticwebassets\\userimages\\e0310509-1c5f-4e81-9fe1-054838b59038.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\e153797d-04a7-4a52-9adf-b3ee89a49a36.png",
+      "PackagePath": "staticwebassets\\userimages\\e153797d-04a7-4a52-9adf-b3ee89a49a36.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\e66644bc-3223-4ae4-9495-36b138293588.jpg",
+      "PackagePath": "staticwebassets\\userimages\\e66644bc-3223-4ae4-9495-36b138293588.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.website_CLB_HTSV.props",

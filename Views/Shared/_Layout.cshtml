@@ -64,35 +64,41 @@
 
                     @* <li><a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
                     <li><a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Register">Register</a></li> *@
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#"><span>Chức năng</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="/HoatDongs">Hoạt Động</a></li>
+                                <li><a href="/DangKyHoatDongs">Hoạt Động Đăng Ký</a></li>
+                                <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
+                                <li><a href="/Sinhviens/UpdateProfile">Cập nhật thông tin</a></li>
+                                @if (User.IsInRole("Administrators"))
+                                {
+                                    <li class="dropdown">
+                                        <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                        <ul>
+                                            <li><a href="#">Deep Drop Down 1</a></li>
+                                            <li><a href="#">Deep Drop Down 2</a></li>
+                                            <li><a href="#">Deep Drop Down 3</a></li>
+                                            <li><a href="#">Deep Drop Down 4</a></li>
+                                            <li><a href="#">Deep Drop Down 5</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/TinTucs">Tin Tức</a></li>
+                                    <li><a href="/LopHocs">Lớp Học</a></li>
+                                    <li><a href="/Khoas">Khoa</a></li>
+                                    <li><a href="/ChucVus">Chức Vụ</a></li>
+                                    <li><a href="/Admin">Reset Password</a></li>
+                                    <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
 
-                    <li class="dropdown">
-                        <a href="#"><span>Quản Lý</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="/HoatDongs">Hoạt Động</a></li>
-                            <li><a href="/DangKyHoatDongs">Đăng Kí Hoạt Động</a></li>
+                                }
 
-                            <li class="dropdown">
-                                <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/TinTucs">Tin Tức</a></li>
-                            <li><a href="/LopHocs">Lớp Học</a></li>
-                            <li><a href="/Khoas">Khoa</a></li>
-                            <li><a href="/ChucVus">Chức Vụ</a></li>
-                            <li><a href="/Admin">Reset Password</a></li>
 
-                            <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
-                            <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
-                         
+                            </ul>
+                        </li>
+                    }
 
-                        </ul>
-                    </li>
                     @* <li><a class="nav-link scrollto" href="/ThanhViens">Thành viên</a></li> *@
                     @if (SignInManager.IsSignedIn(User))
                     {
