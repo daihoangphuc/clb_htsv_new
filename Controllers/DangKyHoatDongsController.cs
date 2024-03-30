@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
-
+using OfficeOpenXml;
 namespace website_CLB_HTSV.Controllers
 {
     public class DangKyHoatDongsController : Controller
@@ -22,6 +22,106 @@ namespace website_CLB_HTSV.Controllers
             _context = context;
             _userManager = userManager;
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrators")]
+        public IActionResult ImportExcel()
+        {
+            var activityList = _context.HoatDong
+                                       .Select(a => new SelectListItem
+                                       {
+                                           Value = a.MaHoatDong.ToString(),
+                                           Text = a.TenHoatDong
+                                       })
+                                       .ToList();
+
+            ViewBag.ActivityList = activityList;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
+        public async Task<IActionResult> ImportExcel(string selectedActivity, IFormFile file)
+        {
+            if (file == null || file.Length <= 0)
+            {
+                TempData["ErrorMessage"] = "File is not selected or empty.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var fileExtension = Path.GetExtension(file.FileName).ToUpper();
+            if (fileExtension != ".XLSX" && fileExtension != ".XLS")
+            {
+                TempData["ErrorMessage"] = "Please upload an Excel file.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            using (var stream = new MemoryStream())
+            {
+                await file.CopyToAsync(stream);
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                    {
+                        TempData["ErrorMessage"] = "No worksheet found in the Excel file.";
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    int totalRows = worksheet.Dimension.Rows;
+                    var studentCodes = new List<string>();
+
+                    for (int i = 1; i <= totalRows; i++)
+                    {
+                        var studentCode = worksheet.Cells[i, 1]?.Value?.ToString().Trim();
+                        if (!string.IsNullOrEmpty(studentCode))
+                        {
+                            studentCodes.Add(studentCode);
+                        }
+                    }
+
+                    using (var transaction = _context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            foreach (var studentCode in studentCodes)
+                            {
+                                var registrationRecord = await _context.DangKyHoatDong
+                                    .FirstOrDefaultAsync(r => r.MaSV == studentCode && r.MaHoatDong == selectedActivity);
+
+                                if (registrationRecord != null && !registrationRecord.TrangThaiDangKy)
+                                {
+                                    var participationRecord = new ThamGiaHoatDong
+                                    {
+                                        MaThamGiaHoatDong = "TGHD" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                                        MaDangKy = registrationRecord.MaDangKy,
+                                        DaThamGia = true
+                                        // Các thuộc tính khác...
+                                    };
+
+                                    _context.Add(participationRecord);
+                                }
+                            }
+
+                            await _context.SaveChangesAsync();
+                            transaction.Commit();
+                            TempData["SuccessMessage"] = "Data imported successfully.";
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            TempData["ErrorMessage"] = "Error occurred while importing data: " + ex.Message;
+                        }
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
 
 
         [HttpPost]

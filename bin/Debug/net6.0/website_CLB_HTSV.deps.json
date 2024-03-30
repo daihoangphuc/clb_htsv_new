@@ -9,6 +9,7 @@
       "website_CLB_HTSV/1.0.0": {
         "dependencies": {
           "AspNetCore.Mvc.Paging": "2.2.1",
+          "CsvHelper": "31.0.2",
           "EPPlus": "7.0.9",
           "Microsoft.AspNet.Mvc": "5.3.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.21",
@@ -37,6 +38,14 @@
           "lib/netcoreapp2.0/Microsoft.AspNetCore.Mvc.Paging.dll": {
             "assemblyVersion": "2.2.1.0",
             "fileVersion": "2.2.1.0"
+          }
+        }
+      },
+      "CsvHelper/31.0.2": {
+        "runtime": {
+          "lib/net6.0/CsvHelper.dll": {
+            "assemblyVersion": "31.0.0.0",
+            "fileVersion": "31.0.2.15"
           }
         }
       },
@@ -3340,6 +3349,13 @@
       "sha512": "sha512-ijLGGTQJD9eCYOtOiUBG86hVLO2DuKwgkfVhejGxWPt01mP+y7al0kgEl96VVE/DfviY9XtXN2jNqNgoB+YHJg==",
       "path": "aspnetcore.mvc.paging/2.2.1",
       "hashPath": "aspnetcore.mvc.paging.2.2.1.nupkg.sha512"
+    },
+    "CsvHelper/31.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ndlIN77XcFm6qqGlNPzl0XjVupMCBVhVSiO+1+X2UhJtnnvkx9f//7FOvlkLuEQ76NC3Y7owa8IOhgtKVa4H7Q==",
+      "path": "csvhelper/31.0.2",
+      "hashPath": "csvhelper.31.0.2.nupkg.sha512"
     },
     "EPPlus/7.0.9": {
       "type": "package",

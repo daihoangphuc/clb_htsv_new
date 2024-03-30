@@ -31,11 +31,11 @@ namespace website_CLB_HTSV.Controllers
             if (!User.IsInRole("Administrators")){
                 // Lấy thông tin sinh viên đăng nhập hiện tại
                 var currentUserId = User.Identity.Name.Split('@')[0];
-
                 // Kiểm tra xem sinh viên đã tồn tại trong cơ sở dữ liệu chưa
                 var sinhVien = _context.SinhVien.Find(currentUserId);
-                ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
-                ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
+
+                ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", "CV04");
+                ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop");
                 return View(sinhVien);
             }
             else
@@ -261,7 +261,7 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu");
+            ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu");
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop");
             return View();
         }
@@ -331,27 +331,36 @@ namespace website_CLB_HTSV.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile HinhAnh)
+        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile? HinhAnhNew = null)
         {
             if (id != sinhVien.MaSV)
             {
                 return NotFound();
             }
 
+            // Lấy SinhVien cũ từ cơ sở dữ liệu
+            var sinhVienOld = await _context.SinhVien.AsNoTracking().FirstOrDefaultAsync(s => s.MaSV == id);
+            if (sinhVienOld == null)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                // Xử lý cập nhật ảnh (nếu có)
-                if (HinhAnh != null && HinhAnh.Length > 0)
+                // Kiểm tra nếu có hình ảnh mới được tải lên
+                if (HinhAnhNew != null && HinhAnhNew.Length > 0)
                 {
-                    // Logic lưu trữ ảnh
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnhNew.FileName);
                     var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
                     using (var stream = new FileStream(uploadPath, FileMode.Create))
                     {
-                        await HinhAnh.CopyToAsync(stream);
+                        await HinhAnhNew.CopyToAsync(stream);
                     }
-
-                    sinhVien.HinhAnh = fileName; // Lưu tên file vào model
+                    sinhVien.HinhAnh = fileName; // Cập nhật với tên file hình ảnh mới
+                }
+                else
+                {
+                    sinhVien.HinhAnh = sinhVienOld.HinhAnh; // Giữ nguyên hình ảnh cũ nếu không có hình mới
                 }
 
                 try
@@ -372,7 +381,7 @@ namespace website_CLB_HTSV.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
+            // Load lại thông tin nếu ModelState không hợp lệ
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             return View(sinhVien);

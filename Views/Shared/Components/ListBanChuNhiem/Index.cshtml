@@ -60,7 +60,7 @@
     <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-            <h2>Ban Chủ Nhiệm</h2>
+            <h2 style="font-size: 17px">Ban Chủ Nhiệm</h2>
         </div>
 
         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
@@ -84,7 +84,7 @@
                                     </div>
                                     <br />
                                     <div class="member-info">
-                                        <h4>@sinhVien.HoTen</h4>
+                                        <a href="/SinhViens/Details/?id=@sinhVien.MaSV">  <h4>@sinhVien.HoTen</h4></a>
                                         @if (sinhVien.ChucVu != null)
                                         {
                                             <span>@sinhVien.ChucVu.TenChucVu</span>
@@ -155,7 +155,9 @@
             position: absolute; /* Đặt vị trí tuyệt đối để tạo nền mờ */
             top: 0;
             left: 0;
-            width: 100%;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
             height: 100%;
             border-radius: 25px;
             background: rgb(255,242,254);

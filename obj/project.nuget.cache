@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Wr9Fe5Ri/+MYYDce72Lmmg92aU2aVv43IdS3EjC56uZ2wEVql5DO2+qSbpYtE+0HEgwZs3hTXk+OK3k5Uchi5g==",
+  "dgSpecHash": "83QGxTr67f+0PQbHPuC8eaF3Qw6IaidevvNK9gCZT6SLp0ZfCaJbUO1xW8zufoJbYJgGzYzGxKWIKs5E75FOuA==",
   "success": true,
   "projectFilePath": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\website_CLB_HTSV.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\aspnetcore.mvc.paging\\2.2.1\\aspnetcore.mvc.paging.2.2.1.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\csvhelper\\31.0.2\\csvhelper.31.0.2.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\epplus\\7.0.9\\epplus.7.0.9.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",

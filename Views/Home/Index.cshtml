@@ -5,18 +5,76 @@
         <div class="row">
             <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1 data-aos="fade-up" style="color:  #ff64c5">TUỔI TRẺ</h1>
-                <h1 data-aos="fade-up" data-aos-delay="400" style="color: #38b7fd; padding-left: 70px">LÀ ĐỂ CỐNG HIẾN</h1>
+                <h1 data-aos="fade-up" data-aos-delay="400" style="color: #38b7fd; padding-left: 40px; margin-left: 65px">LÀ ĐỂ </h1>
+                <h1 data-aos="fade-up" data-aos-delay="600" style="color: #ff64c5; padding-left: 40px; margin-left: 110px">CỐNG HIẾN</h1>
+
                 <div data-aos="fade-up" data-aos-delay="800">
-                    <a href="#about" class="btn-get-started scrollto">Trang Chủ</a>
+                    <a href="/" class="btn-get-started scrollto">Trang Chủ</a>
                 </div>
             </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
-                <img src="/assets/img/banner1.png" class="img-fluid animated" alt="">
+                <img src="/assets/img/banner1.png" class="pl-10 img-fluid animated" alt="">
             </div>
         </div>
     </div>
 
 </section><!-- End Hero -->
+
+<div class="section-title" data-aos="fade-up" data-aos-delay="200">
+    <h2 style="color: #38b7fd; font-size: 30px;">GIỚI THIỆU</h2>
+</div>
+<div class="d-flex">
+    <iframe class="responsive-iframe shadow-lg rounded-5" src="https://drive.google.com/file/d/123DghIta4Fj8UxFDeJCkPv58TQGGBw3p/preview" allow="autoplay"></iframe>
+    <div class="content section-title p-5 pt-10" data-aos="fade-up" data-aos-delay="200">
+       
+        <p style="font-size: 20px; padding-bottom: 20px">CLB Hành Trình Sinh Viên, không chỉ là nơi để gặp gỡ bạn bè mới và chia sẻ sở thích chung, mà còn là một cộng đồng đầy sức mạnh, sự sáng tạo và lòng nhiệt huyết. Chúng tôi tin rằng mỗi sinh viên đều có khả năng vượt qua mình và phát triển không ngừng trong hành trình của mình, và chúng tôi sẵn sàng đồng hành cùng họ trên con đường đó.</p>
+    </div>
+</div>
+<style>
+
+    @@media (max-width: 991.98px) {
+        .pl-lg-4 {
+            padding-left: 0 !important;
+        }
+    }
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .responsive-iframe {
+    width: 100%;
+    height: 250px;
+    max-width: 800px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+  }
+  @@media only screen and (min-width: 600px) {
+    .responsive-iframe {
+      width: 50%;
+      height: 400px;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      width: 50%;
+      margin: auto;
+      text-align: left;
+    }
+
+        .content {
+            padding-left: 10px; /* Đặt padding bên trái */
+            padding-right: 1c0px; /* Đặt padding bên phải */
+            box-sizing: border-box;
+        }
+  }
+
+</style>
 @await Component.InvokeAsync("ListTinTuc")
 @await Component.InvokeAsync("ListBanChuNhiem")
 
@@ -33,8 +91,8 @@
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="contact-about">
-                    <h3>Về chúng tôi</h3>
-                    <p>CLB Hành Trình Sinh Viên, không chỉ là nơi để gặp gỡ bạn bè mới và chia sẻ sở thích chung, mà còn là một cộng đồng đầy sức mạnh, sự sáng tạo và lòng nhiệt huyết. Chúng tôi tin rằng mỗi sinh viên đều có khả năng vượt qua mình và phát triển không ngừng trong hành trình của mình, và chúng tôi sẵn sàng đồng hành cùng họ trên con đường đó.</p>
+                    @* <h3>Về chúng tôi</h3> *@
+                    @* <p>CLB Hành Trình Sinh Viên, không chỉ là nơi để gặp gỡ bạn bè mới và chia sẻ sở thích chung, mà còn là một cộng đồng đầy sức mạnh, sự sáng tạo và lòng nhiệt huyết. Chúng tôi tin rằng mỗi sinh viên đều có khả năng vượt qua mình và phát triển không ngừng trong hành trình của mình, và chúng tôi sẵn sàng đồng hành cùng họ trên con đường đó.</p> *@
                     <div class="social-links">
                         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
