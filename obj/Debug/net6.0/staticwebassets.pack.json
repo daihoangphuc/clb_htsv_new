@@ -897,6 +897,10 @@
       "PackagePath": "staticwebassets\\userimages\\f6b45008-d22a-4ddd-bfab-1507ed05b0a6.png"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\f763398a-bcc5-47dd-8b4e-38d519c58c4e.png",
+      "PackagePath": "staticwebassets\\userimages\\f763398a-bcc5-47dd-8b4e-38d519c58c4e.png"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.website_CLB_HTSV.props",
       "PackagePath": "build\\website_CLB_HTSV.props"
     },

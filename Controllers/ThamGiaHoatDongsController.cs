@@ -22,8 +22,26 @@ namespace website_CLB_HTSV.Controllers
         // GET: ThamGiaHoatDongs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ThamGiaHoatDong.Include(t => t.DangKyHoatDong);
-            return View(await applicationDbContext.ToListAsync());
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["ErrorMessage"] = "Bạn cần đăng nhập để truy cập vào trang này.";
+            }
+            else
+            {
+                if (User.IsInRole("Administrators"))
+                {
+                    var applicationDbContext = _context.ThamGiaHoatDong.Include(t => t.DangKyHoatDong).Include(h=>h.DangKyHoatDong.HoatDong).Include(s=>s.DangKyHoatDong.SinhVien);
+                    return View(await applicationDbContext.ToListAsync());
+                }
+                else
+                {
+                    var mssv = User.Identity.Name.Split('@')[0];
+                    var applicationDbContext = _context.ThamGiaHoatDong.Where(h => h.MaSV == mssv).Include(t => t.DangKyHoatDong).Include(h => h.DangKyHoatDong.HoatDong).Include(s => s.DangKyHoatDong.SinhVien);
+                    return View(await applicationDbContext.ToListAsync());
+                }
+
+            }
+            return Redirect("/Identity/Account/Login");
         }
 
         // GET: ThamGiaHoatDongs/Details/5
@@ -57,7 +75,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaThamGiaHoatDong,MaDangKy,DaThamGia")] ThamGiaHoatDong thamGiaHoatDong)
+        public async Task<IActionResult> Create([Bind("MaThamGiaHoatDong,MaDangKy,MaSV,MaHoatDong,DaThamGia,LinkMinhChung")] ThamGiaHoatDong thamGiaHoatDong)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +109,7 @@ namespace website_CLB_HTSV.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MaThamGiaHoatDong,MaDangKy,DaThamGia")] ThamGiaHoatDong thamGiaHoatDong)
+        public async Task<IActionResult> Edit(string id, [Bind("MaThamGiaHoatDong,MaDangKy,MaSV,MaHoatDong,DaThamGia,LinkMinhChung")] ThamGiaHoatDong thamGiaHoatDong)
         {
             if (id != thamGiaHoatDong.MaThamGiaHoatDong)
             {

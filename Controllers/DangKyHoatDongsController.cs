@@ -23,17 +23,18 @@ namespace website_CLB_HTSV.Controllers
             _userManager = userManager;
         }
 
+        //Cập nhật minh chứng 
         [HttpGet]
         [Authorize(Roles = "Administrators")]
-        public IActionResult ImportExcel()
+        public async Task<IActionResult> CapNhatMinhChung()
         {
-            var activityList = _context.HoatDong
-                                       .Select(a => new SelectListItem
-                                       {
-                                           Value = a.MaHoatDong.ToString(),
-                                           Text = a.TenHoatDong
-                                       })
-                                       .ToList();
+            var activityList = await _context.HoatDong
+                                             .Select(a => new SelectListItem
+                                             {
+                                                 Value = a.MaHoatDong.ToString(),
+                                                 Text = a.TenHoatDong
+                                             })
+                                             .ToListAsync();
 
             ViewBag.ActivityList = activityList;
 
@@ -43,82 +44,130 @@ namespace website_CLB_HTSV.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> ImportExcel(string selectedActivity, IFormFile file)
+        public async Task<IActionResult> CapNhatMinhChung(string hoatDongId, string minhChungLink)
         {
-            if (file == null || file.Length <= 0)
+            if (string.IsNullOrEmpty(hoatDongId) || string.IsNullOrEmpty(minhChungLink))
             {
-                TempData["ErrorMessage"] = "File is not selected or empty.";
+                TempData["ErrorMessage"] = "Thông tin hoặc đường dẫn minh chứng không hợp lệ.";
                 return RedirectToAction(nameof(Index));
             }
 
-            var fileExtension = Path.GetExtension(file.FileName).ToUpper();
-            if (fileExtension != ".XLSX" && fileExtension != ".XLS")
+            // Lấy danh sách sinh viên đã tham gia hoạt động
+            var registeredStudents = await _context.ThamGiaHoatDong
+                .Where(dk => dk.MaHoatDong == hoatDongId)
+                .ToListAsync();
+
+            if (registeredStudents == null || !registeredStudents.Any())
             {
-                TempData["ErrorMessage"] = "Please upload an Excel file.";
+                TempData["ErrorMessage"] = "Không có sinh viên nào đã đăng ký hoạt động này.";
                 return RedirectToAction(nameof(Index));
             }
 
-            using (var stream = new MemoryStream())
+            foreach (var registeredStudent in registeredStudents)
             {
-                await file.CopyToAsync(stream);
-                using (var package = new ExcelPackage(stream))
+                registeredStudent.LinkMinhChung = minhChungLink;
+
+                _context.ThamGiaHoatDong.Update(registeredStudent);
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Đã cập nhật minh chứng cho tất cả sinh viên thành công.";
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
+        //Import
+        [HttpGet]
+        [Authorize(Roles = "Administrators")]
+        public async Task<IActionResult> ImportDiemDanh()
+        {
+            var activityList = await _context.HoatDong
+                                             .Select(a => new SelectListItem
+                                             {
+                                                 Value = a.MaHoatDong.ToString(),
+                                                 Text = a.TenHoatDong
+                                             })
+                                             .ToListAsync();
+
+            ViewBag.ActivityList = activityList;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
+        public async Task<IActionResult> ImportDiemDanh(IFormFile file, string hoatDongId)
+        {
+            if (file == null || string.IsNullOrEmpty(hoatDongId))
+            {
+                TempData["ErrorMessage"] = "File hoặc hoạt động không hợp lệ.";
+                return RedirectToAction(nameof(ImportDiemDanh)); // Chuyển hướng trở lại action ImportDiemDanh
+            }
+
+            var importedStudentCodes = ReadStudentCodesFromExcel(file);
+
+            if (importedStudentCodes == null || !importedStudentCodes.Any())
+            {
+                TempData["ErrorMessage"] = "Không có dữ liệu trong file.";
+                return RedirectToAction(nameof(ImportDiemDanh)); // Chuyển hướng trở lại action ImportDiemDanh
+            }
+
+            // Lấy danh sách sinh viên đã đăng ký cho hoạt động
+            var registeredStudents = await _context.DangKyHoatDong
+                                                .Where(dk => dk.MaHoatDong == hoatDongId)
+                                                .ToListAsync();
+
+            foreach (var registeredStudent in registeredStudents)
+            {
+                if (importedStudentCodes.Contains(registeredStudent.MaSV))
                 {
-                    ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
+                    // Kiểm tra xem sinh viên đã điểm danh chưa, nếu chưa thì cập nhật
+                    var attendanceRecord = await _context.ThamGiaHoatDong
+                                                        .FirstOrDefaultAsync(t => t.MaDangKy == registeredStudent.MaDangKy);
+
+                    if (attendanceRecord == null)
                     {
-                        TempData["ErrorMessage"] = "No worksheet found in the Excel file.";
-                        return RedirectToAction(nameof(Index));
-                    }
-
-                    int totalRows = worksheet.Dimension.Rows;
-                    var studentCodes = new List<string>();
-
-                    for (int i = 1; i <= totalRows; i++)
-                    {
-                        var studentCode = worksheet.Cells[i, 1]?.Value?.ToString().Trim();
-                        if (!string.IsNullOrEmpty(studentCode))
+                        var newAttendanceRecord = new ThamGiaHoatDong
                         {
-                            studentCodes.Add(studentCode);
-                        }
-                    }
+                            MaThamGiaHoatDong = "TG" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                            MaDangKy = registeredStudent.MaDangKy,
+                            DaThamGia = true,
+                            MaSV = registeredStudent.MaSV,
+                            MaHoatDong = registeredStudent.MaHoatDong
+                        };
 
-                    using (var transaction = _context.Database.BeginTransaction())
-                    {
-                        try
-                        {
-                            foreach (var studentCode in studentCodes)
-                            {
-                                var registrationRecord = await _context.DangKyHoatDong
-                                    .FirstOrDefaultAsync(r => r.MaSV == studentCode && r.MaHoatDong == selectedActivity);
-
-                                if (registrationRecord != null && !registrationRecord.TrangThaiDangKy)
-                                {
-                                    var participationRecord = new ThamGiaHoatDong
-                                    {
-                                        MaThamGiaHoatDong = "TGHD" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
-                                        MaDangKy = registrationRecord.MaDangKy,
-                                        DaThamGia = true
-                                        // Các thuộc tính khác...
-                                    };
-
-                                    _context.Add(participationRecord);
-                                }
-                            }
-
-                            await _context.SaveChangesAsync();
-                            transaction.Commit();
-                            TempData["SuccessMessage"] = "Data imported successfully.";
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            TempData["ErrorMessage"] = "Error occurred while importing data: " + ex.Message;
-                        }
+                        _context.ThamGiaHoatDong.Add(newAttendanceRecord);
                     }
                 }
             }
 
-            return RedirectToAction(nameof(Index));
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Đã import và cập nhật điểm danh thành công.";
+            return RedirectToAction("Index", "ThamGiaHoatDongs"); // Hoặc trả về một View cụ thể
+        }
+
+        private List<string> ReadStudentCodesFromExcel(IFormFile file)
+        {
+            List<string> studentCodes = new List<string>();
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                    int rowCount = worksheet.Dimension.Rows;
+                    for (int row = 2; row <= rowCount; row++)
+                    {
+                        studentCodes.Add(worksheet.Cells[row, 1].Value?.ToString().Trim());
+                    }
+                }
+            }
+            return studentCodes;
         }
 
 
@@ -185,16 +234,30 @@ namespace website_CLB_HTSV.Controllers
             }
             else
             {
-
-                // Lấy thông tin người dùng hiện tại
                 var currentUser = await _userManager.GetUserAsync(User);
                 var Mssv = User.Identity.Name.Split('@')[0];
-                var hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.MaSV == Mssv && dk.TrangThaiDangKy == true);
-                if (!string.IsNullOrEmpty(searchString))
+                if (!User.IsInRole("Administrators"))
                 {
-                    hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
+                    // Lấy thông tin người dùng hiện tại
+
+
+                    var hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.MaSV == Mssv && dk.TrangThaiDangKy == true);
+                    if (!string.IsNullOrEmpty(searchString))
+                    {
+                        hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
+                    }
+                    return View(await hoatdong.ToListAsync());
                 }
-                return View(await hoatdong.ToListAsync());
+                else
+                {
+                    var hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.TrangThaiDangKy == true);
+                    if (!string.IsNullOrEmpty(searchString))
+                    {
+                        hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
+                    }
+                    return View(await hoatdong.ToListAsync());
+                }
+
 
             } 
             return Redirect("/Identity/Account/Login");

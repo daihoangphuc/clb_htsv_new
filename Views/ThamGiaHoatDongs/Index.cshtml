@@ -5,19 +5,40 @@
 }
 
 <h1>Index</h1>
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <form asp-controller="ThamGiaHoatDongs" asp-action="Index" class="search-form justify-center mb-2">
+        <div class="search-container">
+            <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
+            <button class="search-button ml-2">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+}
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DaThamGia)
+                Mã sinh viên
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DangKyHoatDong)
+                Họ tên
             </th>
+            <th>
+                Tên hoạt động
+            </th>
+            <th>
+                Đã tham gia
+            </th>
+            <th>
+                Link minh chứng
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -25,17 +46,83 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.MaSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DangKyHoatDong.SinhVien.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DangKyHoatDong.HoatDong.TenHoatDong)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DaThamGia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DangKyHoatDong.MaDangKy)
+                @Html.DisplayFor(modelItem => item.LinkMinhChung)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaThamGiaHoatDong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaThamGiaHoatDong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaThamGiaHoatDong">Delete</a>
-            </td>
-        </tr>
+
+                @if (User.IsInRole("Administrators"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaThamGiaHoatDong">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaThamGiaHoatDong">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MaThamGiaHoatDong">Delete</a>
+                    </td>
+                }
+            </tr>
 }
     </tbody>
 </table>
+
+
+<style>
+
+    /* Form */
+    .search-form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .search-container {
+        position: relative;
+        width: 100%; /* Thanh tìm kiếm sẽ căng toàn bộ chiều rộng của phần tử cha */
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid #38b7fd;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        background-color: transparent;
+    }
+
+    .search-button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding-bottom: 10px;
+    }
+
+        .search-button i {
+            font-size: 20px;
+        }
+
+    @@media (min-width: 640px) {
+        .search-container {
+            width: 700px;
+        }
+
+        .search-input {
+            width: 700px; /* Đặt lại kích thước cho trường hợp màn hình lớn hơn 640px */
+            min-width: 200px; /* Đặt kích thước tối thiểu cho ô tìm kiếm */
+        }
+    }
+
+</style>
