@@ -57,6 +57,7 @@ namespace website_CLB_HTSV.Controllers
                 .Where(dk => dk.MaHoatDong == hoatDongId)
                 .ToListAsync();
 
+
             if (registeredStudents == null || !registeredStudents.Any())
             {
                 TempData["ErrorMessage"] = "Không có sinh viên nào đã đăng ký hoạt động này.";
@@ -65,15 +66,17 @@ namespace website_CLB_HTSV.Controllers
 
             foreach (var registeredStudent in registeredStudents)
             {
-                registeredStudent.LinkMinhChung = minhChungLink;
+                 registeredStudent.LinkMinhChung = minhChungLink;
 
                 _context.ThamGiaHoatDong.Update(registeredStudent);
             }
+            // Cập nhật trạng thái hoạt động nếu link minh chứng không rỗng
+
 
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Đã cập nhật minh chứng cho tất cả sinh viên thành công.";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "ThamGiaHoatDongs");
         }
 
 
@@ -120,7 +123,7 @@ namespace website_CLB_HTSV.Controllers
             var registeredStudents = await _context.DangKyHoatDong
                                                 .Where(dk => dk.MaHoatDong == hoatDongId)
                                                 .ToListAsync();
-
+            var hoatDong = await _context.HoatDong.FirstOrDefaultAsync(h => h.MaHoatDong == hoatDongId);
             foreach (var registeredStudent in registeredStudents)
             {
                 if (importedStudentCodes.Contains(registeredStudent.MaSV))
@@ -139,10 +142,12 @@ namespace website_CLB_HTSV.Controllers
                             MaSV = registeredStudent.MaSV,
                             MaHoatDong = registeredStudent.MaHoatDong
                         };
+                        hoatDong.TrangThai = "Đã kết thúc"; // Cập nhật trạng thái hoạt động là true
+                        _context.HoatDong.Update(hoatDong);
 
                         _context.ThamGiaHoatDong.Add(newAttendanceRecord);
                     }
-                }
+                }   
             }
 
             await _context.SaveChangesAsync();

@@ -71,31 +71,26 @@
                             <ul>
                                 <li><a href="/HoatDongs">Hoạt Động</a></li>
                                 <li><a href="/DangKyHoatDongs">Hoạt Động Đã Đăng Ký</a></li>
-                                <li><a href="/ThamGiaHoatDongs">Hoạt Động Đã Tham Gia</a></li>
-
+                                 <li><a href="/ThamGiaHoatDongs">Hoạt Động Đã Tham Gia</a></li>
                                 <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
                                 <li><a href="/Sinhviens/UpdateProfile">Cập nhật thông tin</a></li>
                                 @if (User.IsInRole("Administrators"))
                                 {
                                     <li class="dropdown">
-                                        <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                        <a href="#"><span>Quyền Admin</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="#">Deep Drop Down 1</a></li>
-                                            <li><a href="#">Deep Drop Down 2</a></li>
-                                            <li><a href="#">Deep Drop Down 3</a></li>
-                                            <li><a href="#">Deep Drop Down 4</a></li>
-                                            <li><a href="#">Deep Drop Down 5</a></li>
+                                            <li><a href="/ThamGiaHoatDongs/XuatDS">Xuất danh sách tham gia hoạt động</a></li>
+                                            <li><a href="/DangKyHoatDongs/ImportDiemDanh">Điểm danh</a></li>
+                                            <li><a href="/DangKyHoatDongs/CapNhatMinhChung">Cập nhật minh chứng</a></li>
+                                            <li><a href="/TinTucs">Tin Tức</a></li>
+                                            <li><a href="/LopHocs">Lớp Học</a></li>
+                                            <li><a href="/Khoas">Khoa</a></li>
+                                            <li><a href="/ChucVus">Chức Vụ</a></li>
+                                            <li><a href="/Admin">Reset Password</a></li>
+                                            <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/DangKyHoatDongs/ImportDiemDanh">Điểm danh</a></li>
-                                    <li><a href="/DangKyHoatDongs/CapNhatMinhChung">Cập nhật minh chứng</a></li>
-
-                                    <li><a href="/TinTucs">Tin Tức</a></li>
-                                    <li><a href="/LopHocs">Lớp Học</a></li>
-                                    <li><a href="/Khoas">Khoa</a></li>
-                                    <li><a href="/ChucVus">Chức Vụ</a></li>
-                                    <li><a href="/Admin">Reset Password</a></li>
-                                    <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
+                                   
 
                                 }
 

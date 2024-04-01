@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hoạt động đã đăng ký</h1>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 @if (User.IsInRole("Administrators"))
 {
@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.SinhVien.HoTen)
                 </td>
                 <td>
-                    @item.NgayDangKy.ToString("HH:mm dd/MM/yyyy")
+                    @item.NgayDangKy.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @if (item.TrangThaiDangKy)
@@ -62,6 +62,8 @@
                         <span class="cross-mark">&#10005;</span>
                     }
                 </td>
+                @if (item.HoatDong.TrangThai != "Đã kết thúc")
+                {
                 <td>
                     <form asp-controller="DangKyHoatDongs" asp-action="HuyDangKy" method="post" asp-route-hoatDongId="@item.MaHoatDong">
                         <button type="submit" class="bg-red-500 text-white font-semibold px-4 py-2 rounded hover:bg-red-600 register-btn">
@@ -69,11 +71,16 @@
                         </button>
                     </form>
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaDangKy">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaDangKy">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaDangKy">Delete</a>
-                </td>
+                    
+                }
+                @if (User.IsInRole("Administrators"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaDangKy">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaDangKy">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MaDangKy">Delete</a>
+                    </td>
+                }
                 
             </tr>
         }
