@@ -208,7 +208,7 @@ namespace website_CLB_HTSV.Controllers
 
         // GET: SinhViens
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             var sinhViens = from s in _context.SinhVien.Include(s => s.ChucVu).Include(s => s.LopHoc)
                             select s;
@@ -224,7 +224,8 @@ namespace website_CLB_HTSV.Controllers
                 HttpContext.Session.SetString("searchString", searchString);
             }
 
-            return View(await sinhViens.ToListAsync());
+            int pageSize = 10; // Số lượng mục trên mỗi trang
+            return View(await PaginatedList<SinhVien>.CreateAsync(sinhViens.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         [Authorize]

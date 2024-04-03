@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
 
@@ -17,13 +19,14 @@ namespace website_CLB_HTSV.Controllers
     public class HoatDongsController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-/*        private readonly IConfiguration _configuration;*/
+        private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
 
-        public HoatDongsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public HoatDongsController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
+            _configuration = configuration;
         }
         public string GetIDFromEmail(string email)
         {
@@ -32,6 +35,32 @@ namespace website_CLB_HTSV.Controllers
 
             var parts = email.Split('@');
             return parts.Length > 0 ? parts[0] : email;
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTrangThai()
+        {
+            try
+            {
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                string updateQuery = "UPDATE HoatDong SET TrangThai = NULL";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(updateQuery, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                TempData["SuccessMessage"] = "Cập nhật trạng thái thành công.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Đã xảy ra lỗi: " + ex.Message;
+            }
+
+            return RedirectToAction("Index"); // Chuyển hướng đến action Index hoặc một action khác nếu cần
         }
         /*private int LaySoDongTrongBang(string tenbang)
         {
@@ -49,10 +78,10 @@ namespace website_CLB_HTSV.Controllers
                 }
             }
         }*/
-/*        public static string Taoidtaikhoan(int sequentialNumber)
-        {
-            return $"DK{sequentialNumber:D3}";
-        }*/
+        /*        public static string Taoidtaikhoan(int sequentialNumber)
+                {
+                    return $"DK{sequentialNumber:D3}";
+                }*/
 
         [HttpPost]
         [Authorize(Roles = "Users")]
@@ -107,7 +136,7 @@ namespace website_CLB_HTSV.Controllers
                 var hoatdong = _context.HoatDong.Where(hd => !_context.DangKyHoatDong
                                                                 .Any(dk => dk.MaHoatDong == hd.MaHoatDong
                                                                         && dk.MaSV == Mssv
-                                                                        && dk.TrangThaiDangKy == true));
+                                                                        && dk.TrangThaiDangKy == true) && hd.TrangThai != "Đã kết thúc");
 
                 // Lọc theo chuỗi tìm kiếm nếu có
                 if (!string.IsNullOrEmpty(searchString))
@@ -160,6 +189,7 @@ namespace website_CLB_HTSV.Controllers
         public async Task<IActionResult> Create([Bind("MaHoatDong,TenHoatDong,MoTa,ThoiGian,DiaDiem,HocKy,NamHoc,HinhAnh,TrangThai,DaDangKi,DaThamGia,MinhChung")] HoatDong hoatDong)
         {
             hoatDong.MaHoatDong = "HD" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            hoatDong.TrangThai = "Sắp diễn ra";
             if (ModelState.IsValid)
             {
                 _context.Add(hoatDong);

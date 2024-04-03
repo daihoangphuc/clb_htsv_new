@@ -665,19 +665,6 @@
           }
         }
       },
-      "JetBrains.Annotations/2022.3.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/JetBrains.Annotations.dll": {
-            "related": ".deps.json;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/JetBrains.Annotations.dll": {
-            "related": ".deps.json;.xml"
-          }
-        }
-      },
       "MessagePack/2.1.152": {
         "type": "package",
         "dependencies": {
@@ -5279,11 +5266,8 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "X.PagedList/8.4.7": {
+      "X.PagedList/9.1.2": {
         "type": "package",
-        "dependencies": {
-          "JetBrains.Annotations": "2022.3.1"
-        },
         "compile": {
           "lib/net6.0/X.PagedList.dll": {}
         },
@@ -5291,10 +5275,10 @@
           "lib/net6.0/X.PagedList.dll": {}
         }
       },
-      "X.PagedList.Mvc.Core/8.4.7": {
+      "X.PagedList.Mvc.Core/9.1.2": {
         "type": "package",
         "dependencies": {
-          "X.PagedList": "8.4.7"
+          "X.PagedList": "9.1.2"
         },
         "compile": {
           "lib/net6.0/X.PagedList.Mvc.Core.dll": {}
@@ -6162,28 +6146,6 @@
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll",
         "logo.png"
-      ]
-    },
-    "JetBrains.Annotations/2022.3.1": {
-      "sha512": "11nsS3+lFICGkztVs9PP2NRItxf9fF+qD6xEW/T0YGto52zj07wseUeBdMAU1ah9HNVTDZyRC1u4NWdtJScwhw==",
-      "type": "package",
-      "path": "jetbrains.annotations/2022.3.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "icon.png",
-        "jetbrains.annotations.2022.3.1.nupkg.sha512",
-        "jetbrains.annotations.nuspec",
-        "lib/net20/JetBrains.Annotations.dll",
-        "lib/net20/JetBrains.Annotations.xml",
-        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
-        "lib/netstandard1.0/JetBrains.Annotations.dll",
-        "lib/netstandard1.0/JetBrains.Annotations.xml",
-        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
-        "lib/netstandard2.0/JetBrains.Annotations.dll",
-        "lib/netstandard2.0/JetBrains.Annotations.xml",
-        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
-        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
       ]
     },
     "MessagePack/2.1.152": {
@@ -13878,31 +13840,35 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "X.PagedList/8.4.7": {
-      "sha512": "ZA1WcyNviMUhivCgwKAm/5/YsNP3Yf/n81SzrPaHSJOcFzavA9MrXTT8M+ZX4fvHwLCL1bY6BPXvwZF5pRtgTg==",
+    "X.PagedList/9.1.2": {
+      "sha512": "qePK/lt+Y8PeQM9E/DkWY/AIyxDVEMX0XFCU5CfLP1+Y9SUThFyaY8/QgldOg9uOJLvse1i3oAQDJOrhb3usdw==",
       "type": "package",
-      "path": "x.pagedlist/8.4.7",
+      "path": "x.pagedlist/9.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "README.md",
+        "icon.png",
         "lib/net6.0/X.PagedList.dll",
-        "lib/net7.0/X.PagedList.dll",
+        "lib/net8.0/X.PagedList.dll",
         "lib/netstandard2.0/X.PagedList.dll",
         "lib/netstandard2.1/X.PagedList.dll",
-        "x.pagedlist.8.4.7.nupkg.sha512",
+        "x.pagedlist.9.1.2.nupkg.sha512",
         "x.pagedlist.nuspec"
       ]
     },
-    "X.PagedList.Mvc.Core/8.4.7": {
-      "sha512": "dS8sJr/aT3AoV9ePaqmF4wijh/2vqS9rxpOvzjPPStkQcR8rUaGPVezPgY/kJwWCZ2hdgKNralbU08So0otNxw==",
+    "X.PagedList.Mvc.Core/9.1.2": {
+      "sha512": "+g8fJgXXVhl17BzVv8bGAkWooul23REeGNIJ4jUlA1Iqbw8Yq0OFMx/mGvjjEhIBNwDrjdhJKXGt7N7jejZWcQ==",
       "type": "package",
-      "path": "x.pagedlist.mvc.core/8.4.7",
+      "path": "x.pagedlist.mvc.core/9.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "README.md",
+        "icon.png",
         "lib/net6.0/X.PagedList.Mvc.Core.dll",
-        "lib/net7.0/X.PagedList.Mvc.Core.dll",
-        "x.pagedlist.mvc.core.8.4.7.nupkg.sha512",
+        "lib/net8.0/X.PagedList.Mvc.Core.dll",
+        "x.pagedlist.mvc.core.9.1.2.nupkg.sha512",
         "x.pagedlist.mvc.core.nuspec"
       ]
     }
@@ -13924,8 +13890,8 @@
       "PagedList >= 1.17.0",
       "PagedList.Mvc >= 4.5.0",
       "SendGrid >= 9.29.2",
-      "X.PagedList >= 8.4.7",
-      "X.PagedList.Mvc.Core >= 8.4.7"
+      "X.PagedList >= 9.1.2",
+      "X.PagedList.Mvc.Core >= 9.1.2"
     ]
   },
   "packageFolders": {
@@ -14031,11 +13997,11 @@
           },
           "X.PagedList": {
             "target": "Package",
-            "version": "[8.4.7, )"
+            "version": "[9.1.2, )"
           },
           "X.PagedList.Mvc.Core": {
             "target": "Package",
-            "version": "[8.4.7, )"
+            "version": "[9.1.2, )"
           }
         },
         "imports": [
