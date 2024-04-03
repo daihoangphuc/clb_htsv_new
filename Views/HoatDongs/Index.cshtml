@@ -28,13 +28,13 @@
 
 
 
-<main class="container mx-auto py-8">
+<main class="container mx-auto py-8" >
     <section class="bg-white shadow-md p-6 rounded-md">
         <h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động sắp tới</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @foreach (var i in Model.Items)
             {
-                <div class="flex flex-col md:flex-row bg-gradient-to-r from-pink-50 to-blue-100 p-4 items-center" style="border-radius: 15px">
+                <div class="flex flex-col md:flex-row bg-gradient-to-r from-pink-50 to-blue-100 p-4 items-center" style="border-radius: 10px">
                     <div class="md:w-3/4">
                         <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
                         <p class="activity-description text-sm md:text-base">@i.MoTa<br>Thời Gian: <span class="font-semibold">@i.ThoiGian.ToString("HH:mm")</span> ngày <span class="font-semibold">@i.ThoiGian.ToString("dd/MM/yyyy")</span><br>Địa Điểm: <span class="font-semibold">@i.DiaDiem</span><br>Trạng Thái: <span class="font-semibold">@i.TrangThai</span></p>

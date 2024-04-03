@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Hoạt động đã tham gia</h1>
 @if (User.IsInRole("Administrators"))
 {
     <p>
@@ -19,6 +18,7 @@
             </button>
         </div>
     </form>
+<h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động đã tham gia</h2>
 
 
 
@@ -61,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.DaThamGia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkMinhChung)
+                    <a href="@item.LinkMinhChung">@Html.DisplayFor(modelItem => item.LinkMinhChung)</a>
             </td>
 
                 @if (User.IsInRole("Administrators"))
