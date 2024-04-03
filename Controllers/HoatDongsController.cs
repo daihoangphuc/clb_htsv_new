@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -118,40 +119,49 @@ namespace website_CLB_HTSV.Controllers
 
         // GET: HoatDongs
         [Authorize]
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             // Kiểm tra người dùng đã đăng nhập hay chưa
             if (!User.Identity.IsAuthenticated)
             {
                 // Nếu chưa đăng nhập, đặt thông báo vào TempData
                 TempData["ErrorMessage"] = "Bạn cần đăng nhập để truy cập vào trang này.";
+                return Redirect("/Identity/Account/Login");
             }
-            else
+
+            // Lấy thông tin người dùng hiện tại
+            var currentUser = await _userManager.GetUserAsync(User);
+            var Mssv = User.Identity.Name.Split('@')[0];
+
+            // Lọc các hoạt động dựa trên trạng thái đăng ký của người dùng hiện tại
+            var hoatdong = _context.HoatDong
+                .Where(hd => !_context.DangKyHoatDong
+                    .Any(dk => dk.MaHoatDong == hd.MaHoatDong
+                            && dk.MaSV == Mssv
+                            && dk.TrangThaiDangKy == true) && hd.TrangThai != "Đã kết thúc");
+
+            // Lọc theo chuỗi tìm kiếm nếu có
+            if (!string.IsNullOrEmpty(searchString))
             {
-                // Lấy thông tin người dùng hiện tại
-                var currentUser = await _userManager.GetUserAsync(User);
-                var Mssv = User.Identity.Name.Split('@')[0];
-
-                // Lọc các hoạt động dựa trên trạng thái đăng ký của người dùng hiện tại
-                var hoatdong = _context.HoatDong.Where(hd => !_context.DangKyHoatDong
-                                                                .Any(dk => dk.MaHoatDong == hd.MaHoatDong
-                                                                        && dk.MaSV == Mssv
-                                                                        && dk.TrangThaiDangKy == true) && hd.TrangThai != "Đã kết thúc");
-
-                // Lọc theo chuỗi tìm kiếm nếu có
-                if (!string.IsNullOrEmpty(searchString))
+                // Chuyển đổi chuỗi ngày tháng năm đầu vào sang định dạng DateTime
+                if (DateTime.TryParseExact(searchString, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime searchDate))
                 {
+                    // Nếu chuyển đổi thành công, lọc theo ngày tháng năm
+                    hoatdong = hoatdong.Where(s => s.TenHoatDong.Contains(searchString)
+                                                || s.MoTa.Contains(searchString)
+                                                || s.ThoiGian.Date == searchDate.Date);
+                }
+                else
+                {
+                    // Nếu không thành công, chỉ lọc theo các trường khác (tên hoạt động, mô tả)
                     hoatdong = hoatdong.Where(s => s.TenHoatDong.Contains(searchString)
                                                 || s.MoTa.Contains(searchString));
                 }
-
-                return View(await hoatdong.ToListAsync());
             }
-            return Redirect("/Identity/Account/Login");
 
 
-
-
+            int pageSize = 4; // Số lượng mục trên mỗi trang
+            return View(await PaginatedList<HoatDong>.CreateAsync(hoatdong.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: HoatDongs/Details/5

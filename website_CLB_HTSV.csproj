@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\newsimages\" />
     <Folder Include="wwwroot\userimages\" />
   </ItemGroup>
 

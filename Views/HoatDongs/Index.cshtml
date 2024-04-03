@@ -1,5 +1,4 @@
-﻿@model IEnumerable<website_CLB_HTSV.Models.HoatDong>
-
+﻿@model PaginatedList<HoatDong>
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,7 +9,12 @@
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-    <form asp-controller="HoatDongs" asp-action="Index" class="search-form justify-center mb-2">
+    @using (Html.BeginForm("UpdateTrangThai", "HoatDongs", FormMethod.Post))
+    {
+        <button type="submit">Cập nhật Trạng thái</button>
+    }
+}
+<form asp-controller="HoatDongs" asp-action="Index" class="search-form justify-center mb-2">
         <div class="search-container">
             <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
             <button class="search-button ml-2">
@@ -18,28 +22,25 @@
             </button>
         </div>
     </form>
-    @using (Html.BeginForm("UpdateTrangThai", "HoatDongs", FormMethod.Post))
-    {
-        <button type="submit">Cập nhật Trạng thái</button>
-    }
 
-}
+
+
 
 
 
 <main class="container mx-auto py-8">
-        <section class="bg-white shadow-md p-6 rounded-md">
-            <h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động sắp tới</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                @foreach (var i in Model)
-                {
-                    <div class="flex flex-col md:flex-row bg-gray-200 p-4 rounded-md items-center">
-                        <div class="md:w-3/4">
-                            <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
+    <section class="bg-white shadow-md p-6 rounded-md">
+        <h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động sắp tới</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @foreach (var i in Model.Items)
+            {
+                <div class="flex flex-col md:flex-row bg-gradient-to-r from-pink-50 to-blue-100 p-4 items-center" style="border-radius: 15px">
+                    <div class="md:w-3/4">
+                        <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
                         <p class="activity-description text-sm md:text-base">@i.MoTa<br>Thời Gian: <span class="font-semibold">@i.ThoiGian.ToString("HH:mm")</span> ngày <span class="font-semibold">@i.ThoiGian.ToString("dd/MM/yyyy")</span><br>Địa Điểm: <span class="font-semibold">@i.DiaDiem</span><br>Trạng Thái: <span class="font-semibold">@i.TrangThai</span></p>
-                            <!-- Form/Link để đăng ký -->
-                            <button class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" onclick="prepareRegistration('@i.MaHoatDong')">Đăng ký</button>
-                        </div>
+                        <!-- Form/Link để đăng ký -->
+                        <button class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" onclick="prepareRegistration('@i.MaHoatDong')">Đăng ký</button>
+                    </div>
                     @if (User.IsInRole("Administrators"))
                     {
                         <div>
@@ -47,14 +48,14 @@
                             <a asp-action="Details" asp-route-id="@i.MaHoatDong">Details</a> |
                             <a asp-action="Delete" asp-route-id="@i.MaHoatDong">Delete</a>
                         </div>
-                       
                     }
-                    </div>
-                }
+                </div>
 
-            </div>
-        </section>
-    </main>
+            }
+
+        </div>
+    </section>
+</main>
 
     <div id="confirmationModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -231,8 +232,32 @@
     }
 </script>
 
-
-
+@{
+    // Kiểm tra có trang trước hoặc trang sau không
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<main class="container mx-auto">
+    <nav class="flex justify-between">
+        <ul class="pagination">
+            <!-- Liên kết trang trước -->
+            <li class="page-item @prevDisabled">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.PageIndex - 1 })">Previous</a>
+            </li>
+            <!-- Liên kết các trang -->
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = i })">@i</a>
+                </li>
+            }
+            <!-- Liên kết trang tiếp theo -->
+            <li class="page-item @nextDisabled">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.PageIndex + 1 })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</main>
 
 
 

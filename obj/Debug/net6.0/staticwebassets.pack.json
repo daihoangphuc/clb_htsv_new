@@ -769,6 +769,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\newsimages\\08abd9ba-e9a9-40f2-9974-a5413a1006da.png",
+      "PackagePath": "staticwebassets\\newsimages\\08abd9ba-e9a9-40f2-9974-a5413a1006da.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\newsimages\\dc52ab62-679e-44dd-848a-9ae402cfbcbd.png",
+      "PackagePath": "staticwebassets\\newsimages\\dc52ab62-679e-44dd-848a-9ae402cfbcbd.png"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\09b655b3-4c57-4d1a-a1cd-5ca5cbd5db8d.png",
       "PackagePath": "staticwebassets\\userimages\\09b655b3-4c57-4d1a-a1cd-5ca5cbd5db8d.png"
     },

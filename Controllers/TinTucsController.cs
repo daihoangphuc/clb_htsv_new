@@ -14,10 +14,12 @@ namespace website_CLB_HTSV.Controllers
     public class TinTucsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public TinTucsController(ApplicationDbContext context)
+        public TinTucsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -33,8 +35,7 @@ namespace website_CLB_HTSV.Controllers
             // (đây chỉ là một ví dụ, bạn cần thay thế bằng logic thực tế của bạn)
             return _context.TinTuc.Where(t => t.TieuDe.Contains(keyword)).ToList();
         }
-        // GET: TinTucs
-        public IActionResult Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             var tinTuc = from m in _context.TinTuc
                          select m;
@@ -44,8 +45,10 @@ namespace website_CLB_HTSV.Controllers
                 tinTuc = tinTuc.Where(s => s.TieuDe.Contains(searchString));
             }
 
-            return View(tinTuc.ToList());
+            int pageSize = 5; // Số lượng mục trên mỗi trang
+            return View(await PaginatedList<TinTuc>.CreateAsync(tinTuc.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
 
 
         // GET: TinTucs/Details/5
@@ -76,15 +79,30 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // POST: TinTucs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Create([Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc)
+        public async Task<IActionResult> Create([Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc, IFormFile HinhAnh)
         {
             if (ModelState.IsValid)
+                tinTuc.MaTinTuc = "TT" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
             {
+                if (HinhAnh != null && HinhAnh.Length > 0)
+                {
+                    // Tạo tên file duy nhất
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
+
+                    // Lưu file vào vị trí chỉ định
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "newsimages", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await HinhAnh.CopyToAsync(stream);
+                    }
+
+                    // Cập nhật tên file cho tin tức
+                    tinTuc.HinhAnh = fileName;
+                }
+
                 _context.Add(tinTuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,7 +115,7 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.TinTuc == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -112,12 +130,10 @@ namespace website_CLB_HTSV.Controllers
         }
 
         // POST: TinTucs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Edit(string id, [Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc)
+        public async Task<IActionResult> Edit(string id, [Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc, IFormFile HinhAnh)
         {
             if (id != tinTuc.MaTinTuc)
             {
@@ -128,6 +144,19 @@ namespace website_CLB_HTSV.Controllers
             {
                 try
                 {
+                    // Xử lý hình ảnh mới
+                    if (HinhAnh != null && HinhAnh.Length > 0)
+                    {
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
+                        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "newsimages", fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await HinhAnh.CopyToAsync(stream);
+                        }
+                        // Cập nhật hình ảnh mới
+                        tinTuc.HinhAnh = fileName;
+                    }
+
                     _context.Update(tinTuc);
                     await _context.SaveChangesAsync();
                 }
@@ -152,7 +181,7 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.TinTuc == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -174,23 +203,26 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.TinTuc == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.TinTuc'  is null.");
-            }
             var tinTuc = await _context.TinTuc.FindAsync(id);
-            if (tinTuc != null)
+
+            // Xóa file ảnh nếu tồn tại
+            if (tinTuc.HinhAnh != null)
             {
-                _context.TinTuc.Remove(tinTuc);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "newsimages", tinTuc.HinhAnh);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
 
+            _context.TinTuc.Remove(tinTuc);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TinTucExists(string id)
         {
-            return (_context.TinTuc?.Any(e => e.MaTinTuc == id)).GetValueOrDefault();
+            return _context.TinTuc.Any(e => e.MaTinTuc == id);
         }
     }
 }

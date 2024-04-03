@@ -1,4 +1,4 @@
-﻿@model IEnumerable<website_CLB_HTSV.Models.TinTuc>
+﻿@model PaginatedList<TinTuc>
 
 @{
     ViewData["Title"] = "Index";
@@ -92,33 +92,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TieuDe)
+                Tiêu đề
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HinhAnh)
+                Hình ảnh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NoiDung)
+               Nội dung
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayDang)
+                Ngày đăng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NguoiDang)
+                Người đăng
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.TieuDe)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HinhAnh)
-                </td>
+                <td> <img src="@(Url.Content("~/newsimages/" + item.HinhAnh))" alt="Hình ảnh" class="img-thumbnail" style="width: 50px;" /></td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NoiDung)
                 </td>
@@ -137,3 +135,29 @@
         }
     </tbody>
 </table>
+
+@{
+    // Kiểm tra có trang trước hoặc trang sau không
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav class="flex justify-between mt-4">
+    <ul class="pagination">
+        <!-- Liên kết trang trước -->
+        <li class="page-item @prevDisabled">
+            <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.PageIndex - 1 })">Previous</a>
+        </li>
+        <!-- Liên kết các trang -->
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = i })">@i</a>
+            </li>
+        }
+        <!-- Liên kết trang tiếp theo -->
+        <li class="page-item @nextDisabled">
+            <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.PageIndex + 1 })">Next</a>
+        </li>
+    </ul>
+</nav>
