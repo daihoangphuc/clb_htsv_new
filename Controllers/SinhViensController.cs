@@ -275,8 +275,8 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile HinhAnh)
         {
-            if (ModelState.IsValid)
-            {
+/*            if (ModelState.IsValid)
+            {*/
                 if (HinhAnh != null && HinhAnh.Length > 0)
                 {
                     // Tạo tên file duy nhất
@@ -296,7 +296,7 @@ namespace website_CLB_HTSV.Controllers
                 _context.Add(sinhVien);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            /*}*/
 
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "TenLop", sinhVien.MaLop);
@@ -332,7 +332,7 @@ namespace website_CLB_HTSV.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile? HinhAnhNew = null)
+        public async Task<IActionResult> Edit(string id, [Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien sinhVien, IFormFile HinhAnh)
         {
             if (id != sinhVien.MaSV)
             {
@@ -346,16 +346,15 @@ namespace website_CLB_HTSV.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+
                 // Kiểm tra nếu có hình ảnh mới được tải lên
-                if (HinhAnhNew != null && HinhAnhNew.Length > 0)
+                if (HinhAnh != null && HinhAnh.Length > 0)
                 {
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnhNew.FileName);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
                     var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
                     using (var stream = new FileStream(uploadPath, FileMode.Create))
                     {
-                        await HinhAnhNew.CopyToAsync(stream);
+                        await HinhAnh.CopyToAsync(stream);
                     }
                     sinhVien.HinhAnh = fileName; // Cập nhật với tên file hình ảnh mới
                 }
@@ -381,7 +380,7 @@ namespace website_CLB_HTSV.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             // Load lại thông tin nếu ModelState không hợp lệ
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "MaChucVu", sinhVien.MaChucVu);
             ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);

@@ -3184,6 +3184,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\20d9d14b-c7ec-48e9-876e-56031c25b84b.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\251698e6-bad0-460d-8eec-952c789253c6.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/251698e6-bad0-460d-8eec-952c789253c6.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\251698e6-bad0-460d-8eec-952c789253c6.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\3287c217-8c41-4cf3-8b71-7b9c18e59ea2.png))">
       <SourceType>Package</SourceType>
       <SourceId>website_CLB_HTSV</SourceId>
@@ -3199,6 +3215,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\3287c217-8c41-4cf3-8b71-7b9c18e59ea2.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\367491c6-b609-4fbe-aa8e-213ba6af6d9d.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/367491c6-b609-4fbe-aa8e-213ba6af6d9d.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\367491c6-b609-4fbe-aa8e-213ba6af6d9d.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\37d14101-cfdd-48a3-bf4e-4275653d947d.jpg))">
       <SourceType>Package</SourceType>
@@ -3248,6 +3280,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\4696ea08-6bef-4c12-abf9-314358310d18.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\46b86f3e-9f86-4837-beaa-60c174adf421.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/46b86f3e-9f86-4837-beaa-60c174adf421.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\46b86f3e-9f86-4837-beaa-60c174adf421.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\4a7b2118-c9ee-449d-a8e9-34e993aef281.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/4a7b2118-c9ee-449d-a8e9-34e993aef281.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\4a7b2118-c9ee-449d-a8e9-34e993aef281.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\4dd40b63-f2a1-4b16-815f-05079c891a8b.png))">
       <SourceType>Package</SourceType>
       <SourceId>website_CLB_HTSV</SourceId>
@@ -3279,6 +3343,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\57e54a31-c889-4b70-b38e-e01486414416.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\591e7e54-d6b0-4c66-bb30-d49d4023d010.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/591e7e54-d6b0-4c66-bb30-d49d4023d010.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\591e7e54-d6b0-4c66-bb30-d49d4023d010.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\611fb07a-780d-4b10-b2a3-f899b618ec58.svg))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/611fb07a-780d-4b10-b2a3-f899b618ec58.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\611fb07a-780d-4b10-b2a3-f899b618ec58.svg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\61f1f6b2-d5ed-4534-893b-b5fca3f467ab.jpg))">
       <SourceType>Package</SourceType>
@@ -3343,6 +3439,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\688c43d4-a343-41f7-8bca-0ae040a66d76.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\7918d72c-fd9b-4208-8ad2-1df9883eb8bf.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/7918d72c-fd9b-4208-8ad2-1df9883eb8bf.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\7918d72c-fd9b-4208-8ad2-1df9883eb8bf.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\85642029-b908-45c6-b5fb-807cf1eec814.svg))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/85642029-b908-45c6-b5fb-807cf1eec814.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\85642029-b908-45c6-b5fb-807cf1eec814.svg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\9b701496-183b-4431-ae23-7879410dcc6a.png))">
       <SourceType>Package</SourceType>
@@ -3488,6 +3616,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\cb52a942-83f7-45a0-857d-235f18b0d2ab.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\d9fbedc0-9511-4e41-af65-3f77d2abe52c.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/d9fbedc0-9511-4e41-af65-3f77d2abe52c.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\d9fbedc0-9511-4e41-af65-3f77d2abe52c.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\dcae8039-fd55-4d33-8b78-f34549128593.png))">
       <SourceType>Package</SourceType>
       <SourceId>website_CLB_HTSV</SourceId>
@@ -3552,6 +3696,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\e66644bc-3223-4ae4-9495-36b138293588.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\e72b3bc7-5fb9-46cb-94a4-c60425d0ad2f.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/e72b3bc7-5fb9-46cb-94a4-c60425d0ad2f.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\e72b3bc7-5fb9-46cb-94a4-c60425d0ad2f.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\e833c6f8-7413-4aba-bf40-939b07eb9b91.png))">
       <SourceType>Package</SourceType>
       <SourceId>website_CLB_HTSV</SourceId>
@@ -3568,6 +3728,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\e833c6f8-7413-4aba-bf40-939b07eb9b91.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ea4e5dda-94f8-4f29-9221-af93a4ad5186.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/ea4e5dda-94f8-4f29-9221-af93a4ad5186.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ea4e5dda-94f8-4f29-9221-af93a4ad5186.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ea5757e9-7572-40fa-b48b-722c253ab089.png))">
       <SourceType>Package</SourceType>
       <SourceId>website_CLB_HTSV</SourceId>
@@ -3583,6 +3759,54 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ea5757e9-7572-40fa-b48b-722c253ab089.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ec07394c-d703-4f32-b7eb-297bc667b0d7.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/ec07394c-d703-4f32-b7eb-297bc667b0d7.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ec07394c-d703-4f32-b7eb-297bc667b0d7.webp))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ecfb42d1-350c-43b4-9666-b85f8fb8c7fd.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/ecfb42d1-350c-43b4-9666-b85f8fb8c7fd.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\ecfb42d1-350c-43b4-9666-b85f8fb8c7fd.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\f20403e1-c2b2-4217-a9b3-41837a4fe041.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>website_CLB_HTSV</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/website_CLB_HTSV</BasePath>
+      <RelativePath>userimages/f20403e1-c2b2-4217-a9b3-41837a4fe041.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\f20403e1-c2b2-4217-a9b3-41837a4fe041.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\userimages\f6b45008-d22a-4ddd-bfab-1507ed05b0a6.png))">
       <SourceType>Package</SourceType>
