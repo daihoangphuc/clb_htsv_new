@@ -537,6 +537,10 @@
       "PackagePath": "staticwebassets\\forms\\contact.php"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -869,6 +873,10 @@
       "PackagePath": "staticwebassets\\userimages\\7918d72c-fd9b-4208-8ad2-1df9883eb8bf.png"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\83a4360a-7ff1-4bc5-a7e1-96a709763cc1.png",
+      "PackagePath": "staticwebassets\\userimages\\83a4360a-7ff1-4bc5-a7e1-96a709763cc1.png"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\85642029-b908-45c6-b5fb-807cf1eec814.svg",
       "PackagePath": "staticwebassets\\userimages\\85642029-b908-45c6-b5fb-807cf1eec814.svg"
     },
@@ -963,6 +971,10 @@
     {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\f763398a-bcc5-47dd-8b4e-38d519c58c4e.png",
       "PackagePath": "staticwebassets\\userimages\\f763398a-bcc5-47dd-8b4e-38d519c58c4e.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\fe5fd30b-e97a-4159-91cc-0af7774be40d.png",
+      "PackagePath": "staticwebassets\\userimages\\fe5fd30b-e97a-4159-91cc-0af7774be40d.png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.website_CLB_HTSV.props",

@@ -23,7 +23,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
-
+//Add signalr
+builder.Services.AddSignalR();
 
 // Add session services
 builder.Services.AddSession(options => {
@@ -107,6 +108,7 @@ app.UseEndpoints(endpoints =>
         name: "sinhVienSearch",
         pattern: "SinhViens/Search",
         defaults: new { controller = "SinhViens", action = "Search" });
+    endpoints.MapHub<ChatHub>("/chatHub");
 });
 
 app.MapRazorPages();

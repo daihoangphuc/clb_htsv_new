@@ -33,6 +33,9 @@
     <link href="/assets/css/style.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+
+    <!-- Add this line for SignalR script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
 </head>
 
 <body>
@@ -74,6 +77,8 @@
                                  <li><a href="/ThamGiaHoatDongs">Hoạt Động Đã Tham Gia</a></li>
                                 <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
                                 <li><a href="/Sinhviens/UpdateProfile">Cập nhật thông tin</a></li>
+                                <li><a href="/Chat">Chat</a></li>
+
                                 @if (User.IsInRole("Administrators"))
                                 {
                                     <li class="dropdown">
