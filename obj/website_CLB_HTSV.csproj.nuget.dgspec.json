@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[31.0.2, )"
             },
+            "Dropbox.Api": {
+              "target": "Package",
+              "version": "[6.37.0, )"
+            },
             "EPPlus": {
               "target": "Package",
               "version": "[7.0.9, )"

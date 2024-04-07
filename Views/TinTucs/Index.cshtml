@@ -6,13 +6,12 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-
-
-
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <form asp-controller="TinTucs" asp-action="Index" class="search-form justify-center mb-2">
     <div class="search-container">
         <input type="text" class="search-input w-full md:w-80 mb-2 md:mb-0" placeholder="Tìm kiếm" name="SearchString">
@@ -88,53 +87,84 @@
     }
 </style>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Tiêu đề
-            </th>
-            <th>
-                Hình ảnh
-            </th>
-            <th>
-               Nội dung
-            </th>
-            <th>
-                Ngày đăng
-            </th>
-            <th>
-                Người đăng
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
+
+
+@{
+    int count = (5 * (Model.PageIndex - 1)) + 1;
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-2">
+        <thead class="text-xs text-black uppercase bg-gray-50 dark:bg-gray-700  border-2">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TieuDe)
-                </td>
-                <td> <img src="@(Url.Content("~/newsimages/" + item.HinhAnh))" alt="Hình ảnh" class="img-thumbnail" style="width: 50px;" /></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoiDung)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NgayDang)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NguoiDang)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaTinTuc">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaTinTuc">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaTinTuc">Delete</a>
-                </td>
+                <th scope="col" class="px-6 py-3">
+                    STT
+                </th>
+                <th scope ="col" class="px-6 py-3">
+                    Tiêu đề 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Hình ảnh 
+                </th scope="col" class="px-6 py-3">
+                <th>
+                    Nội dung 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Ngày đăng 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Người đăng 
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                <tr class="bg-white text-black border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                            @count
+                        </th>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap">
+                            @i.TieuDe
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap d-flex align-items-center">
+                            <img src="@(Url.Content("~/newsimages/" + i.HinhAnh))" alt="Hình ảnh" class="img-thumbnail" style="width: 50px;" />     
+                        </td>
+                         @if (User.IsInRole("Administrators"))
+                        {
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a asp-action="Edit" asp-route-id="@i.MaTinTuc">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@i.MaTinTuc">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@i.MaTinTuc">Delete</a>
+                        </td>
+                        }
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @i.NoiDung
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @i.NgayDang
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @i.NguoiDang
+                    </td>
+                   
+                </tr>
+                 count++;
+
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
 
 @{
     // Kiểm tra có trang trước hoặc trang sau không

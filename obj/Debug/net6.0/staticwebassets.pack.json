@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\assets\\img\\hero-img.png"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\assets\\img\\icon-logo.png",
+      "PackagePath": "staticwebassets\\assets\\img\\icon-logo.png"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\assets\\img\\illustration-6.svg",
       "PackagePath": "staticwebassets\\assets\\img\\illustration-6.svg"
     },
@@ -773,6 +777,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\messages\\chatHistory.txt",
+      "PackagePath": "staticwebassets\\messages\\chatHistory.txt"
+    },
+    {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\newsimages\\08abd9ba-e9a9-40f2-9974-a5413a1006da.png",
       "PackagePath": "staticwebassets\\newsimages\\08abd9ba-e9a9-40f2-9974-a5413a1006da.png"
     },
@@ -831,6 +839,10 @@
     {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\46b86f3e-9f86-4837-beaa-60c174adf421.png",
       "PackagePath": "staticwebassets\\userimages\\46b86f3e-9f86-4837-beaa-60c174adf421.png"
+    },
+    {
+      "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\476ee1a0-e441-4df3-a85f-1bbd7eab35d9.jpg",
+      "PackagePath": "staticwebassets\\userimages\\476ee1a0-e441-4df3-a85f-1bbd7eab35d9.jpg"
     },
     {
       "Id": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\4a7b2118-c9ee-449d-a8e9-34e993aef281.png",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "INNA5C5+zLxYgE/9JmYweorFa3UCHgDgJRVryhL3Z0I=",
+  "Hash": "LP8qtai/MQpJq7IuVvfkdQUCgB3SS0tWVmXFmOrVn7o=",
   "Source": "website_CLB_HTSV",
   "BasePath": "_content/website_CLB_HTSV",
   "Mode": "Default",
@@ -1290,6 +1290,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\img\\hero-img.png"
+    },
+    {
+      "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\assets\\img\\icon-logo.png",
+      "SourceId": "website_CLB_HTSV",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\",
+      "BasePath": "_content/website_CLB_HTSV",
+      "RelativePath": "assets/img/icon-logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\icon-logo.png"
     },
     {
       "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\assets\\img\\illustration-6.svg",
@@ -4335,6 +4352,23 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\messages\\chatHistory.txt",
+      "SourceId": "website_CLB_HTSV",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\",
+      "BasePath": "_content/website_CLB_HTSV",
+      "RelativePath": "messages/chatHistory.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\messages\\chatHistory.txt"
+    },
+    {
       "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\newsimages\\08abd9ba-e9a9-40f2-9974-a5413a1006da.png",
       "SourceId": "website_CLB_HTSV",
       "SourceType": "Discovered",
@@ -4588,6 +4622,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\userimages\\46b86f3e-9f86-4837-beaa-60c174adf421.png"
+    },
+    {
+      "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\476ee1a0-e441-4df3-a85f-1bbd7eab35d9.jpg",
+      "SourceId": "website_CLB_HTSV",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\",
+      "BasePath": "_content/website_CLB_HTSV",
+      "RelativePath": "userimages/476ee1a0-e441-4df3-a85f-1bbd7eab35d9.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\userimages\\476ee1a0-e441-4df3-a85f-1bbd7eab35d9.jpg"
     },
     {
       "Identity": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\wwwroot\\userimages\\4a7b2118-c9ee-449d-a8e9-34e993aef281.png",

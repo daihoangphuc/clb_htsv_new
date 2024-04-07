@@ -29,6 +29,7 @@ namespace website_CLB_HTSV.Controllers
             _userManager = userManager;
             _configuration = configuration;
         }
+
         public string GetIDFromEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -44,12 +45,19 @@ namespace website_CLB_HTSV.Controllers
             try
             {
                 string connectionString = _configuration.GetConnectionString("DefaultConnection");
-                string updateQuery = "UPDATE HoatDong SET TrangThai = NULL";
+                string updateQuery = "UPDATE HoatDong SET TrangThai = N'Sắp diễn ra' ";
+                string xoatghd = "DELETE FROM ThamGiaHoatDong";
+                string xoadkhd = "DELETE FROM DangKyHoatDong";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand command = new SqlCommand(updateQuery, connection);
+                    SqlCommand command2 = new SqlCommand(xoatghd, connection);
+                    SqlCommand command3= new SqlCommand(xoadkhd, connection);
+
                     connection.Open();
+                    command2.ExecuteNonQuery();
+                    command3.ExecuteNonQuery();
                     command.ExecuteNonQuery();
                     connection.Close();
                 }

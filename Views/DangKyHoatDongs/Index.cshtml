@@ -1,10 +1,9 @@
-﻿@model IEnumerable<website_CLB_HTSV.Models.DangKyHoatDong>
+﻿@model PaginatedList<DangKyHoatDong>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động đã đăng ký</h2>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 @if (User.IsInRole("Administrators"))
 {
@@ -21,72 +20,134 @@
         </div>
     </form>
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HoatDong.TenHoatDong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SinhVien.HoTen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NgayDangKy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThaiDangKy)
-            </th>
-            <th>Trạng thái hoạt động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<h2 class="text-2xl font-semibold mb-4 overflow-y-auto" style="max-height: calc(3 * (3.5rem + 1rem));">Hoạt động đã đăng ký</h2>
+
+@{
+    int count = (10 * (Model.PageIndex - 1)) + 1;
+}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-black uppercase bg-gray-50 dark:bg-gray-700 ">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoatDong.TenHoatDong)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SinhVien.HoTen)
-                </td>
-                <td>
-                    @item.NgayDangKy.ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    @if (item.TrangThaiDangKy)
-                    {
-                        <span class="tick-mark">&#10003;</span>
-                    }
-                    else
-                    {
-                        <span class="cross-mark">&#10005;</span>
-                    }
-                </td>
-                <td>@item.HoatDong.TrangThai</td>
-                @if (item.HoatDong.TrangThai != "Đã kết thúc")
-                {
-                <td>
-                    <form asp-controller="DangKyHoatDongs" asp-action="HuyDangKy" method="post" asp-route-hoatDongId="@item.MaHoatDong">
-                        <button type="submit" class="bg-red-500 text-white font-semibold px-4 py-2 rounded hover:bg-red-600 register-btn">
-                            Hủy 
-                        </button>
-                    </form>
-                </td>
-                    
-                }
+                <th scope="col" class="px-6 py-3">
+                    STT
+                </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tên hoạt động
+                    </th>
                 @if (User.IsInRole("Administrators"))
                 {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.MaDangKy">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaDangKy">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.MaDangKy">Delete</a>
-                    </td>
+                    <th scope="col" class="px-6 py-3">
+                        Họ tên
+                    </th>
                 }
-                
+                <th scope="col" class="px-6 py-3">
+                    Ngày đăng ký
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Trạng thái
+                </th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                    <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                        @count
+                    </th>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap">
+                            @i.HoatDong.TenHoatDong
+                        </td>
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @i.SinhVien.HoTen
+                        </td>
+                    }
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @i.NgayDangKy.ToString("HH:mm dd/MM/yyyy")
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @i.HoatDong.TrangThai
+                    </td>
+                    @if (@i.HoatDong.TrangThai != "Đã kết thúc" && !User.IsInRole("Administrators"))
+                    {
+                        <td>
+                            <form asp-controller="DangKyHoatDongs" asp-action="HuyDangKy" method="post" asp-route-hoatDongId="@i.MaHoatDong">
+                                <button type="submit" class="bg-red-500 text-white font-semibold px-4 py-2 rounded hover:bg-red-600 register-btn">
+                                    Hủy
+                                </button>
+                            </form>
+                        </td>
+
+                    }
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a asp-action="Edit" asp-route-id="@i.MaDangKy">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@i.MaDangKy">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@i.MaDangKy">Delete</a>
+                        </td>
+                    }
+                </tr>
+                count++;
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<nav aria-label="Page navigation" class="mt-3">
+    <ul class="pagination">
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+            </li>
         }
-    </tbody>
-</table>
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <style>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
-
+using System.Globalization;
 namespace website_CLB_HTSV.Controllers
 {
     public class ThamGiaHoatDongsController : Controller
@@ -27,7 +27,7 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> XuatDS()
         {
-            var activityList = await _context.HoatDong
+            var activityList = await _context.HoatDong.Where(t => t.TrangThai == "Đã kết thúc")
                                              .Select(a => new SelectListItem
                                              {
                                                  Value = a.MaHoatDong.ToString(),
@@ -39,12 +39,24 @@ namespace website_CLB_HTSV.Controllers
 
             return View();
         }
+
+        [HttpPost]
         [Authorize(Roles = "Administrators")]
-        public IActionResult XuatDS(string hoatDongId)
+        public async Task<IActionResult> XuatDS(string hoatDongId)
         {
+            var activityList = await _context.HoatDong
+                                             .Select(a => new SelectListItem
+                                             {
+                                                 Value = a.MaHoatDong.ToString(),
+                                                 Text = a.TenHoatDong
+                                             })
+                                             .ToListAsync();
+
+            ViewBag.ActivityList = activityList;
+
             // Lấy danh sách sinh viên tham gia hoạt động được chọn
             var danhSachSinhVien = from s in _context.ThamGiaHoatDong
-                                   .Where(tg => tg.MaHoatDong == hoatDongId)
+                                   .Where(tg => tg.MaHoatDong == hoatDongId && tg.DaThamGia == true)
                                    .Include(t => t.DangKyHoatDong)
                                    .Include(h => h.DangKyHoatDong.HoatDong)
                                    .Include(s => s.DangKyHoatDong.SinhVien)
@@ -58,27 +70,35 @@ namespace website_CLB_HTSV.Controllers
                 var worksheet = package.Workbook.Worksheets.Add("Danh sách sinh viên");
 
                 // Đặt các tiêu đề cho các cột
-                worksheet.Cells[1, 1].Value = "MSSV";
-                worksheet.Cells[1, 2].Value = "Họ và tên";
-                worksheet.Cells[1, 3].Value = "Mã lớp";
+                worksheet.Cells[1, 1].Value = "STT";
+                worksheet.Cells[1, 2].Value = "MSSV";
+                worksheet.Cells[1, 3].Value = "Họ và tên";
+                worksheet.Cells[1, 4].Value = "Mã lớp";
 
                 // Có thể thêm các tiêu đề khác tùy ý
 
                 // Đặt dữ liệu cho từng hàng
                 int row = 2;
+                int i = 1;
                 foreach (var sinhVien in danhSachSinhVien)
                 {
-                    worksheet.Cells[row, 1].Value = sinhVien.MaSV;
-                    worksheet.Cells[row, 2].Value = sinhVien.DangKyHoatDong.SinhVien.HoTen;
-                    worksheet.Cells[row, 3].Value = sinhVien.DangKyHoatDong.SinhVien.MaLop;
+                    worksheet.Cells[row, 1].Value = i;
+                    worksheet.Cells[row, 2].Value = sinhVien.MaSV;
+                    worksheet.Cells[row, 3].Value = sinhVien.DangKyHoatDong.SinhVien.HoTen;
+                    worksheet.Cells[row, 4].Value = sinhVien.DangKyHoatDong.SinhVien.MaLop;
 
                     // Có thể thêm dữ liệu cho các cột khác tùy ý
                     row++;
+                    i++;
                 }
-
+                var hoatDong = await _context.HoatDong.FindAsync(hoatDongId);
+                string tenhd = hoatDong.TenHoatDong.ToString();
+                TextInfo textInfo = new CultureInfo("vi-VN", false).TextInfo;
+                string titleCase = textInfo.ToTitleCase(tenhd);
+                string tgian = hoatDong.ThoiGian.ToString("dd-MM-yyyy");
                 // Lưu trữ tệp Excel vào một MemoryStream
                 var stream = new MemoryStream(package.GetAsByteArray());
-                string fileName = $"DanhSachSinhVien_{hoatDongId}_{DateTime.Today:ddMMyyyy}.xlsx";
+                string fileName = $"DS_HoatDong_Ngay: {tgian}_{titleCase}.xlsx";
                 // Trả về phản hồi file Excel
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
@@ -87,40 +107,50 @@ namespace website_CLB_HTSV.Controllers
 
 
 
-
         // GET: ThamGiaHoatDongs
-        // GET: ThamGiaHoatDongs
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             IQueryable<ThamGiaHoatDong> danhSachThamGiaHoatDong = _context.ThamGiaHoatDong
                 .Include(t => t.DangKyHoatDong)
                 .Include(h => h.DangKyHoatDong.HoatDong)
                 .Include(s => s.DangKyHoatDong.SinhVien);
 
+            // Lọc theo chuỗi tìm kiếm nếu có
             if (!string.IsNullOrEmpty(searchString))
             {
-                danhSachThamGiaHoatDong = danhSachThamGiaHoatDong.Where(tg => tg.DangKyHoatDong.HoatDong.MaHoatDong.Contains(searchString) || tg.DangKyHoatDong.HoatDong.TenHoatDong.Contains(searchString));
+                danhSachThamGiaHoatDong = danhSachThamGiaHoatDong.Where(tg => tg.DangKyHoatDong.HoatDong.MaHoatDong.Contains(searchString) || tg.DangKyHoatDong.HoatDong.TenHoatDong.Contains(searchString) || tg.MaSV.Contains(searchString));
             }
 
+            // Kiểm tra người dùng đã đăng nhập hay chưa
             if (!User.Identity.IsAuthenticated)
             {
+                // Nếu chưa đăng nhập, đặt thông báo vào TempData
                 TempData["ErrorMessage"] = "Bạn cần đăng nhập để truy cập vào trang này.";
+                return Redirect("/Identity/Account/Login");
             }
             else
             {
+                // Lấy trang hiện tại, mặc định là trang đầu tiên nếu không được xác định
+                pageNumber ??= 1;
+
+                // Kiểm tra vai trò của người dùng
                 if (User.IsInRole("Administrators"))
                 {
-                    return View(await danhSachThamGiaHoatDong.ToListAsync());
+                    // Nếu là quản trị viên, trả về view với toàn bộ danh sách phân trang
+                    var paginatedDanhSachThamGiaHoatDong = await PaginatedList<ThamGiaHoatDong>.CreateAsync(danhSachThamGiaHoatDong.AsNoTracking(), pageNumber.Value, 10); // 10 là kích thước trang
+                    return View(paginatedDanhSachThamGiaHoatDong);
                 }
                 else
                 {
+                    // Nếu không phải là quản trị viên, lọc theo mã số sinh viên và trả về view với danh sách phân trang
                     var mssv = User.Identity.Name.Split('@')[0];
                     danhSachThamGiaHoatDong = danhSachThamGiaHoatDong.Where(h => h.MaSV == mssv);
-                    return View(await danhSachThamGiaHoatDong.ToListAsync());
+                    var paginatedDanhSachThamGiaHoatDong = await PaginatedList<ThamGiaHoatDong>.CreateAsync(danhSachThamGiaHoatDong.AsNoTracking(), pageNumber.Value, 10); // 10 là kích thước trang
+                    return View(paginatedDanhSachThamGiaHoatDong);
                 }
             }
-            return Redirect("/Identity/Account/Login");
         }
+
 
 
 

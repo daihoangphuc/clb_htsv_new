@@ -167,39 +167,50 @@ namespace website_CLB_HTSV.Controllers
                 var worksheet = package.Workbook.Worksheets.Add("Danh sách sinh viên");
 
                 // Đặt tiêu đề cho các cột
-                worksheet.Cells[1, 1].Value = "Mã Sinh Viên";
-                worksheet.Cells[1, 2].Value = "Họ Tên";
-                worksheet.Cells[1, 3].Value = "Ngày Sinh";
-                worksheet.Cells[1, 4].Value = "Điện Thoại";
-                worksheet.Cells[1, 5].Value = "Email";
-                worksheet.Cells[1, 6].Value = "Mã Lớp";
-                worksheet.Cells[1, 7].Value = "Mã Chức Vụ";
-                worksheet.Cells[1, 8].Value = "Hình Ảnh";
+                worksheet.Cells[1, 1].Value = "STT";
+                worksheet.Cells[1, 2].Value = "Mã Sinh Viên";
+                worksheet.Cells[1, 3].Value = "Họ Tên";
+                worksheet.Cells[1, 4].Value = "Ngày Sinh";
+                worksheet.Cells[1, 5].Value = "Điện Thoại";
+                worksheet.Cells[1, 6].Value = "Email";
+                worksheet.Cells[1, 7].Value = "Mã Lớp";
+                worksheet.Cells[1, 8].Value = "Chức Vụ";
 
                 // Đặt dữ liệu cho các ô
                 int row = 2;
+                int i = 1;
                 foreach (var sinhVien in sinhViens)
                 {
-                    worksheet.Cells[row, 1].Value = sinhVien.MaSV;
-                    worksheet.Cells[row, 2].Value = sinhVien.HoTen;
-                    worksheet.Cells[row, 3].Value = sinhVien.NgaySinh;
-                    worksheet.Cells[row, 4].Value = sinhVien.DienThoai;
-                    worksheet.Cells[row, 5].Value = sinhVien.Email;
-                    worksheet.Cells[row, 6].Value = sinhVien.MaLop;
-                    worksheet.Cells[row, 7].Value = sinhVien.MaChucVu;
-                    worksheet.Cells[row, 8].Value = sinhVien.HinhAnh;
+                    worksheet.Cells[row, 1].Value = i;
+                    worksheet.Cells[row, 2].Value = sinhVien.MaSV;
+                    worksheet.Cells[row, 3].Value = sinhVien.HoTen;
+                    worksheet.Cells[row, 4].Value = sinhVien.NgaySinh.ToShortDateString();
+                    worksheet.Cells[row, 5].Value = sinhVien.DienThoai;
+                    worksheet.Cells[row, 6].Value = sinhVien.Email;
+                    worksheet.Cells[row, 7].Value = sinhVien.LopHoc.MaLop;
+                    worksheet.Cells[row, 8].Value = sinhVien.ChucVu.TenChucVu;
                     row++;
+                    i++;
                 }
 
                 // Tạo một stream để lưu trữ tệp Excel
                 MemoryStream stream = new MemoryStream();
                 package.SaveAs(stream);
                 stream.Position = 0;
+                HttpContext.Session.Remove("searchString");
                 // Định dạng tên file với ngày tháng năm và thuộc tính được tìm kiếm
-                string fileName = $"DanhSachSinhVien_{searchString}_{DateTime.Today:ddMMyyyy}.xlsx";
+                if(searchString != null)
+                {
+                    string fileName = $"DanhSachSinhVien_{searchString.ToUpper()}_{DateTime.Today:ddMMyyyy}.xlsx";
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+                else
+                {
+                    string fileName = $"DanhSachSinhVien_{DateTime.Today:ddMMyyyy}.xlsx";
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
 
+                }
                 // Trả về tệp Excel như một file
-                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
         }
 
@@ -320,7 +331,7 @@ namespace website_CLB_HTSV.Controllers
                 return NotFound();
             }
 
-            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "TenLop", sinhVien.MaLop);
+            ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop", sinhVien.MaLop);
             ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", sinhVien.MaChucVu);
             return View(sinhVien);
         }
