@@ -25,17 +25,28 @@ namespace website_CLB_HTSV.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-
         public IActionResult UpdateProfile()
         {
-            if (!User.IsInRole("Administrators")){
-                // Lấy thông tin sinh viên đăng nhập hiện tại
+            if (!User.IsInRole("Administrators"))
+            {
                 var currentUserId = User.Identity.Name.Split('@')[0];
-                // Kiểm tra xem sinh viên đã tồn tại trong cơ sở dữ liệu chưa
                 var sinhVien = _context.SinhVien.Find(currentUserId);
 
                 ViewData["MaChucVu"] = new SelectList(_context.ChucVu, "MaChucVu", "TenChucVu", "CV04");
                 ViewData["MaLop"] = new SelectList(_context.LopHoc, "MaLop", "MaLop");
+
+                // Lấy danh sách mã khoa từ cơ sở dữ liệu
+                var khoaList = _context.Khoa
+                                      .Select(k => new SelectListItem
+                                      {
+                                          Value = k.MaKhoa.ToString(),
+                                          Text = k.TenKhoa
+                                      })
+                                      .ToList();
+
+                // Truyền danh sách mã khoa vào ViewBag
+                ViewBag.KhoaList = khoaList;
+
                 return View(sinhVien);
             }
             else
@@ -44,16 +55,42 @@ namespace website_CLB_HTSV.Controllers
             }
         }
 
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProfile([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien updatedSinhVien, IFormFile newImage)
+        public async Task<IActionResult> UpdateProfile([Bind("MaSV,HoTen,NgaySinh,DienThoai,Email,MaLop,MaChucVu")] SinhVien updatedSinhVien, IFormFile newImage, string maKhoa)
         {
             var currentUserId = User.Identity.Name.Split('@')[0];
             var sinhVien = await GetSinhVienAsync(currentUserId);
 
             if (sinhVien == null)
             {
+                // Kiểm tra xem mã lớp có tồn tại không
+                var existingLop = _context.LopHoc.FirstOrDefault(l => l.MaLop == updatedSinhVien.MaLop);
+
+                if (existingLop == null)
+                {
+                    // Nếu mã lớp không tồn tại, thêm mới vào cơ sở dữ liệu với mã khoa tương ứng
+                    var newLop = new LopHoc
+                    {
+                        MaLop = updatedSinhVien.MaLop.ToUpper(),
+                        TenLop = updatedSinhVien.MaLop,
+                        Khoahoc = "",
+                        MaKhoa = maKhoa // Sử dụng mã khoa được truyền từ form
+                    };
+
+                    _context.LopHoc.Add(newLop);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    // Nếu mã lớp đã tồn tại, chỉ cập nhật lại mã khoa
+                    existingLop.MaKhoa = maKhoa; // Sử dụng mã khoa được truyền từ form
+                    _context.LopHoc.Update(existingLop);
+                    await _context.SaveChangesAsync();
+                }
+
                 await CreateNewSinhVienAsync(updatedSinhVien, newImage, currentUserId);
             }
             else
@@ -63,6 +100,7 @@ namespace website_CLB_HTSV.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
 
         private async Task<SinhVien> GetSinhVienAsync(string maSV)
         {
@@ -77,9 +115,9 @@ namespace website_CLB_HTSV.Controllers
                 HoTen = updatedSinhVien.HoTen,
                 NgaySinh = updatedSinhVien.NgaySinh,
                 DienThoai = updatedSinhVien.DienThoai,
-                Email = updatedSinhVien.Email,
+                Email = User.Identity.Name,
                 MaLop = updatedSinhVien.MaLop,
-                MaChucVu = updatedSinhVien.MaChucVu
+                MaChucVu = "CV04"
             };
 
             await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
@@ -87,12 +125,12 @@ namespace website_CLB_HTSV.Controllers
 
         private async Task UpdateExistingSinhVienAsync(SinhVien sinhVien, SinhVien updatedSinhVien, IFormFile newImage)
         {
-            sinhVien.HoTen = updatedSinhVien.HoTen;
-            sinhVien.NgaySinh = updatedSinhVien.NgaySinh;
-            sinhVien.DienThoai = updatedSinhVien.DienThoai;
-            sinhVien.Email = updatedSinhVien.Email;
-            sinhVien.MaLop = updatedSinhVien.MaLop;
-            sinhVien.MaChucVu = updatedSinhVien.MaChucVu;
+            sinhVien.HoTen = sinhVien.HoTen;
+            sinhVien.NgaySinh = sinhVien.NgaySinh;
+            sinhVien.DienThoai = sinhVien.DienThoai;
+            sinhVien.Email = sinhVien.Email;
+            sinhVien.MaLop = sinhVien.MaLop;
+            sinhVien.MaChucVu = sinhVien.MaChucVu;
 
             await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
         }
