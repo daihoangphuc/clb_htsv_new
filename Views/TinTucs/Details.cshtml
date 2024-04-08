@@ -29,15 +29,14 @@
                     <div class="swiper-wrapper align-items-center">
 
                         <div class="swiper-slide">
-                            <img src="https://picsum.photos/500" alt="">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/500" alt="">
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="https://picsum.photos/500" alt="">
+                            @if(Model.HinhAnh == null)
+                            {
+                                <img src="https://picsum.photos/500" alt="">
+                            }
+                            else
+                            {
+                                <img class="rounded-2xl object-cover" src="@(Url.Content("~/newsimages/" + Model.HinhAnh))" alt="Hình ảnh" />
+                            }
                         </div>
 
                     </div>
@@ -46,20 +45,21 @@
             </div>
 
             <div class="col-lg-4" style="margin-top: -10px">
-                <div class="portfolio-info">
-                    <h3>Thông tin bài đăng</h3>
-                    <ul>
-                        <li><strong>Người đăng</strong>: @Model.NguoiDang</li>
-                     @*    <li><strong>Client</strong>: ASU Company</li> *@
-                        <li><strong>Ngày đăng</strong>: @Model.NgayDang.ToString("dd MMMM, yyyy")</li>
-                      @*   <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li> *@
-                    </ul>
-                </div> 
+                
                 <div class="portfolio-description">
                     <h2>@Model.TieuDe</h2>
                     <p>
                        @Model.NoiDung
                     </p>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Thông tin bài đăng</h3>
+                    <ul>
+                        <li><strong>Người đăng</strong>: @Model.NguoiDang</li>
+                        @*    <li><strong>Client</strong>: ASU Company</li> *@
+                        <li><strong>Ngày đăng</strong>: @Model.NgayDang.ToString("dd MMMM, yyyy")</li>
+                        @*   <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li> *@
+                    </ul>
                 </div>
             </div>
 

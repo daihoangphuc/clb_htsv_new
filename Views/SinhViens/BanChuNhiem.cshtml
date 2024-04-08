@@ -26,11 +26,11 @@
                                     <div class="member-img">
                                         @if (sinhVien.HinhAnh != null)
                                         {
-                                            <img src="@(Url.Content("~/userimages/" + sinhVien.HinhAnh))" class="img-thumbnail" alt="Avatar" />
+                                            <img src="@(Url.Content("~/userimages/" + sinhVien.HinhAnh))" alt="Hình ảnh sinh viên" class="img-fluid w-full object-cover" style="height: 190px" />
                                         }
                                         else
                                         {
-                                            <img src="https://picsum.photos/500" class="img-fluid" alt="Avatar">
+                                            <img src="/assets/img/icon-logo.png" class="img-fluid w-full h-48 object-cover" alt="Avatar" style="height: 190px">
                                         }
                                     </div>
                                     <br />

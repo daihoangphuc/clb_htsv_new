@@ -28,9 +28,9 @@
                 <input asp-for="NoiDung" class="form-control" />
                 <span asp-validation-for="NoiDung" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="NgayDang" class="control-label"></label>
-                <input asp-for="NgayDang" class="form-control" />
+                <input asp-for="NgayDang" class="form-control" value="@DateTime.Now.ToString("ddMMyyyy") />
                 <span asp-validation-for="NgayDang" class="text-danger"></span>
             </div>
             <div class="form-group">

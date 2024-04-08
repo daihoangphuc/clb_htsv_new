@@ -84,9 +84,8 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc, IFormFile HinhAnh)
         {
-            if (ModelState.IsValid)
                 tinTuc.MaTinTuc = "TT" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-            {
+                tinTuc.NgayDang = DateTime.Now;
                 if (HinhAnh != null && HinhAnh.Length > 0)
                 {
                     // Tạo tên file duy nhất
@@ -106,7 +105,7 @@ namespace website_CLB_HTSV.Controllers
                 _context.Add(tinTuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+
             ViewData["NguoiDang"] = new SelectList(_context.SinhVien, "MaSV", "MaSV", tinTuc.NguoiDang);
             return View(tinTuc);
         }
@@ -140,8 +139,8 @@ namespace website_CLB_HTSV.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+
+                tinTuc.NgayDang = DateTime.Now;
                 try
                 {
                     // Xử lý hình ảnh mới
@@ -172,7 +171,6 @@ namespace website_CLB_HTSV.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
             ViewData["NguoiDang"] = new SelectList(_context.SinhVien, "MaSV", "MaSV", tinTuc.NguoiDang);
             return View(tinTuc);
         }
