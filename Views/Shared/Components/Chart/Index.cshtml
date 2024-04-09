@@ -4,10 +4,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 
 <div class="max-w-xl mx-2 bg-white p-6 rounded-lg" style="padding-left: 10px">
-    <div class="section-title" style="margin-left: 50%;; transform: translateX(-50%); margin-bottom: 0" data-aos="fade-up">
-        <h2 class="tt" style="color: #38b7fd; font-size: 20px;">Thống kê</h2>
-    </div>
-    <canvas id="participationRateChart" style="width: calc(100vw - 45px); max-width: 450px; height: 300px"></canvas>
+@*      <div class="section-title" style="margin-left: 50%;; transform: translateX(-50%); margin-bottom: 0; data-aos="fade-up">
+         <h2 class="tt" style="color: #38b7fd; font-size: 20px;">Thống kê</h2>
+     </div> *@
+    <canvas id="participationRateChart" style="width: calc(100vw - 30px); max-width: 500px; height: 300px"></canvas>
 
 </div>
 
@@ -15,7 +15,7 @@
     var participationRateData = {
         labels: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationLabels)),
         datasets: [{
-            label: 'Số lượng hoạt động',
+            label: 'Thống kê số lượng hoạt động',
             data: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationCounts)),
             borderColor: 'rgba(74, 163, 223, 1)',
             backgroundColor: 'rgba(74, 163, 223, 0.2)',
