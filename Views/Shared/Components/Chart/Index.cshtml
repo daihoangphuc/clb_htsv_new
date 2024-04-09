@@ -1,0 +1,52 @@
+﻿<!-- Tailwind CSS -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+
+<div class="max-w-xl mx-2 bg-white p-6 rounded-lg" style="padding-left: 10px">
+    <div class="section-title" style="margin-left: 50%;; transform: translateX(-50%); margin-bottom: 0" data-aos="fade-up">
+        <h2 class="tt" style="color: #38b7fd; font-size: 20px;">Thống kê</h2>
+    </div>
+    <canvas id="participationRateChart" style="width: calc(100vw - 45px); max-width: 450px; height: 300px"></canvas>
+
+</div>
+
+<script>
+    var participationRateData = {
+        labels: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationLabels)),
+        datasets: [{
+            label: 'Số lượng hoạt động',
+            data: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationCounts)),
+            borderColor: 'rgba(74, 163, 223, 1)',
+            backgroundColor: 'rgba(74, 163, 223, 0.2)',
+            tension: 0.5,
+            fill: true
+        }]
+    };
+
+    var participationRateCtx = document.getElementById('participationRateChart').getContext('2d');
+    var participationRateChart = new Chart(participationRateCtx, {
+        type: 'line',
+        data: participationRateData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Số lượng'
+                    },
+                    ticks: {
+                        stepSize: 1 // Đặt bước giữa các giá trị trên trục y là 1
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: ''
+                    }
+                }
+            }
+        }
+    });
+</script>

@@ -2,13 +2,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- ======= Counts Section ======= -->
-<section id="counts" style="padding-bottom: 0" class="counts">
+<section id="counts" style="padding-bottom: 0; display: flex" class="counts">
     <div class="container">
-
         <div class="row justify-content-center">
-            @* <div class="image col-xl-5 d-flex align-item- justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
-                <img src="/assets/img/banner1.png" alt="" class="img-fluid">
-            </div> *@
             <div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
                 <div class="content d-flex flex-column justify-content-center">
                     <div class="row">
@@ -19,48 +15,31 @@
                                 <p>Số lượng thành viên <strong>đông đảo, vui vẻ, hòa đồng, nhiệt huyết.</strong></p>
                             </div>
                         </div>
-@* 
-                        <div class="col-md-6 d-md-flex align-items-md-stretch">
-                            <div class="count-box">
-                                <i class="bi bi-activity"></i>
-                                <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Có nhiều hoạt động <strong>hấp dẫn, ý nghĩa </strong> dành cho tất cả thành viên tham gia.</p>
-                            </div>
-                        </div> *@
                         @{
                             DateTime now = DateTime.Now;
                             // Lấy năm hiện tại
                             int currentYear = now.Year;
-
                             // Số năm của năm hiện tại trừ đi 2021
                             int namhd = currentYear - 2021;
-
                         }
                         <div class="col-md-6 d-md-flex align-items-md-stretch">
                             <div class="count-box">
                                 <i class="bi bi-cake"></i>
                                 <span data-purecounter-start="0" data-purecounter-end="@namhd" data-purecounter-duration="1" class="purecounter"></span>
-                                <p>TÍnh đến nay <strong>CLB Hành Trình Sinh viên</strong> đã hoạt động được hơn @namhd năm.</p>
+                                <p>Tính đến nay <strong>CLB Hành Trình Sinh viên</strong> đã hoạt động được hơn @namhd năm.</p>
                             </div>
                         </div>
-@* 
-                        <div class="col-md-6 d-md-flex align-items-md-stretch">
-                            <div class="count-box">
-                                <i class="bi bi-award"></i>
-                                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Và cũng đã đạt được nhiều <strong>Danh hiệu</strong> trong quá trình hình thành và phát triển.</p>
-                            </div>
-                        </div> *@
                     </div>
                 </div><!-- End .content-->
             </div>
+            <div class="col-xl-5 d-flex align-item- justify-content-center justify-content-xl-start">
+                    @await Component.InvokeAsync("Chart")
+               </div>
         </div>
-
     </div>
+
+
 </section><!-- End Counts Section -->
-
-
-
 
 
 <!-- ======= Testimonials Section ======= -->
