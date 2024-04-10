@@ -37,12 +37,12 @@
                                     <div class="mb-3">
                                         <label asp-for="Input.Email" for="exampleInputEmail1" class="form-label">Email (mssv@st.tvu.edu.vn)</label>
                                         <input type="email" asp-for="Input.Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" aria-required="true" required>
-                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        <span asp-validation-for="Input.Email" class="text-danger">Phải điền đúng mẫu email</span>
                                     </div>
                                     <div class="mb-4">
                                         <label asp-for="Input.Password" for="exampleInputPassword1" class="form-label">Mật khẩu</label>
                                         <input asp-for="Input.Password" type="password" class="form-control" id="exampleInputPassword1" aria-required="true">
-                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        <span asp-validation-for="Input.Password" class="text-danger">Tài khoản hoặc mật không đúng</span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">

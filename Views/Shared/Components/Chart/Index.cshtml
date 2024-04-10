@@ -14,14 +14,24 @@
 <script>
     var participationRateData = {
         labels: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationLabels)),
-        datasets: [{
-            label: 'Thống kê số lượng hoạt động',
-            data: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationCounts)),
-            borderColor: 'rgba(74, 163, 223, 1)',
-            backgroundColor: 'rgba(74, 163, 223, 0.2)',
-            tension: 0.5,
-            fill: true
-        }]
+        datasets: [
+            {
+                label: 'Sinh viên đăng ký',
+                data: @Html.Raw(Json.Serialize(ViewBag.MonthlyRegistrationCounts)),
+                borderColor: 'rgba(74, 163, 223, 1)',
+                backgroundColor: 'rgba(74, 163, 223, 0.2)',
+                tension: 0.5,
+                fill: true,
+            },
+            {
+                label: 'Sinh viên tham gia',
+                data: @Html.Raw(Json.Serialize(ViewBag.MonthlyParticipationCounts)),
+                borderColor: 'rgba(255, 99, 132, 1)', // Màu đỏ
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Màu nền đỏ
+                tension: 0.5,
+                fill: true,
+            }
+        ]
     };
 
     var participationRateCtx = document.getElementById('participationRateChart').getContext('2d');

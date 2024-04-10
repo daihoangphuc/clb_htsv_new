@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using website_CLB_HTSV.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace website_CLB_HTSV.Components
 {
@@ -12,27 +16,50 @@ namespace website_CLB_HTSV.Components
         {
             _context = context;
         }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             // Lấy danh sách hoạt động trong 12 tháng gần đây
-            var activities = _context.HoatDong
+            var activities = await _context.HoatDong
                 .Where(a => a.ThoiGian >= DateTime.Now.AddMonths(-11)) // Lấy hoạt động trong vòng 12 tháng
-                .ToList();
+                .ToListAsync();
 
+            // Khởi tạo dictionary để lưu trữ số lượng đăng ký theo tháng
+            var registrationData = new Dictionary<int, int>();
             // Khởi tạo dictionary để lưu trữ số lượng tham gia theo tháng
             var participationData = new Dictionary<int, int>();
 
-            // Tính toán dữ liệu tham gia theo tháng
+            // Tính toán dữ liệu đăng ký và tham gia theo tháng
             foreach (var activity in activities)
             {
                 var month = activity.ThoiGian.Month;
-                if (participationData.ContainsKey(month))
+
+                // Lấy số lượng đăng ký hoạt động
+                var registrationCount = await _context.DangKyHoatDong
+                    .Where(dk => dk.MaHoatDong == activity.MaHoatDong)
+                    .CountAsync();
+
+                if (registrationData.ContainsKey(month))
                 {
-                    participationData[month]++;
+                    registrationData[month] += registrationCount;
                 }
                 else
                 {
-                    participationData.Add(month, 1);
+                    registrationData.Add(month, registrationCount);
+                }
+
+                // Lấy số lượng sinh viên tham gia hoạt động
+                var studentCount = await _context.ThamGiaHoatDong
+                    .Where(shd => shd.MaHoatDong == activity.MaHoatDong)
+                    .CountAsync();
+
+                if (participationData.ContainsKey(month))
+                {
+                    participationData[month] += studentCount;
+                }
+                else
+                {
+                    participationData.Add(month, studentCount);
                 }
             }
 
@@ -40,7 +67,8 @@ namespace website_CLB_HTSV.Components
             var vietnameseCulture = new CultureInfo("vi-VN");
             // Tạo mảng labels và data cho biểu đồ
             var labels = new string[12];
-            var participatedCounts = new int[12];
+            var registrationCounts = new int[12];
+            var participationCounts = new int[12];
             var currentMonth = DateTime.Now.Month;
             for (int i = 0; i < 12; i++)
             {
@@ -50,18 +78,28 @@ namespace website_CLB_HTSV.Components
                     month += 12;
                 }
                 labels[i] = vietnameseCulture.DateTimeFormat.GetMonthName(month);
-                if (participationData.ContainsKey(month))
+                if (registrationData.ContainsKey(month))
                 {
-                    participatedCounts[i] = participationData[month];
+                    registrationCounts[i] = registrationData[month];
                 }
                 else
                 {
-                    participatedCounts[i] = 0;
+                    registrationCounts[i] = 0;
+                }
+
+                if (participationData.ContainsKey(month))
+                {
+                    participationCounts[i] = participationData[month];
+                }
+                else
+                {
+                    participationCounts[i] = 0;
                 }
             }
 
             ViewBag.MonthlyParticipationLabels = labels;
-            ViewBag.MonthlyParticipationCounts = participatedCounts;
+            ViewBag.MonthlyRegistrationCounts = registrationCounts;
+            ViewBag.MonthlyParticipationCounts = participationCounts;
 
             return View("Index");
         }
