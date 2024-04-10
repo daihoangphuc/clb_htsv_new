@@ -6,62 +6,7 @@
 
 <h1>@ViewData["Title"]</h1> *@
 
-<div class="row">
-    <div class="container-fluid center-form">
-        <div class="col-md-4 container-fluid center-form">
-            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onsubmit="return validateEmail()">
-                <h2 style="text-align: center">Đăng ký tài khoản</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
-                    <input asp-for="Input.Email" id="Input_Email" class="form-control mb-2" autocomplete="username" aria-required="true" required />
-                    <label asp-for="Input.Email">Email (mssv@st.tvu.edu.vn)</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>  
-                </div>
-                <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control mb-2" autocomplete="new-password" aria-required="true" required />
-                    <label asp-for="Input.Password">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-floating">
-                    <input asp-for="Input.ConfirmPassword" class="form-control mb-2" autocomplete="new-password" aria-required="true" required />
-                    <label asp-for="Input.ConfirmPassword">ConfirmPassword</label>
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Đăng ký</button>
-            </form>
-        </div>
-        
-@*         <div class="col-md-6 col-md-offset-2">
-            <section>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
-                        <div>
-                            <p>
-                                Không có dịch vụ xác thực nào được cấu hình. Xem bài viết này <a href="https://go.microsoft.com/fwlink/?LinkID=532715">về cách cấu hình ứng dụng ASP.NET để hỗ trợ đăng nhập qua các dịch vụ bên ngoài</a>.
-                            </p>
-                        </div>
-                    }
-                    else
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                    @foreach (var provider in Model.ExternalLogins!)
-                                    {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Đăng nhập bằng tài khoản @provider.DisplayName của bạn">@provider.DisplayName</button>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
-                }
-            </section>
-        </div> *@
-    </div>
-</div>
+
 
 @section Scripts {
     <script>
@@ -77,3 +22,92 @@
     </script>
     <partial name="_ValidationScriptsPartial" />
 }
+
+    <link rel="stylesheet" href="~/Login_Register/src/assets/css/styles.min.css" />
+
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper"data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <div class="position-relative overflow-hidden  min-vh-100 d-flex align-items-center justify-content-center" >
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <div class="row justify-content-center w-100">
+                <div class="col-md-8 col-lg-6 col-xxl-3" style="width: 500px; margin-top: -180px">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                                <img src="~/Login_Register/src/assets/images/logos/logo_clb.png" width="200" style="margin-left: -20px" alt="">
+                                </a>
+                            <p class="text-center">Hello, I'm Hanh Trinh Sinh Vien Club</p>
+                                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onsubmit="return validateEmail()">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.Email" for="exampleInputtext1" class="form-label">Email (mssv@st.tvu.edu.vn)</label>
+                                        <input asp-for="Input.Email" type="email" id="Input_Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" aria-required="true" required>
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="Input.Password" for="exampleInputEmail1" class="form-label">Mật khẩu</label>
+                                        <input asp-for="Input.Password" type="password" class="form-control" id="exampleInputPassword1" aria-describedby="textHelp" aria-required="true" required>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Input.ConfirmPassword" for="exampleInputPassword1" class="form-label">Nhập lại mật khẩu</label>
+                                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" id="exampleInputPassword1" aria-required="true" required>
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                    <button id="registerSubmit" type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Đăng ký</button>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        Nếu đã có tài khoản
+                                        <a class="text-primary fw-bold ms-2" href="/Identity/Account/Login">Đăng nhập</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Login_Register/src/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Login_Register/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+
+<div class="row">
+    <div class="container-fluid center-form">
+        <div class="col-md-4 container-fluid center-form">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onsubmit="return validateEmail()">
+                <h2 style="text-align: center">Đăng ký tài khoản</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control mb-2" autocomplete="username" aria-required="true" required />
+                    <label asp-for="Input.Email">Email (mssv@st.tvu.edu.vn)</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control mb-2" autocomplete="new-password" aria-required="true" required />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.ConfirmPassword" class="form-control mb-2" autocomplete="new-password" aria-required="true" required />
+                    <label asp-for="Input.ConfirmPassword">ConfirmPassword</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Đăng ký</button>
+            </form>
+        </div>
+
+    </div>
+</div> *@
