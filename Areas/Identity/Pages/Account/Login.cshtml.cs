@@ -100,7 +100,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
-
+        public bool IsLoginSuccessful { get; set; }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -114,6 +114,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    IsLoginSuccessful = true;
                     _logger.LogInformation("User logged in.");
                     return RedirectToAction("UpdateProfile", "Sinhviens");
                 }
