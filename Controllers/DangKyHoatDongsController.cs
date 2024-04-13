@@ -245,79 +245,51 @@ namespace website_CLB_HTSV.Controllers
 
 
 
+
         // GET: DangKyHoatDongs
         [Authorize]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            // Lấy danh sách đăng ký hoạt động từ cơ sở dữ liệu và kết hợp thông tin liên quan
-            var dangKyHoatDongs = from dk in _context.DangKyHoatDong.Include(dk => dk.HoatDong).Include(dk => dk.SinhVien)
-                                  select dk;
+            // Kiểm tra người dùng đã đăng nhập hay chưa
+            if (!User.Identity.IsAuthenticated)
+            {
+                // Nếu chưa đăng nhập, đặt thông báo vào TempData
+                TempData["ErrorMessage"] = "Bạn cần đăng nhập để truy cập vào trang này.";
+                return Redirect("/Identity/Account/Login");
+            }
+
+            // Lấy thông tin người dùng hiện tại
+            var currentUser = await _userManager.GetUserAsync(User);
+            var Mssv = User.Identity.Name.Split('@')[0];
+
+            IQueryable<DangKyHoatDong> hoatdong;
+
+            // Nếu người dùng không phải là quản trị viên
+            if (!User.IsInRole("Administrators"))
+            {
+                // Lọc danh sách hoạt động theo người dùng hiện tại
+                hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.MaSV == Mssv && dk.TrangThaiDangKy == true);
+            }
+            else
+            {
+                // Lấy tất cả các đăng ký hoạt động nếu là quản trị viên
+                hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.TrangThaiDangKy == true);
+            }
 
             // Lọc theo chuỗi tìm kiếm nếu có
             if (!string.IsNullOrEmpty(searchString))
             {
-                dangKyHoatDongs = dangKyHoatDongs.Where(dk => dk.MaHoatDong.Contains(searchString)
-                                                              || dk.MaSV.Contains(searchString));
-
-                // Lưu searchString vào Session để giữ lại giá trị khi chuyển trang
-                HttpContext.Session.SetString("searchString", searchString);
+                hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
             }
 
             // Số lượng mục trên mỗi trang
             int pageSize = 10;
 
             // Tạo danh sách phân trang từ danh sách đăng ký hoạt động
-            var paginatedDangKyHoatDongs = await PaginatedList<DangKyHoatDong>.CreateAsync(dangKyHoatDongs.AsNoTracking(), pageNumber ?? 1, pageSize);
+            var paginatedDangKyHoatDongs = await PaginatedList<DangKyHoatDong>.CreateAsync(hoatdong.AsNoTracking(), pageNumber ?? 1, pageSize);
 
             return View(paginatedDangKyHoatDongs);
         }
-
-
-
-        /*
-                // GET: DangKyHoatDongs
-                [Authorize]
-                public async Task<IActionResult> Index(string searchString)
-                {
-                    // Kiểm tra người dùng đã đăng nhập hay chưa
-                    if (!User.Identity.IsAuthenticated)
-                    {
-                        // Nếu chưa đăng nhập, đặt thông báo vào TempData
-                        TempData["ErrorMessage"] = "Bạn cần đăng nhập để truy cập vào trang này.";
-                    }
-                    else
-                    {
-                        var currentUser = await _userManager.GetUserAsync(User);
-                        var Mssv = User.Identity.Name.Split('@')[0];
-                        if (!User.IsInRole("Administrators"))
-                        {
-                            // Lấy thông tin người dùng hiện tại
-
-
-                            var hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.MaSV == Mssv && dk.TrangThaiDangKy == true);
-                            if (!string.IsNullOrEmpty(searchString))
-                            {
-                                hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
-                            }
-                            return View(await hoatdong.ToListAsync());
-                        }
-                        else
-                        {
-                            var hoatdong = _context.DangKyHoatDong.Include(s => s.HoatDong).Include(s => s.SinhVien).Where(dk => dk.TrangThaiDangKy == true);
-                            if (!string.IsNullOrEmpty(searchString))
-                            {
-                                hoatdong = hoatdong.Where(s => s.MaHoatDong.Contains(searchString) || s.MaSV.Contains(searchString));
-                            }
-                            return View(await hoatdong.ToListAsync());
-                        }
-
-
-                    } 
-                    return Redirect("/Identity/Account/Login");
-                }*/
-
-
-
 
         // GET: DangKyHoatDongs/Details/5
         [Authorize]

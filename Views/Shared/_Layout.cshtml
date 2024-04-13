@@ -77,7 +77,6 @@
                                 <li><a href="/HoatDongs">Hoạt Động</a></li>
                                 <li><a href="/DangKyHoatDongs">Hoạt Động Đã Đăng Ký</a></li>
                                  <li><a href="/ThamGiaHoatDongs">Hoạt Động Đã Tham Gia</a></li>
-                                <li> <a asp-area="" asp-controller="SinhViens" asp-action="BanChuNhiem">Ban Chủ Nhiệm</a></li>
                                 @if (User.IsInRole("Users"))
                                 {
                                     <li><a href="/Sinhviens/UpdateProfile">Cập nhật thông tin</a></li>
@@ -96,7 +95,8 @@
                                             <li><a href="/LopHocs">Lớp Học</a></li>
                                             <li><a href="/Khoas">Khoa</a></li>
                                             <li><a href="/ChucVus">Chức Vụ</a></li>
-                                            <li><a href="/Admin">Reset Password</a></li>
+                                            <li><a href="/User">Quản lý User </a></li>
+                                            <li><a href="/Role">Quản Lý Quyền</a></li>
                                             <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
                                         </ul>
                                     </li>
@@ -119,7 +119,7 @@
                         </li> *@
                         <li class="nav-item">
                             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button type="submit" style="padding-left: 20px; padding-top: 8px; font-size: 20px;border: none" class="fa-solid fa-right-from-bracket bg-transparent"></button>
+                                <button type="submit" style="padding-left: 20px; padding-top: 8px; font-size: 20px;border: none" class="fa-solid fa-right-from-bracket bg-transparent" title="Đăng xuất"></button>
                                @*  <button type="submit" class="nav-link scrollto" style="padding-left: 10px">Logout</button> *@
                             </form>
                         </li>

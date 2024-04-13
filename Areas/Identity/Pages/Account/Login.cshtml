@@ -19,7 +19,16 @@
 
     <link rel="stylesheet" href="~/Login_Register/src/assets/css/styles.min.css" />
 
-
+@{
+    var sessionExpiredMessage = HttpContext.Session.GetString("SessionExpired");
+    if (!string.IsNullOrEmpty(sessionExpiredMessage))
+    {
+        <div class="alert alert-warning">
+            @sessionExpiredMessage
+        </div>
+        HttpContext.Session.Remove("SessionExpired");
+    }
+}
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">

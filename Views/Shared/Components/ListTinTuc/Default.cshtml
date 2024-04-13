@@ -61,14 +61,14 @@
         }
     }
 </style>
-<section id="testimonials" class="testimonials section-bg p-2">
+<section id="testimonials" class="testimonials bg-white  section-bg p-2">
     <div class="container">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach (var item in Model)
                 {
                     <div class="swiper-slide">
-                        <div class="max-w-xs bg-white border border-gray-200 rounded-3xl shadow dark:bg-gray-800 dark:border-gray-700 p-4">
+                        <div class="max-w-xs bg-white border border-gray-200 rounded-3xl p-4">
                             @if (item.HinhAnh != null)
                             {
                                 <img class="rounded-2xl w-full h-48 object-cover" src="@(Url.Content("~/newsimages/" + item.HinhAnh))" alt="Hình ảnh" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -6,6 +7,7 @@ using System.Configuration;
 using website_CLB_HTSV;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Services;
+using static Dropbox.Api.TeamLog.EventCategory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,41 +28,19 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 //Add signalr
 builder.Services.AddSignalR();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = "AspNetCore.Identity.Application";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.SlidingExpiration = true;
+});
+
 // Add session services
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian sống của Session
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true; // Đánh dấu cookie session là thiết yếu cho ứng dụng
 });
-
-
-//New
-/*builder.Services.AddTransient<IEmailSender, EmailSenderService>(); // Đăng ký IEmailSender và implementation của nó
-
-
-
-builder.Services.AddDefaultIdentity<IdentityUser>(config =>
-{
-    config.SignIn.RequireConfirmedEmail = true;
-    config.Tokens.ProviderMap.Add("CustomEmailConfirmation",
-        new TokenProviderDescriptor(
-            typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
-    config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-}).AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
-
-builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-
-builder.Services.ConfigureApplicationCookie(o => {
-    o.ExpireTimeSpan = TimeSpan.FromDays(5);
-    o.SlidingExpiration = true;
-});
-
-
-ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-//*/
 
 // Thiết lập giấy phép cho EPPlus
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -85,12 +65,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 
+app.UseSession();
+app.UseMiddleware<SessionTimeoutMiddleware>();
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSession();
 
 app.UseEndpoints(endpoints =>
 {
