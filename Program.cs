@@ -22,12 +22,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-
+//Dang ky dich vu gui mail
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 //Add signalr
 builder.Services.AddSignalR();
 
+//Set timeout cho phien dang nhap
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = "AspNetCore.Identity.Application";
@@ -47,8 +48,6 @@ ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -67,6 +66,7 @@ app.UseStaticFiles();
 
 app.UseSession();
 app.UseMiddleware<SessionTimeoutMiddleware>();
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -79,12 +79,12 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    // Thêm dòng sau để đảm bảo route cho action Search
+    // Route cho action Search
     endpoints.MapControllerRoute(
         name: "newsSearch",
         pattern: "News/Search",
         defaults: new { controller = "TinTucs", action = "Search" });
-    // Thêm dòng sau để đảm bảo route cho action Search
+    // Route cho action Search
     endpoints.MapControllerRoute(
         name: "sinhVienSearch",
         pattern: "SinhViens/Search",

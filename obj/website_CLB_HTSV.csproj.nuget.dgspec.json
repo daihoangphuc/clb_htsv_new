@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[31.0.2, )"
             },
+            "DinkToPdf": {
+              "target": "Package",
+              "version": "[1.0.8, )"
+            },
             "Dropbox.Api": {
               "target": "Package",
               "version": "[6.37.0, )"
@@ -83,6 +87,10 @@
             "Microsoft.AspNetCore.SignalR.Common": {
               "target": "Package",
               "version": "[8.0.3, )"
+            },
+            "Microsoft.Azure.WebJobs": {
+              "target": "Package",
+              "version": "[3.0.39, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",

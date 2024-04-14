@@ -73,7 +73,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account
                 await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Hãy click vào đây để đặt lại mật khẩu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Đặt lại mật khẩu</a> ");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

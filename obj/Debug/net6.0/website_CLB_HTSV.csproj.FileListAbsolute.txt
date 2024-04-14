@@ -326,3 +326,7 @@ E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Syste
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\System.Text.Json.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Dropbox.Api.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\DinkToPdf.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.Azure.WebJobs.Host.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.Azure.WebJobs.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\System.Memory.Data.dll
