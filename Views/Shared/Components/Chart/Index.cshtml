@@ -96,9 +96,7 @@
                     participationRateChart.data.datasets[0].data.push(value1);
                     participationRateChart.update();
 
-                    // Check if it's the last iteration of dynamicData1
                     if (index === dynamicData1.length - 1) {
-                        // After the last iteration, start adding data for dynamicData2
                         dynamicData2.forEach((value2, index2) => {
                             setTimeout(() => {
                                 participationRateChart.data.datasets[1].data.push(value2);
