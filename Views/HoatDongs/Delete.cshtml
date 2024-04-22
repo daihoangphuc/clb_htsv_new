@@ -1,7 +1,10 @@
 ﻿@model website_CLB_HTSV.Models.HoatDong
 
 @{
-    ViewData["Title"] = "Delete";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Delete</h1>

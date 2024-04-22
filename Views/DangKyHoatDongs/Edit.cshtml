@@ -1,9 +1,11 @@
 ﻿@model website_CLB_HTSV.Models.DangKyHoatDong
 
 @{
-    ViewData["Title"] = "Edit";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
-
 <h1>Edit</h1>
 
 <h4>DangKyHoatDong</h4>

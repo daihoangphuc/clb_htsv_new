@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<website_CLB_HTSV.Models.Khoa>
 
 @{
-    ViewData["Title"] = "Index";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Index</h1>

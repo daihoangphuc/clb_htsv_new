@@ -1,7 +1,10 @@
 ﻿@model PaginatedList<ThamGiaHoatDong>
 
 @{
-    ViewData["Title"] = "Index";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 @if (User.IsInRole("Administrators"))

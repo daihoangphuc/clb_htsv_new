@@ -1,7 +1,10 @@
 ﻿@model website_CLB_HTSV.Models.ChucVu
 
 @{
-    ViewData["Title"] = "Details";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Details</h1>

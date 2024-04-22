@@ -1,6 +1,10 @@
 ﻿@model PaginatedList<HoatDong>
+
 @{
-    ViewData["Title"] = "Index";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1></h1>
@@ -39,7 +43,11 @@
                         <h3 class="text-xl font-semibold mb-2">@i.TenHoatDong</h3>
                         <p class="activity-description text-sm md:text-base">@i.MoTa<br>Thời Gian: <span class="font-semibold">@i.ThoiGian.ToString("HH:mm")</span> ngày <span class="font-semibold">@i.ThoiGian.ToString("dd/MM/yyyy")</span><br>Địa Điểm: <span class="font-semibold">@i.DiaDiem</span><br>Trạng Thái: <span class="font-semibold">@i.TrangThai</span></p>
                         <!-- Form/Link để đăng ký -->
+                        
+                        @if (!User.IsInRole("Administrators"))
+                        {
                         <button class="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 register-btn" onclick="prepareRegistration('@i.MaHoatDong')">Đăng ký</button>
+                        }
                     </div>
                     @if (User.IsInRole("Administrators"))
                     {

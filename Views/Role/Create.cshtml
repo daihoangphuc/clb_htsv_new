@@ -1,5 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Create Role";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Create Role</h1>
