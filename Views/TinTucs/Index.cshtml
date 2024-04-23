@@ -1,9 +1,11 @@
 ﻿@model PaginatedList<TinTuc>
 
 @{
-    ViewData["Title"] = "Index";
+    if (User.IsInRole("Administrators"))
+    {
+         Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
-
 <h1>Index</h1>
 
 @if (User.IsInRole("Administrators"))

@@ -1,9 +1,11 @@
 ﻿@model website_CLB_HTSV.Models.DangKyHoatDong
 
 @{
-    ViewData["Title"] = "Import Điểm Danh";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
-
 <h1>@ViewData["Title"]</h1>
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))

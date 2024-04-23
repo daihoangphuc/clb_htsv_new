@@ -1,7 +1,10 @@
 ﻿@model website_CLB_HTSV.Models.TinTuc
 
 @{
-    ViewData["Title"] = "Details";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <!-- ======= Breadcrumbs ======= -->

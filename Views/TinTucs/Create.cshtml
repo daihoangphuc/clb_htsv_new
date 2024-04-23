@@ -1,9 +1,11 @@
 ﻿@model website_CLB_HTSV.Models.TinTuc
 
 @{
-    ViewData["Title"] = "Create";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
-
 <h1>Create</h1>
 
 <h4>TinTuc</h4>

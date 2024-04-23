@@ -1,7 +1,10 @@
 ﻿@model PaginatedList<SinhVien>
 
 @{
-    ViewData["Title"] = "Danh sách Sinh Viên";
+    if (User.IsInRole("Administrators"))
+    {
+         Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Danh sách Sinh Viên</h1>

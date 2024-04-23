@@ -1,6 +1,9 @@
 ﻿@model website_CLB_HTSV.Models.DangKyHoatDong
 @{
-    ViewData["Title"] = "Cập nhật minh chứng";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>@ViewData["Title"]</h1>

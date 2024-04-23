@@ -1,10 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @model IdentityUser
 @{
-    ViewData["Title"] = "Edit Role";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
-<h1>Đặt quyền cho @ViewBag.UserName</h1>
+<h1>Đặt lại quyền cho @ViewBag.UserName</h1>
 
 <form method="post">
     <div class="form-group">

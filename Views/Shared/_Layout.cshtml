@@ -1,6 +1,7 @@
 ﻿﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<IdentityUser> UserManagers
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,8 @@
     <!-- Favicons -->
 @*     <link href="/assets/img/icon-logo.png" rel="icon">
     <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> *@
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <link rel="icon" href="/assets/img/icon-logo.png" type="image/png">
 
     <!-- Google Fonts -->
@@ -85,8 +87,9 @@
 
                                 @if (User.IsInRole("Administrators"))
                                 {
-                                    <li class="dropdown">
-                                        <a href="#"><span>Quyền Admin</span> <i class="bi bi-chevron-right"></i></a>
+                                    <li><a href="/Admin">Quyền Admin</a></li>
+                             @*        <li class="dropdown">
+                                        <a href="Admin"><span>Quyền Admin</span></a>
                                         <ul>
                                             <li><a href="/ThamGiaHoatDongs/XuatDS">Xuất danh sách tham gia hoạt động</a></li>
                                             <li><a href="/DangKyHoatDongs/ImportDiemDanh">Điểm danh</a></li>
@@ -99,7 +102,7 @@
                                             <li><a href="/Role">Quản Lý Quyền</a></li>
                                             <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
                                         </ul>
-                                    </li>
+                                    </li> *@
                                    
 
                                 }
@@ -113,16 +116,29 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li><a class="getstarted scrollto" asp-area="Identity" asp-page="/Account/Manage/Index">Tài khoản của tôi</a></li>
-                     @*    <li class="nav-item">
+                        @*    <li class="nav-item">
                             <a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
 
                         </li> *@
-                        <li class="nav-item">
+                        <li class="avt ml-2">
+                            @await Component.InvokeAsync("Avatar")
+                        </li>
+                        if (User.IsInRole("Administrators"))
+                        {
+                            <form class="form-inline d-flex" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" style="margin-left: 20px; padding-top: 8px; font-size: 20px;border: none" class="fa-solid fa-right-from-bracket bg-transparent" title="Đăng xuất"></button>
+                                @*  <button type="submit" class="nav-link scrollto" style="padding-left: 10px">Logout</button> *@
+                            </form>
+                        }
+
+                     @*        @await Component.InvokeAsync("Avatar") *@
+                      
+                       @*  <li class="nav-item">
                             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                 <button type="submit" style="padding-left: 20px; padding-top: 8px; font-size: 20px;border: none" class="fa-solid fa-right-from-bracket bg-transparent" title="Đăng xuất"></button>
-                               @*  <button type="submit" class="nav-link scrollto" style="padding-left: 10px">Logout</button> *@
+                              
                             </form>
-                        </li>
+                        </li> *@
                     }
                     else
                     {
@@ -137,6 +153,7 @@
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
+             
             </nav><!-- .navbar -->
 
         </div>
@@ -254,9 +271,13 @@
 </style>
 
  *@
-
-
-
+<style>
+    @@media (max-width: 767px) {
+        .avt {
+            margin-left: 10px; /* Áp dụng margin left 10px cho giao diện điện thoại */
+        }
+    }
+</style>
 
 
 

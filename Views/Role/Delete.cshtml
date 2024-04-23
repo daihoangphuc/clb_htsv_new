@@ -1,7 +1,10 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityRole
 
 @{
-    ViewData["Title"] = "Delete Role";
+    if (User.IsInRole("Administrators"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 
 <h1>Delete Role</h1>

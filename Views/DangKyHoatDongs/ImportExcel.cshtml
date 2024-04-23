@@ -1,5 +1,9 @@
 ﻿@model website_CLB_HTSV.Models.DangKyHoatDong
 @{
+    if (User.IsInRole("Administrators"))
+    {
+         Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
     ViewData["Title"] = "Import Excel";
 }
 

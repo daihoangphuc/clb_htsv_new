@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<website_CLB_HTSV.Models.SinhVien>
 @{
+    if (User.IsInRole("Administrators"))
+    {
+         Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
     ViewData["Title"] = "Xuất danh sách sinh viên tham gia hoạt động";
 }
 
