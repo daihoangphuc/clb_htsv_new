@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using website_CLB_HTSV.Data;
 
@@ -11,9 +12,10 @@ using website_CLB_HTSV.Data;
 namespace website_CLB_HTSV.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423145526_addQqrcode1")]
+    partial class addQqrcode1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,6 +363,19 @@ namespace website_CLB_HTSV.Data.Migrations
                     b.ToTable("LopHoc");
                 });
 
+            modelBuilder.Entity("website_CLB_HTSV.Models.QRCodeImage", b =>
+                {
+                    b.Property<string>("QrId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QrId");
+
+                    b.ToTable("QRCodeImage");
+                });
+
             modelBuilder.Entity("website_CLB_HTSV.Models.SinhVien", b =>
                 {
                     b.Property<string>("MaSV")
@@ -370,9 +385,6 @@ namespace website_CLB_HTSV.Data.Migrations
                     b.Property<string>("DienThoai")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("DuongdanQR")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(255)
@@ -398,11 +410,19 @@ namespace website_CLB_HTSV.Data.Migrations
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("QRCodeImageQrId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("QrId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("MaSV");
 
                     b.HasIndex("MaChucVu");
 
                     b.HasIndex("MaLop");
+
+                    b.HasIndex("QRCodeImageQrId");
 
                     b.ToTable("SinhVien");
                 });
@@ -590,9 +610,15 @@ namespace website_CLB_HTSV.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MaLop");
 
+                    b.HasOne("website_CLB_HTSV.Models.QRCodeImage", "QRCodeImage")
+                        .WithMany()
+                        .HasForeignKey("QRCodeImageQrId");
+
                     b.Navigation("ChucVu");
 
                     b.Navigation("LopHoc");
+
+                    b.Navigation("QRCodeImage");
                 });
 
             modelBuilder.Entity("website_CLB_HTSV.Models.TaiKhoan", b =>

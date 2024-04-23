@@ -25,6 +25,53 @@ namespace website_CLB_HTSV.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        private async Task CreateOrUpdateQRCodeImageAsync(SinhVien sinhVien)
+        {
+            var qrContent = $"{sinhVien.Email.Split('@')[0].ToString()}"; // Thông tin bạn muốn chứa trong mã QR
+
+            var qrCodeWriter = new ZXing.BarcodeWriterPixelData
+            {
+                Format = ZXing.BarcodeFormat.QR_CODE,
+                Options = new ZXing.QrCode.QrCodeEncodingOptions
+                {
+                    Height = 300,
+                    Width = 300
+                }
+            };
+
+            var pixelData = qrCodeWriter.Write(qrContent);
+
+            using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height),
+                        System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    try
+                    {
+                        // Copy the bytes from the pixel data to the bitmap
+                        System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0,
+                            pixelData.Pixels.Length);
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bitmapData);
+                    }
+
+                    // Tạo tên tệp duy nhất cho hình ảnh mã QR
+                    var fileName = $"{sinhVien.MaSV.ToString()}.png";
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "qrcode", fileName); // Lưu vào thư mục "qrcode" trong wwwroot
+                    bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+
+                    // Lưu tên tệp vào cơ sở dữ liệu
+                    sinhVien.DuongdanQR = fileName;
+                    _context.Update(sinhVien);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
         public IActionResult UpdateProfile()
         {
             if (!User.IsInRole("Administrators"))
@@ -121,6 +168,7 @@ namespace website_CLB_HTSV.Controllers
             };
 
             await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
+            await CreateOrUpdateQRCodeImageAsync(sinhVien);
         }
 
         private async Task UpdateExistingSinhVienAsync(SinhVien sinhVien, SinhVien updatedSinhVien, IFormFile newImage)
@@ -133,6 +181,8 @@ namespace website_CLB_HTSV.Controllers
             sinhVien.MaChucVu = sinhVien.MaChucVu;
 
             await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
+            await CreateOrUpdateQRCodeImageAsync(sinhVien);
+
         }
 
         private async Task SaveImageAndUpdateSinhVienAsync(SinhVien sinhVien, IFormFile newImage)
@@ -474,7 +524,14 @@ namespace website_CLB_HTSV.Controllers
                     System.IO.File.Delete(filePath);
                 }
             }
-
+             if (sinhVien.HinhAnh != null)
+            {
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", sinhVien.HinhAnh);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
             _context.SinhVien.Remove(sinhVien);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

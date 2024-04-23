@@ -45,6 +45,7 @@ namespace website_CLB_HTSV.Models
         [StringLength(255)]
         [DisplayName("Hình Ảnh")]
         public string? HinhAnh { get; set; }
-
+        [DisplayName("Mã QR")]
+        public string? DuongdanQR { get; set; }
     }
 }

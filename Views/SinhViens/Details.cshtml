@@ -14,7 +14,8 @@
             </div>
             <!-- Các phần tử khác bạn muốn thêm vào đây -->
         </div>
-        <img src="@(Url.Content("~/userimages/" + Model.HinhAnh))" class="overlay-image" alt="Overlay Image">
+        <img src="@(Url.Content("~/userimages/" + Model.HinhAnh))" class="overlay-image" alt="Avt">
+        <img src="@(Url.Content("~/qrcode/" + @Model.DuongdanQR))" class="overlay-image2" alt="QR Code" />
     </div>
 </div>
 
@@ -83,6 +84,17 @@
         border: 3px solid #00a2e9;
     }
 
+    .overlay-image2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 20px;
+        margin-left: 82%;
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 
 
     /* Responsive CSS */
@@ -113,6 +125,13 @@
             height: 90px;
             margin-top: 24%;
             margin-left: 20px;
+        }
+
+        .overlay-image2 {
+            width: 40px;
+            height: 40px;
+            margin-top: 20px;
+            margin-left: 82%;
         }
         .info{
             margin-top: 15px;

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/XIcRCROa6btr1fg8bgWwc5QzzEnz+079GdI6q143HLU/ZVmLFwxd9akV5MfyuKr0yfV8Zc8eIpzHX1KLg4p8Q==",
+  "dgSpecHash": "1dMzIvA0IzOtSl/lrsNTKsihauIjjSl8k7FQ1TRhMxXAkm5pPMPDzapGzawZWTQVHktbYvzzOxLvbzNFEFqCrQ==",
   "success": true,
   "projectFilePath": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\website_CLB_HTSV.csproj",
   "expectedPackageFiles": [
@@ -337,7 +337,8 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\x.pagedlist\\9.1.2\\x.pagedlist.9.1.2.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\x.pagedlist.mvc.core\\9.1.2\\x.pagedlist.mvc.core.9.1.2.nupkg.sha512"
+    "C:\\Users\\ADMIN\\.nuget\\packages\\x.pagedlist.mvc.core\\9.1.2\\x.pagedlist.mvc.core.9.1.2.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\zxing.net\\0.16.9\\zxing.net.0.16.9.nupkg.sha512"
   ],
   "logs": [
     {

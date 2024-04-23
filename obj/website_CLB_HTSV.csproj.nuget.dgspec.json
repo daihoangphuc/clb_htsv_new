@@ -133,6 +133,10 @@
             "X.PagedList.Mvc.Core": {
               "target": "Package",
               "version": "[9.1.2, )"
+            },
+            "ZXing.Net": {
+              "target": "Package",
+              "version": "[0.16.9, )"
             }
           },
           "imports": [
