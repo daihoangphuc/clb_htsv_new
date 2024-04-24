@@ -331,3 +331,6 @@ E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Micro
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Microsoft.Azure.WebJobs.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\System.Memory.Data.dll
 E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\zxing.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Rotativa.AspNetCore.dll
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Select.Html.dep
+E:\!Học Kì 6\ASP.NET\website_CLB_HTSV\website_CLB_HTSV\bin\Debug\net6.0\Select.HtmlToPdf.dll
