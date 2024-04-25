@@ -15,7 +15,7 @@
 
     @if(Model != null)
     {
-<form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+    <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="MaSV" class="control-label">Mã sinh viên</label>
             <input asp-for="MaSV" class="form-control" value="@User.Identity.Name.Split('@')[0]" disabled />
@@ -65,11 +65,11 @@
             <div class=" d-flex justify-evenly p-2">
                 @if (Model.HinhAnh != null)
                 {
-                    <img src="@(Url.Content("~/userimages/" + @Model.HinhAnh))" alt="Hình ảnh sinh viên" class="img-thumbnail" style="width: 50px; margin-right: 15px; border-radius: 50%" />
+                    <img src="@(Url.Content("~/userimages/" + @Model.HinhAnh))" alt="Hình ảnh sinh viên" class="img-thumbnail" style="width: 50px;height: 50px; margin-right: 15px; border-radius: 50%; object-fit: cover"/>
                 }
                 @if (Model.DuongdanQR != null)
                 {
-                    <img src="@(Url.Content("~/qrcode/" + @Model.DuongdanQR))" alt="Hình ảnh sinh viên" class="img-thumbnail" style="width: 50px; margin-right: 15px; border-radius: 20px" />
+                    <img src="@(Url.Content("~/qrcode/" + @Model.DuongdanQR))" alt="Hình ảnh sinh viên" class="img-thumbnail" style="width: 50px; height: 50px;margin-right: 15px; border-radius: 20px; object-fit: cover" />
                 }
          </div>
             <label asp-for="HinhAnh" class="control-label"></label>

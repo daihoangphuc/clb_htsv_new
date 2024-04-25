@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\ADMIN\.nuget\packages\select.htmltopdf.netcore\23.2.0\contentFiles\any\any\Select.Html.dep" />
+    <Content Remove="C:\Users\ADMIN\.nuget\packages\select.htmltopdf\23.2.0\contentFiles\any\any\Select.Html.dep" />
     <Content Remove="Views\HoatDongs\Register.cshtml" />
   </ItemGroup>
 
