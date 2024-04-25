@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 //Dang ky dich vu gui mail
-builder.Services.AddSingleton<IEmailSender, EmailSender>();
+builder.Services.AddSingleton<website_CLB_HTSV.IEmailSender, EmailSender>();
 
 //Add signalr
 builder.Services.AddSignalR();

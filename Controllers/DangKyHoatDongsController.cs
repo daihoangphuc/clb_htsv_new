@@ -17,10 +17,14 @@ namespace website_CLB_HTSV.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        public DangKyHoatDongsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public DangKyHoatDongsController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IEmailSender emailSender, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //Cập nhật minh chứng 
@@ -76,6 +80,45 @@ namespace website_CLB_HTSV.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Đã cập nhật minh chứng cho tất cả sinh viên thành công.";
+            // Lấy danh sách email từ bảng SinhVien
+            var sinhViens = (from sv in _context.SinhVien
+                             join dk in _context.DangKyHoatDong on sv.MaSV equals dk.MaSV
+                             join tg in _context.ThamGiaHoatDong on dk.MaDangKy equals tg.MaDangKy
+                             where tg.MaHoatDong == hoatDongId && tg.DaThamGia
+                             select sv.Email).Distinct().ToArray();
+
+
+            // Đường dẫn đến file HTML template
+            string templatePath = Path.Combine(_webHostEnvironment.WebRootPath, "emailhtml", "email_template.html");
+
+            // Đọc nội dung của file template
+            string htmlTemplate = System.IO.File.ReadAllText(templatePath);
+
+            // Sử dụng danh sách email
+            string[] recipients = sinhViens;
+            var hdong = _context.HoatDong.FirstOrDefault(h=>h.MaHoatDong == hoatDongId);
+
+            string subject = $"Hoạt động {hdong?.TenHoatDong} đã có minh chứng!";
+            // Thực hiện thay thế các giá trị mong muốn trong template
+            string name = hdong.TenHoatDong.ToString();
+            string tgian = hdong.ThoiGian.ToShortTimeString();
+            string ngaytc = hdong.ThoiGian.ToLongDateString();
+            string ddiem = hdong.DiaDiem.ToString();
+            string htmlMessage = htmlTemplate.Replace("{{TenHoatDong}}", name).Replace("{{ThoiGian}}", tgian).Replace("{{NgayToChuc}}", ngaytc).Replace("{{DiaDiem}}", ddiem);
+
+
+     
+
+            try
+            {
+                await _emailSender.SendEmailsAsync(recipients, subject, htmlMessage);
+                return RedirectToAction("Index", "Home"); // Redirect to success page
+            }
+            catch (Exception ex)
+            {
+                // Handle error appropriately
+                
+            }
             return RedirectToAction("Index", "ThamGiaHoatDongs");
         }
 
