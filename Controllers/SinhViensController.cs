@@ -524,9 +524,9 @@ namespace website_CLB_HTSV.Controllers
                     System.IO.File.Delete(filePath);
                 }
             }
-             if (sinhVien.HinhAnh != null)
+             if (sinhVien.DuongdanQR != null)
             {
-                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", sinhVien.HinhAnh);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "qrcode", sinhVien.DuongdanQR);
                 if (System.IO.File.Exists(filePath))
                 {
                     System.IO.File.Delete(filePath);
