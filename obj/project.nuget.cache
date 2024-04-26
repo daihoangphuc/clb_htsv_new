@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ve1hK/Ej7jStL7q6RV38MzorIE0cIPvmmPpOAl+csc2m6JvbY6jjVXJEdpLfg6xqNoRjfOpgX2IvSxWe/cXLNA==",
+  "dgSpecHash": "vc9r0rqPWtdmAmbmIW3u26lZkBA4edZ3XzUi8wWwfRVIL0TWWI3NcHN2pWO5UUw3j4rT6Q40rnaCNNQmuR9/xQ==",
   "success": true,
   "projectFilePath": "E:\\!Học Kì 6\\ASP.NET\\website_CLB_HTSV\\website_CLB_HTSV\\website_CLB_HTSV.csproj",
   "expectedPackageFiles": [
@@ -244,8 +244,6 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\select.htmltopdf\\23.2.0\\select.htmltopdf.23.2.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\select.htmltopdf.netcore\\23.2.0\\select.htmltopdf.netcore.23.2.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\sendgrid\\9.29.2\\sendgrid.9.29.2.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
@@ -291,7 +289,6 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.net.primitives\\4.3.0\\system.net.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.net.sockets\\4.3.0\\system.net.sockets.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.net.websockets.websocketprotocol\\4.5.1\\system.net.websockets.websocketprotocol.4.5.1.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.objectmodel\\4.3.0\\system.objectmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.reflection.emit\\4.6.0\\system.reflection.emit.4.6.0.nupkg.sha512",

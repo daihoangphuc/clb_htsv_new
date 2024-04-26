@@ -29,8 +29,6 @@
           "PagedList": "1.17.0",
           "PagedList.Mvc": "4.5.0",
           "Rotativa.AspNetCore": "1.3.2",
-          "Select.HtmlToPdf": "23.2.0",
-          "Select.HtmlToPdf.NetCore": "23.2.0",
           "SendGrid": "9.29.2",
           "X.PagedList": "9.1.2",
           "X.PagedList.Mvc.Core": "9.1.2",
@@ -2615,25 +2613,6 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
-      "Select.HtmlToPdf/23.2.0": {},
-      "Select.HtmlToPdf.NetCore/23.2.0": {
-        "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "8.0.0",
-          "Newtonsoft.Json": "13.0.2",
-          "System.Buffers": "4.5.1",
-          "System.Drawing.Common": "6.0.0",
-          "System.Numerics.Vectors": "4.5.0",
-          "System.Security.Principal.Windows": "5.0.0",
-          "System.Text.Encoding.CodePages": "6.0.0",
-          "System.Threading.Tasks.Extensions": "4.5.4"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Select.HtmlToPdf.dll": {
-            "assemblyVersion": "23.2.0.0",
-            "fileVersion": "23.2.0.0"
-          }
-        }
-      },
       "SendGrid/9.29.2": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.2",
@@ -3237,7 +3216,6 @@
           }
         }
       },
-      "System.Numerics.Vectors/4.5.0": {},
       "System.ObjectModel/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -5402,20 +5380,6 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
     },
-    "Select.HtmlToPdf/23.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5WlFJbacmdAsGkduRMS5WarLu8k5dY0BdMRgXhO5S9YdyuOWFeSyF8jIhYkzyCGnK6pcTlUccRQQ2Yu/Eh96oA==",
-      "path": "select.htmltopdf/23.2.0",
-      "hashPath": "select.htmltopdf.23.2.0.nupkg.sha512"
-    },
-    "Select.HtmlToPdf.NetCore/23.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1npSC6l2TVqRSvBocT865LBcgqcrhA+lAQPzFNUyq3xHu5hh7c/ERPcEbZA5QKE2TFUj10wrIBmxgTUihVz5+w==",
-      "path": "select.htmltopdf.netcore/23.2.0",
-      "hashPath": "select.htmltopdf.netcore.23.2.0.nupkg.sha512"
-    },
     "SendGrid/9.29.2": {
       "type": "package",
       "serviceable": true,
@@ -5730,13 +5694,6 @@
       "sha512": "sha512-FquLjdb/0CeMqb15u9Px6TwnyFl306WztKWu6sKKc5kWPYMdpi5BFEkdxzGoieYFp9UksyGwJnCw4KKAUfJjrw==",
       "path": "system.net.websockets.websocketprotocol/4.5.1",
       "hashPath": "system.net.websockets.websocketprotocol.4.5.1.nupkg.sha512"
-    },
-    "System.Numerics.Vectors/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
-      "path": "system.numerics.vectors/4.5.0",
-      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
     },
     "System.ObjectModel/4.3.0": {
       "type": "package",
