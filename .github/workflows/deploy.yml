@@ -34,5 +34,14 @@ jobs:
           docker push phuchoang1910/webapp_htsv
 
       - name: Deploy to Production
-        run: |
-         sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no root@152.42.200.17 'bash -s' < deploy.sh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          script: |
+            docker pull phuchoang1910/webapp_htsv:latest
+            docker stop webapp_htsv || true
+            docker rm webapp_htsv || true
+            docker run --name webapp_htsv -d -p 80:80 -p 443:443 phuchoang1910/webapp_htsv:latest
