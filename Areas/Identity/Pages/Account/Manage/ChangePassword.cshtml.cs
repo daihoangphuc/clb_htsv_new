@@ -119,7 +119,7 @@ namespace website_CLB_HTSV.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "Mật khẩu đã được thay đổi.";
 
             return RedirectToPage();
         }

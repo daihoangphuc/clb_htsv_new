@@ -3595,6 +3595,19 @@
           }
         }
       },
+      "Net.Codecrete.QrCodeGenerator/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/QrCodeGenerator.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/QrCodeGenerator.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -10386,6 +10399,21 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Net.Codecrete.QrCodeGenerator/2.0.5": {
+      "sha512": "jH8i2g7liqxMVyY8WsNzJwMpwHqeWvGRl0f2GMW+C2CLT8vyIT72fdN+HfZeVFdDG0AMLxbvMPrpavXsL76LGQ==",
+      "type": "package",
+      "path": "net.codecrete.qrcodegenerator/2.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/netstandard2.0/QrCodeGenerator.dll",
+        "lib/netstandard2.0/QrCodeGenerator.xml",
+        "logo.png",
+        "net.codecrete.qrcodegenerator.2.0.5.nupkg.sha512",
+        "net.codecrete.qrcodegenerator.nuspec"
+      ]
+    },
     "NETStandard.Library/1.6.1": {
       "sha512": "WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
       "type": "package",
@@ -15355,6 +15383,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.29",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.19.4",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.16",
+      "Net.Codecrete.QrCodeGenerator >= 2.0.5",
       "PagedList >= 1.17.0",
       "PagedList.Mvc >= 4.5.0",
       "QRCoder >= 1.4.3",
@@ -15478,6 +15507,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[6.0.16, )"
+          },
+          "Net.Codecrete.QrCodeGenerator": {
+            "target": "Package",
+            "version": "[2.0.5, )"
           },
           "PagedList": {
             "target": "Package",

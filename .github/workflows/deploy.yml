@@ -1,0 +1,38 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release
+
+      - name: Test project
+        run: dotnet test
+
+      - name: Build Docker image
+        run: |
+          docker build -t phuchoang1910/webapp_htsv .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push phuchoang1910/webapp_htsv
+
+      - name: Deploy to Production
+        run: |
+         sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no root@152.42.200.17 'bash -s' < deploy.sh

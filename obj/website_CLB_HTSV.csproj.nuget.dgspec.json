@@ -114,6 +114,10 @@
               "target": "Package",
               "version": "[6.0.16, )"
             },
+            "Net.Codecrete.QrCodeGenerator": {
+              "target": "Package",
+              "version": "[2.0.5, )"
+            },
             "PagedList": {
               "target": "Package",
               "version": "[1.17.0, )"
