@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                    <button type="button" onclick="commitForm()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button type="button" onclick="commitForm()" class=" hello w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
                         Đăng ký Ngay
                     </button>
                     <button type="button" onclick="hideConfirmationModal()" class=" w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm">
@@ -238,6 +238,51 @@
             cancelRegistration(button);
         }
     }
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('myModal');
+
+        // Function to show modal after delay
+        function showModalWithDelay() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Open modal after delay when clicking the button
+        document.querySelectorAll('.hello').forEach(function (button) {
+            button.addEventListener('click', function () {
+                setTimeout(showModalWithDelay, 200); // 800ms delay
+            });
+        });
+
+        // Close modal
+        document.querySelectorAll('.modal-close').forEach(function (button) {
+            button.addEventListener('click', function () {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.classList.remove('overflow-hidden');
+            });
+        });
+
+        // Close modal on overlay click
+        modal.querySelector('.modal-overlay').addEventListener('click', function () {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        });
+
+        // Close modal on escape key press
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.classList.remove('overflow-hidden');
+            }
+        });
+    });
 </script>
 
 @{
@@ -269,120 +314,63 @@
 
 
 
+            
+  <!-- Link to Tailwind CSS CDN -->
+  <style>
+    @@keyframes tickAnimation {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .tick {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #00C851;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: tickAnimation 0.5s ease;
+    }
+
+    .tick svg {
+      width: 50px;
+      height: 50px;
+      stroke: white;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+  </style>
 
 
+<!-- Modal -->
+<div id="myModal" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
+  <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+  
+  <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+ @*    <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+      <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+        <path d="M18 1.73L16.27 0 9 7.27 1.73 0 0 1.73 7.27 9 0 16.27 1.73 18 9 10.73 16.27 18 18 16.27 10.73 9 18 1.73z"/>
+      </svg>
+      <span class="text-sm">(Esc)</span>
+    </div> *@
 
+    <!-- Success Tick Animation -->
+    <div class="tick mx-auto my-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="tick-circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="tick-check" fill="none" d="M14 27l8 8L38 17"/>
+      </svg>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* @model IEnumerable<website_CLB_HTSV.Models.HoatDong>
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenHoatDong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MoTa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiaDiem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HocKy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NamHoc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HinhAnh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaDangKi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaThamGia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MinhChung)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenHoatDong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaDiem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HocKy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NamHoc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaDangKi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaThamGia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinhChung)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaHoatDong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaHoatDong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaHoatDong">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
- *@
+    <!-- Add your modal content here -->
+    <div style="text-align: center;" class="modal-content py-4 text-left px-6">
+      <h1 class="text-2xl font-bold mb-4">Đăng kí thành công!</h1>
+      <p>Nhớ tham gia hoạt động đúng thời gian, bạn nhé!.</p>
+    </div>
+      
+  </div>
+</div>
