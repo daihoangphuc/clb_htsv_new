@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using System.Configuration;
+using System.Net;
 using website_CLB_HTSV;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Services;
@@ -45,6 +48,16 @@ builder.Services.AddSession(options => {
 
 // Thiết lập giấy phép cho EPPlus
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+WebHost.CreateDefaultBuilder(args)
+       .UseStartup<Program>()
+       .UseKestrel(options =>
+       {
+           options.Listen(IPAddress.Any, 443, listenOptions =>
+           {
+               listenOptions.UseHttps("your_certificate.crt", "your_private_key.key");
+           });
+       });
 
 var app = builder.Build();
 

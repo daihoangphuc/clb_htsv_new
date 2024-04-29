@@ -59,18 +59,9 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="/">Trang chủ</a></li>
-                    @* <li><a class="nav-link scrollto" href="#about">Góp ý</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Hướng dẫn sử dụng</a></li> *@
                     <li><a class="nav-link scrollto " href="https://zalo.me/g/dqqnrd829">Nhóm hổ trợ</a></li>
                     <li><a class="nav-link scrollto " href="https://www.youtube.com/">Hướng dẫn sử dụng</a></li>
-                 
-@* 
-                    <li><a class="nav-link scrollto " href="/TinTucs">Tin tức</a></li>
-                    <li><a class="nav-link scrollto " href="/ChucVus">Chức vụ</a></li> *@
-
-
-                    @* <li><a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
-                    <li><a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Register">Register</a></li> *@
+               
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
@@ -87,24 +78,7 @@
 
                                 @if (User.IsInRole("Administrators"))
                                 {
-                                    <li><a href="/Admin">Quyền Admin</a></li>
-                             @*        <li class="dropdown">
-                                        <a href="Admin"><span>Quyền Admin</span></a>
-                                        <ul>
-                                            <li><a href="/ThamGiaHoatDongs/XuatDS">Xuất danh sách tham gia hoạt động</a></li>
-                                            <li><a href="/DangKyHoatDongs/ImportDiemDanh">Điểm danh</a></li>
-                                            <li><a href="/DangKyHoatDongs/CapNhatMinhChung">Cập nhật minh chứng</a></li>
-                                            <li><a href="/TinTucs">Tin Tức</a></li>
-                                            <li><a href="/LopHocs">Lớp Học</a></li>
-                                            <li><a href="/Khoas">Khoa</a></li>
-                                            <li><a href="/ChucVus">Chức Vụ</a></li>
-                                            <li><a href="/User">Quản lý User </a></li>
-                                            <li><a href="/Role">Quản Lý Quyền</a></li>
-                                            <li> <a asp-area="" asp-controller="SinhViens" asp-action="Index">Sinh Viên</a></li>
-                                        </ul>
-                                    </li> *@
-                                   
-
+                                    <li><a href="/Admin">Quyền Admin</a></li>   
                                 }
 
 
@@ -130,15 +104,6 @@
                                 @*  <button type="submit" class="nav-link scrollto" style="padding-left: 10px">Logout</button> *@
                             </form>
                         }
-
-                     @*        @await Component.InvokeAsync("Avatar") *@
-                      
-                       @*  <li class="nav-item">
-                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button type="submit" style="padding-left: 20px; padding-top: 8px; font-size: 20px;border: none" class="fa-solid fa-right-from-bracket bg-transparent" title="Đăng xuất"></button>
-                              
-                            </form>
-                        </li> *@
                     }
                     else
                     {
@@ -184,14 +149,7 @@
                        
                     </div>
                 </div>
-                @* <div class="col-lg-6">
-                    <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
-                        <a href="#intro" class="scrollto">Home</a>
-                        <a href="#about" class="scrollto">About</a>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Use</a>
-                    </nav>
-                </div> *@
+              
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -240,45 +198,12 @@
     }
 
     /* Các quy tắc CSS khác cho footer */
-</style>
-
-
-
-
-
-
-@* 
-
-<style>
-    #footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #f8f9fa; /* Set your desired background color */
-        padding: 20px 0; /* Set your desired padding */
-        text-align: center;
-    }
-
-        /* Optional: You can add styles to the copyright and credits elements within the footer */
-        #footer .copyright {
-            color: #333; /* Set your desired text color */
-        }
-
-        #footer .credits {
-            /* Add styles as needed */
-        }
-
-</style>
-
- *@
-<style>
     @@media (max-width: 767px) {
         .avt {
             margin-left: 10px; /* Áp dụng margin left 10px cho giao diện điện thoại */
         }
     }
 </style>
-
 
 
 
