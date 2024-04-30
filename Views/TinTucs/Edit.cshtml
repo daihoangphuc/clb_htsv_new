@@ -43,6 +43,9 @@
                 <span asp-validation-for="NguoiDang" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="HinhAnh" class="control-label">Hình ảnh</label> <input type="file" asp-for="HinhAnh" class="form-control" accept="image/*" /> <span asp-validation-for="HinhAnh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -52,9 +55,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
