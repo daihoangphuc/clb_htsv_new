@@ -16,9 +16,10 @@ RUN sed -i 's/TLSv1.2/TLSv1.0 TLSv1.1 TLSv1.2/g' /etc/ssl/openssl.cnf
 # Bước 4: Tạo stage mới để thực thi các lệnh dotnet dev-certs
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS certs
 WORKDIR /app
-RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p Phuc123travinh
-RUN openssl pkcs12 -in /https/aspnetapp.pfx -out /https/aspnetapp.pem -nodes -password pass:Phuc123travinh
-
+# Thay đổi: Sử dụng biến môi trường để chứa mật khẩu
+ARG SSL_PASSWORD
+RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p $SSL_PASSWORD
+RUN openssl pkcs12 -in /https/aspnetapp.pfx -out /https/aspnetapp.pem -nodes -password pass:$CERT_PASSWORDSSL_PASSWORD
 # Bước 5: Cài đặt ứng dụng
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -35,4 +36,9 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=certs /https/aspnetapp.pem /https/aspnetapp.pem
+
+# Thay đổi: Sử dụng biến môi trường để đặt mật khẩu SQL và SSL
+ENV SQL_PASSWORD=${SQL_PASSWORD}
+ENV SSL_PASSWORD=${SSL_PASSWORD}
+
 ENTRYPOINT ["dotnet", "website_CLB_HTSV.dll"]
