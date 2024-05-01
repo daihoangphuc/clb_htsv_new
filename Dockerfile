@@ -17,11 +17,8 @@ RUN sed -i 's/TLSv1.2/TLSv1.0 TLSv1.1 TLSv1.2/g' /etc/ssl/openssl.cnf
 ARG SSL_PASSWORD
 ENV SSL_PASSWORD=$SSL_PASSWORD
 
-# Bước 5: Tạo stage mới để thực thi các lệnh dotnet dev-certs
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS certs
-WORKDIR /app
-RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p $SSL_PASSWORD
-RUN openssl pkcs12 -in /https/aspnetapp.pfx -out /https/aspnetapp.pem -nodes -password pass:$SSL_PASSWORD
+# Bước 5: Tạo chứng chỉ PEM từ chứng chỉ PFX
+RUN openssl pkcs12 -in /app/your_certificate.pfx -out /app/your_certificate.pem -nodes -passin pass:$SSL_PASSWORD
 
 # Bước 6: Cài đặt ứng dụng
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
@@ -38,5 +35,5 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=certs /https/aspnetapp.pem /https/aspnetapp.pem
+COPY /app/your_certificate.pem /https/your_certificate.pem
 ENTRYPOINT ["dotnet", "website_CLB_HTSV.dll"]
