@@ -13,7 +13,7 @@ COPY Certificates/your_certificate.pfx /app
 ENV ASPNETCORE_URLS=http://+:80;https://+:443
 RUN sed -i 's/TLSv1.2/TLSv1.0 TLSv1.1 TLSv1.2/g' /etc/ssl/openssl.cnf
 
-# Bước 4: Sử dụng biến môi trường cho mật khẩu SSL
+# Bước 4: Sử dụng biến môi trường cho mật khẩu SQL và SSL
 ARG SSL_PASSWORD
 ENV SSL_PASSWORD=$SSL_PASSWORD
 
@@ -35,5 +35,5 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY /app/your_certificate.pem /https/your_certificate.pem
+COPY your_certificate.pem /https/your_certificate.pem
 ENTRYPOINT ["dotnet", "website_CLB_HTSV.dll"]
