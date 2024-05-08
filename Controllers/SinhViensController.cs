@@ -179,7 +179,15 @@ namespace website_CLB_HTSV.Controllers
             sinhVien.Email = sinhVien.Email;
             sinhVien.MaLop = sinhVien.MaLop;
             sinhVien.MaChucVu = sinhVien.MaChucVu;
-
+            // Nếu sinh viên đã có ảnh cũ, xóa ảnh cũ trước khi cập nhật ảnh mới
+            if (!string.IsNullOrEmpty(sinhVien.HinhAnh))
+            {
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", sinhVien.HinhAnh);
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
             await SaveImageAndUpdateSinhVienAsync(sinhVien, newImage);
             await CreateOrUpdateQRCodeImageAsync(sinhVien);
 
@@ -449,6 +457,16 @@ namespace website_CLB_HTSV.Controllers
                 // Kiểm tra nếu có hình ảnh mới được tải lên
                 if (HinhAnh != null && HinhAnh.Length > 0)
                 {
+                    // Nếu sinh viên đã có ảnh cũ, xóa ảnh cũ trước khi cập nhật ảnh mới
+                    if (!string.IsNullOrEmpty(sinhVienOld.HinhAnh))
+                    {
+                        var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", sinhVienOld.HinhAnh);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(HinhAnh.FileName);
                     var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "userimages", fileName);
                     using (var stream = new FileStream(uploadPath, FileMode.Create))

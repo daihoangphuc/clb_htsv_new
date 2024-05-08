@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="UsersImages\2a441c8e-7b24-4e72-b528-683f32b36e78.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.Paging" Version="2.2.1" />
     <PackageReference Include="CsvHelper" Version="31.0.2" />
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
@@ -52,6 +56,13 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\HoatDongs\Register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="UsersImages\2a441c8e-7b24-4e72-b528-683f32b36e78.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
