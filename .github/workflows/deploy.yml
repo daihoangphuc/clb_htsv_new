@@ -30,10 +30,13 @@ jobs:
         with: 
           host: ${{ secrets.VPS_HOST }} 
           username: ${{ secrets.VPS_USERNAME }} 
-          password: ${{ secrets.SSH_PASSWORD }} 
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  
           port: ${{ secrets.VPS_SSH_PORT }} 
           script: |
             docker pull phuchoang1910/webapp_htsv:latest 
             docker stop webapp_htsv || true 
             docker rm webapp_htsv || true 
             docker run --name webapp_htsv -d -p 80:80 -p 443:443 phuchoang1910/webapp_htsv:latest 
+
+
+
