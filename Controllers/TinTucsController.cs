@@ -84,8 +84,8 @@ namespace website_CLB_HTSV.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("MaTinTuc,TieuDe,NoiDung,NgayDang,NguoiDang")] TinTuc tinTuc, IFormFile HinhAnh)
         {
-                tinTuc.MaTinTuc = "TT" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                tinTuc.NgayDang = DateTime.Now;
+                tinTuc.MaTinTuc = "TT" + TimeZoneHelper.GetVietNamTime(DateTime.UtcNow).ToString("yyyyMMddHHmmssfff");
+                tinTuc.NgayDang = TimeZoneHelper.GetVietNamTime(DateTime.UtcNow);
                 if (HinhAnh != null && HinhAnh.Length > 0)
                 {
                     // Tạo tên file duy nhất
@@ -140,7 +140,7 @@ namespace website_CLB_HTSV.Controllers
             }
 
 
-                tinTuc.NgayDang = DateTime.Now;
+                tinTuc.NgayDang = TimeZoneHelper.GetVietNamTime(DateTime.UtcNow);
                 try
                 {
                     // Xử lý hình ảnh mới

@@ -3,6 +3,7 @@ using website_CLB_HTSV.Data;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace website_CLB_HTSV.Controllers
 {
@@ -17,9 +18,12 @@ namespace website_CLB_HTSV.Controllers
 
         public IActionResult Index()
         {
-            // Lấy danh sách hoạt động trong 12 tháng gần đây
+            DateTime utcNow = DateTime.UtcNow;
+            DateTime vietnamTimeNow = TimeZoneHelper.GetVietNamTime(utcNow);
+            DateTime vietnamTimeCutOff = vietnamTimeNow.AddMonths(-11);
+
             var activities = _context.HoatDong
-                .Where(a => a.ThoiGian >= DateTime.Now.AddMonths(-11)) // Lấy hoạt động trong vòng 12 tháng
+                .Where(h => h.ThoiGian >= vietnamTimeCutOff)
                 .ToList();
 
             // Khởi tạo dictionary để lưu trữ số lượng tham gia theo tháng
@@ -44,7 +48,7 @@ namespace website_CLB_HTSV.Controllers
             // Tạo mảng labels và data cho biểu đồ
             var labels = new string[12];
             var participatedCounts = new int[12];
-            var currentMonth = DateTime.Now.Month;
+            var currentMonth = TimeZoneHelper.GetVietNamTime(DateTime.UtcNow).Month;
             for (int i = 0; i < 12; i++)
             {
                 var month = currentMonth - i;

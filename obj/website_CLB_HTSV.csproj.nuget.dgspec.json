@@ -158,6 +158,10 @@
             "ZXing.Net": {
               "target": "Package",
               "version": "[0.16.9, )"
+            },
+            "ZXing.Net.Bindings.SkiaSharp": {
+              "target": "Package",
+              "version": "[0.16.14, )"
             }
           },
           "imports": [

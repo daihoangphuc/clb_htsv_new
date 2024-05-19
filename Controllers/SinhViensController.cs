@@ -10,8 +10,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using SendGrid.Helpers.Errors.Model;
+using SkiaSharp;
 using website_CLB_HTSV.Data;
 using website_CLB_HTSV.Models;
+using ZXing.QrCode;
+using ZXing;
 
 namespace website_CLB_HTSV.Controllers
 {
@@ -28,47 +31,48 @@ namespace website_CLB_HTSV.Controllers
 
         private async Task CreateOrUpdateQRCodeImageAsync(SinhVien sinhVien)
         {
-            var qrContent = $"{sinhVien.Email.Split('@')[0].ToString()}"; // Thông tin bạn muốn chứa trong mã QR
+            var qrContent = $"{sinhVien.Email.Split('@')[0]}"; // Thông tin bạn muốn chứa trong mã QR
 
-            var qrCodeWriter = new ZXing.BarcodeWriterPixelData
+            // Tạo tên tệp duy nhất cho hình ảnh mã QR ngay từ đầu
+            var fileName = $"{sinhVien.MaSV}.png";  // fileName được khai báo ở đây
+
+            var barcodeWriter = new BarcodeWriterPixelData
             {
-                Format = ZXing.BarcodeFormat.QR_CODE,
-                Options = new ZXing.QrCode.QrCodeEncodingOptions
+                Format = BarcodeFormat.QR_CODE,
+                Options = new QrCodeEncodingOptions
                 {
                     Height = 300,
-                    Width = 300
+                    Width = 300,
+                    Margin = 1
                 }
             };
 
-            var pixelData = qrCodeWriter.Write(qrContent);
+            var pixelData = barcodeWriter.Write(qrContent);
 
-            using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            var info = new SKImageInfo(pixelData.Width, pixelData.Height);
+
+            using (var bitmap = new SKBitmap(info))
             {
-                using (var ms = new MemoryStream())
+                // Copy the data to SkiaSharp bitmap
+                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmap.GetPixels(), pixelData.Pixels.Length);
+
+                using (var image = SKImage.FromBitmap(bitmap))
+                using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
                 {
-                    var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height),
-                        System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-                    try
-                    {
-                        // Copy the bytes from the pixel data to the bitmap
-                        System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0,
-                            pixelData.Pixels.Length);
-                    }
-                    finally
-                    {
-                        bitmap.UnlockBits(bitmapData);
-                    }
+                    // Biến fileName đã được khai báo ở trên và có thể dùng ở đây
+                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "qrcode", fileName); // Save into "qrcode" directory in wwwroot
 
-                    // Tạo tên tệp duy nhất cho hình ảnh mã QR
-                    var fileName = $"{sinhVien.MaSV.ToString()}.png";
-                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "qrcode", fileName); // Lưu vào thư mục "qrcode" trong wwwroot
-                    bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-
-                    // Lưu tên tệp vào cơ sở dữ liệu
-                    sinhVien.DuongdanQR = fileName;
-                    _context.Update(sinhVien);
-                    await _context.SaveChangesAsync();
+                    // Save the image
+                    using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    {
+                        data.SaveTo(stream);
+                    }
                 }
+
+                // Biến fileName đã được khai báo ở trên và có thể dùng ở đây
+                sinhVien.DuongdanQR = fileName;
+                _context.Update(sinhVien);
+                await _context.SaveChangesAsync();
             }
         }
 

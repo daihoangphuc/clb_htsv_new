@@ -31,7 +31,7 @@ namespace website_CLB_HTSV
         public async Task SendMessage(string user, string message)
     {
         // Lấy timestamp hiện tại
-        var timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+        var timestamp = TimeZoneHelper.GetVietNamTime(DateTime.UtcNow).ToString("dd-MM-yyyy HH:mm:ss");
         
         // Định dạng tin nhắn với timestamp, người dùng và tin nhắn
         string formattedMessage = $"{user}: {message} | {timestamp}\n";

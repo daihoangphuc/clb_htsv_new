@@ -19,9 +19,12 @@ namespace website_CLB_HTSV.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            // Lấy danh sách hoạt động trong 12 tháng gần đây
+            DateTime utcNow = DateTime.UtcNow;
+            DateTime vietnamTimeNow = TimeZoneHelper.GetVietNamTime(utcNow);
+            DateTime vietnamTimeCutOff = vietnamTimeNow.AddMonths(-11);
+
             var activities = await _context.HoatDong
-                .Where(a => a.ThoiGian >= DateTime.Now.AddMonths(-11)) // Lấy hoạt động trong vòng 12 tháng
+                .Where(h => h.ThoiGian >= vietnamTimeCutOff)
                 .ToListAsync();
 
             // Khởi tạo dictionary để lưu trữ số lượng đăng ký theo tháng
@@ -69,7 +72,7 @@ namespace website_CLB_HTSV.Components
             var labels = new string[12];
             var registrationCounts = new int[12];
             var participationCounts = new int[12];
-            var currentMonth = DateTime.Now.Month;
+            var currentMonth = TimeZoneHelper.GetVietNamTime(DateTime.UtcNow).Month;
             for (int i = 0; i < 12; i++)
             {
                 var month = currentMonth - i;
